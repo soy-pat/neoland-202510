@@ -106,3 +106,31 @@ Configures settings in local git.
 $ git config user.name "soy-pat"
 $ git config user.email "pizquierdocortes@gmail.com"
 ```
+
+## git commit -m "message"
+
+Consolidates the changes in local repository.
+
+```bash
+$ git commit -m "add bash and git docs"
+[main 65b207b] add bash and git docs
+ 2 files changed, 206 insertions(+)
+ create mode 100644 staff/patricia-izquierdo/playground/bash/README.md
+ create mode 100644 staff/patricia-izquierdo/playground/git/README.md
+```
+
+## git push
+
+Pushes the changes from local to remote repository (origin).
+
+```bash
+$ git push
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (9/9), 2.01 KiB | 257.00 KiB/s, done.
+Total 9 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/soy-pat/neoland-202510
+   c0018b0..65b207b  main -> main
+```
