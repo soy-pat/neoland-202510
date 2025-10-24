@@ -134,3 +134,25 @@ Total 9 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
 To https://github.com/soy-pat/neoland-202510
    c0018b0..65b207b  main -> main
 ```
+
+## git log
+
+Shows commits hisotory ordered descending by date.
+
+```bash
+commit 18811af5d4a454783ca49dc7ee63607f314e362b (HEAD -> main, origin/main, origin/HEAD)
+Author: soy-pat <pizquierdocortes@gmail.com>
+Date:   Thu Oct 23 22:04:54 2025 +0200
+
+    add git commit and push commands to git doc
+
+commit 65b207b6ce19c4dd63f4a3884ae9e976469054d7
+Author: soy-pat <pizquierdocortes@gmail.com>
+Date:   Thu Oct 23 21:52:25 2025 +0200
+
+    add bash and git docs
+
+commit c0018b0a7fcd2974422226e792bbc4c080df6e91
+Author: manuelbarzi <manuelbarzi@gmail.com>
+Date:   Thu Oct 23 20:10:57 2025 +0200
+```
