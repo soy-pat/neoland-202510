@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <!-- 
+    <style>
+      .mi-clase {
+        border-style: solid;
+        background-color: pink;
+      }
+    </style> 
+    -->
+  </head>
+  <body>
+    <h1>Hello, DOM!</h1>
+
+    <div>
+      <p>A ver, que le ponemos</p>
+    </div>
+
+    <script>
+      document.childNodes[1].childNodes[2].childNodes[1].style.backgroundColor =
+        "green";
+      document.childNodes[1].childNodes[2].childNodes[1].style.color = "gold";
+      document.childNodes[1].childNodes[2].childNodes[1].style.paddingLeft =
+        ".5rem";
+      document.childNodes[1].childNodes[2].childNodes[3].childNodes[1].style.color =
+        "dodgerblue";
+      const div = document.createElement("div");
+      div.textContent = "Descubriendo DOM";
+      // div.className = "mi-clase";
+      div.style.borderStyle = "solid";
+      div.style.backgroundColor = "pink";
+      document.body.appendChild(div);
+
+      const box = document.createElement("div");
+      box.style.width = "100px";
+      box.style.height = "100px";
+      box.style.backgroundColor = "yellow";
+      box.style.position = "absolute";
+      box.style.top = "200px";
+      box.style.left = "150px";
+      document.body.appendChild(box);
+
+      const minibox = document.createElement("div");
+      minibox.style.width = "50px";
+      minibox.style.height = "50px";
+      minibox.style.backgroundColor = "red";
+      minibox.style.position = "absolute";
+      minibox.style.top = "25px";
+      minibox.style.left = "25px";
+      minibox.style.borderRadius = "50%";
+      //no hace falta que haga referencia al document porque puedo acceder directamente
+      box.appendChild(minibox);
+
+      const robot = document.createElement("div");
+      robot.style.width = "200px";
+      robot.style.height = "200px";
+      robot.style.backgroundColor = "grey";
+      robot.style.position = "absolute";
+      robot.style.top = "400px";
+      robot.style.left = "100px";
+      document.body.appendChild(robot);
+
+      const eyeleft = document.createElement("div");
+      eyeleft.style.width = "40px";
+      eyeleft.style.height = "40px";
+      eyeleft.style.backgroundColor = "silver";
+      eyeleft.style.position = "absolute";
+      eyeleft.style.top = "50px";
+      eyeleft.style.left = "35px";
+      robot.appendChild(eyeleft);
+
+      const eyeright = document.createElement("div");
+      eyeright.style.width = "40px";
+      eyeright.style.height = "40px";
+      eyeright.style.backgroundColor = "silver";
+      eyeright.style.position = "absolute";
+      eyeright.style.top = "50px";
+      eyeright.style.right = "35px";
+      robot.appendChild(eyeright);
+
+      const mouth = document.createElement("div");
+      mouth.style.width = "80px";
+      mouth.style.height = "40px";
+      mouth.style.backgroundColor = "black";
+      mouth.style.position = "absolute";
+      mouth.style.top = "130px";
+      mouth.style.right = "60px";
+      robot.appendChild(mouth);
+
+      const fingerone = document.createElement("div");
+      fingerone.style.width = "50px";
+      fingerone.style.height = "200px";
+      fingerone.style.backgroundColor = "#EBC2A7";
+      fingerone.style.position = "absolute";
+      fingerone.style.top = "300px";
+      fingerone.style.left = "500px";
+      fingerone.style.borderRadius = "30%";
+      fingerone.style.borderStyle = "solid";
+      fingerone.style.borderColor = "rgb(217, 175, 147)";
+      document.body.appendChild(fingerone);
+
+      const nailone = document.createElement("div");
+      nailone.style.width = "30px";
+      nailone.style.height = "75px";
+      nailone.style.backgroundColor = "pink";
+      nailone.style.position = "absolute";
+      nailone.style.bottom = "160px";
+      nailone.style.left = "10px";
+      nailone.style.borderRadius = "30%";
+      fingerone.appendChild(nailone);
+
+      const fingertwo = document.createElement("div");
+      fingertwo.style.width = "50px";
+      fingertwo.style.height = "250px";
+      fingertwo.style.backgroundColor = "#EBC2A7";
+      fingertwo.style.position = "absolute";
+      fingertwo.style.top = "250px";
+      fingertwo.style.left = "550px";
+      fingertwo.style.borderRadius = "30%";
+      fingertwo.style.borderStyle = "solid";
+      fingertwo.style.borderColor = "rgb(217, 175, 147)";
+      document.body.appendChild(fingertwo);
+
+      const nailtwo = document.createElement("div");
+      nailtwo.style.width = "30px";
+      nailtwo.style.height = "75px";
+      nailtwo.style.backgroundColor = "red";
+      nailtwo.style.position = "absolute";
+      nailtwo.style.bottom = "210px";
+      nailtwo.style.left = "10px";
+      nailtwo.style.borderRadius = "30%";
+      fingertwo.appendChild(nailtwo);
+
+      const fingerthree = document.createElement("div");
+      fingerthree.style.width = "50px";
+      fingerthree.style.height = "240px";
+      fingerthree.style.backgroundColor = "#EBC2A7";
+      fingerthree.style.position = "absolute";
+      fingerthree.style.top = "260px";
+      fingerthree.style.left = "600px";
+      fingerthree.style.borderRadius = "30%";
+      fingerthree.style.borderStyle = "solid";
+      fingerthree.style.borderColor = "rgb(217, 175, 147)";
+      document.body.appendChild(fingerthree);
+
+      const nailthree = document.createElement("div");
+      nailthree.style.width = "30px";
+      nailthree.style.height = "75px";
+      nailthree.style.backgroundColor = "blue";
+      nailthree.style.position = "absolute";
+      nailthree.style.bottom = "200px";
+      nailthree.style.left = "10px";
+      nailthree.style.borderRadius = "30%";
+      fingerthree.appendChild(nailthree);
+
+      const fingerfour = document.createElement("div");
+      fingerfour.style.width = "50px";
+      fingerfour.style.height = "180px";
+      fingerfour.style.backgroundColor = "#EBC2A7";
+      fingerfour.style.position = "absolute";
+      fingerfour.style.top = "320px";
+      fingerfour.style.left = "650px";
+      fingerfour.style.borderRadius = "30%";
+      fingerfour.style.borderStyle = "solid";
+      fingerfour.style.borderColor = "rgb(217, 175, 147)";
+      document.body.appendChild(fingerfour);
+
+      const nailfour = document.createElement("div");
+      nailfour.style.width = "30px";
+      nailfour.style.height = "75px";
+      nailfour.style.backgroundColor = "orange";
+      nailfour.style.position = "absolute";
+      nailfour.style.bottom = "140px";
+      nailfour.style.left = "10px";
+      nailfour.style.borderRadius = "30%";
+      fingerfour.appendChild(nailfour);
+
+      const hand = document.createElement("div");
+      hand.style.width = "210px";
+      hand.style.height = "200px";
+      hand.style.backgroundColor = "#EBC2A7";
+      hand.style.position = "absolute";
+      hand.style.top = "450px";
+      hand.style.left = "495px";
+      hand.style.borderStyle = "solid";
+      hand.style.borderColor = "rgb(217, 175, 147)";
+      hand.style.borderRadius = "25%";
+      hand.style.zIndex = "-10";
+      document.body.appendChild(hand);
+    </script>
+  </body>
+</html>
