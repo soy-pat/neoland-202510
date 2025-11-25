@@ -1,291 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Draw1</title>
+    <title>Draw</title>
 
     <style>
       body {
-        background-color: black;
+        background-color: rgb(203, 203, 203);
       }
-
-      /* pig */
-
-      #pig {
-        width: 100px;
-        height: 100px;
-        background-color: pink;
+      #face {
+        width: 200px;
+        height: 200px;
+        background-color: rgb(242, 197, 181);
+        border-radius: 100px;
         position: absolute;
         left: 100px;
-        top: 100px;
+        top: 150px;
       }
-
       #left-eye {
         width: 40px;
         height: 40px;
         background-color: white;
         position: absolute;
-        left: 5px;
-        top: 5px;
+        border-radius: 50px;
+        left: 40px;
+        top: 40px;
       }
-
-      #left-pupil {
+      #left-pupile {
         width: 20px;
         height: 20px;
         background-color: black;
+        border-radius: 50px;
         position: absolute;
-        left: 10px;
         top: 10px;
+        left: 10px;
       }
-
       #right-eye {
         width: 40px;
         height: 40px;
         background-color: white;
         position: absolute;
-        right: 5px;
-        top: 5px;
+        border-radius: 50px;
+        right: 40px;
+        top: 40px;
       }
-
-      #right-pupil {
+      #right-pupile {
         width: 20px;
         height: 20px;
         background-color: black;
+        border-radius: 50px;
         position: absolute;
-        left: 10px;
         top: 10px;
+        left: 10px;
       }
-
       #nose {
-        width: 50px;
-        height: 30px;
-        background-color: palevioletred;
-        position: absolute;
-        left: 25px;
-        top: 50px;
-      }
-
-      #left-hole {
-        width: 10px;
-        height: 10px;
-        background-color: black;
-        position: absolute;
-        left: 10px;
-        top: 10px;
-      }
-
-      #right-hole {
-        width: 10px;
-        height: 10px;
-        background-color: black;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-      }
-
-      #mouth {
-        width: 30px;
-        height: 10px;
-        background-color: black;
-        position: absolute;
-        left: 35px;
-        bottom: 5px;
-      }
-
-      #left-ear {
-        width: 10px;
-        height: 40px;
-        background-color: pink;
-        position: absolute;
-        left: -10px;
-      }
-
-      #right-ear {
-        width: 10px;
-        height: 40px;
-        background-color: pink;
-        position: absolute;
-        right: -10px;
-      }
-
-      /* car */
-
-      #car {
-        width: 200px;
-        height: 50px;
-        background-color: dodgerblue;
-        position: absolute;
-        left: 250px;
-        top: 250px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-      }
-
-      #windows {
-        width: 100px;
-        height: 20px;
-        background-color: aqua;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        position: absolute;
-        left: 50px;
-        top: -20px;
-      }
-
-      #front-wheel {
-        width: 40px;
-        height: 40px;
-        background-color: gray;
-        border-radius: 20px;
-        position: absolute;
-        left: 20px;
-        top: 20px;
-      }
-
-      #front-rim {
-        width: 30px;
-        height: 30px;
-        background-color: darkgray;
-        border-radius: 15px;
-        position: absolute;
-        left: 5px;
-        top: 5px;
-      }
-
-      #back-wheel {
-        width: 40px;
-        height: 40px;
-        background-color: gray;
-        border-radius: 20px;
-        position: absolute;
-        right: 20px;
-        top: 20px;
-      }
-
-      #back-rim {
-        width: 30px;
-        height: 30px;
-        background-color: darkgray;
-        border-radius: 15px;
-        position: absolute;
-        left: 5px;
-        top: 5px;
-      }
-
-      /* spaceship */
-
-      #spaceship {
-        width: 50px;
-        height: 100px;
-        background-color: lightgray;
-        position: absolute;
-        left: 100px;
-        top: 300px;
-      }
-
-      #head {
-        width: 50px;
-        height: 100px;
-        background-color: lightgray;
-        position: absolute;
-        left: 0px;
-        top: -50px;
-        border-radius: 50%;
-      }
-
-      #window {
-        width: 30px;
-        height: 15px;
-        background-color: aqua;
-        position: absolute;
-        left: 10px;
-        top: -20px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-      }
-
-      #wings {
-        width: 50px;
-        height: 0px;
-        background-color: transparent;
-        position: absolute;
-        left: -50px;
-        bottom: 0px;
-        border-bottom: 50px solid lightgray;
-        border-left: 50px solid transparent;
-        border-right: 50px solid transparent;
-      }
-
-      #tail {
-        width: 10px;
-        height: 40px;
-        background-color: gray;
-        position: absolute;
-        top: 10px;
-        left: 20px;
-      }
-
-      #fire {
         width: 70px;
-        height: 100px;
-        background-color: gold;
+        height: 50px;
+        background-color: red;
         position: absolute;
-        left: -10px;
-        bottom: -50px;
-        border-radius: 50%;
-        z-index: -10;
+        left: 65px;
+        top: 80px;
+        border-radius: 50px;
       }
-
-      #inner-fire {
-        width: 40px;
-        height: 60px;
-        background-color: tomato;
+      #mouth {
+        width: 20px;
+        height: 5px;
+        background-color: black;
         position: absolute;
-        left: 15px;
-        bottom: 20px;
-        border-radius: 50%;
-        z-index: -10;
+        bottom: 30px;
+        left: 88px;
+      }
+      #right-ear {
+        width: 15px;
+        height: 60px;
+        background-color: rgb(219, 170, 153);
+        position: absolute;
+        border-radius: 50px;
+        right: 195px;
+        top: 60px;
+      }
+      #left-ear {
+        width: 15px;
+        height: 60px;
+        background-color: rgb(219, 170, 153);
+        position: absolute;
+        border-radius: 50px;
+        left: 195px;
+        top: 60px;
+      }
+      #hair1 {
+        width: 180px;
+        height: 150px;
+        background-color: blue;
+        position: absolute;
+        border-radius: 100px;
+        top: 20px;
+        left: 115px;
+      }
+      #hair2 {
+        width: 130px;
+        height: 120px;
+        background-color: blue;
+        position: absolute;
+        border-radius: 100px;
+        top: 80px;
+        left: 40px;
+      }
+      #hair3 {
+        width: 130px;
+        height: 120px;
+        background-color: blue;
+        position: absolute;
+        border-radius: 100px;
+        top: 80px;
+        right: 40px;
+      }
+      #space-ship {
+        background-color: gray;
+        width: 130px;
+        height: 120px;
+        position: absolute;
+        top: 450px;
       }
     </style>
   </head>
-
   <body>
-    <div id="pig">
+    <div id="face">
       <div id="left-eye">
-        <div id="left-pupil"></div>
+        <div id="left-pupile"></div>
       </div>
       <div id="right-eye">
-        <div id="right-pupil"></div>
+        <div id="right-pupile"></div>
       </div>
-      <div id="nose">
-        <div id="left-hole"></div>
-        <div id="right-hole"></div>
-      </div>
+      <div id="nose"></div>
       <div id="mouth"></div>
-      <div id="left-ear"></div>
       <div id="right-ear"></div>
+      <div id="left-ear"></div>
     </div>
-
-    <div id="car">
-      <div id="windows"></div>
-      <div id="front-wheel">
-        <div id="front-rim"></div>
-      </div>
-      <div id="back-wheel">
-        <div id="back-rim"></div>
-      </div>
-    </div>
-
-    <div id="spaceship">
-      <div id="head"></div>
-      <div id="window"></div>
-      <div id="wings">
-        <div id="tail"></div>
-      </div>
-      <div id="fire">
-        <div id="inner-fire"></div>
-      </div>
-    </div>
+    <div id="hair1"></div>
+    <div id="hair2"></div>
+    <div id="hair3"></div>
+    <div id="space-ship"></div>
   </body>
 </html>
