@@ -147,17 +147,17 @@ loginView.appendChild(loginSubtitle)
 
 const loginForm = document.createElement('form')
 
-const loginNameLabel = document.createElement('label')
-loginNameLabel.textContent = 'Name '
-loginForm.appendChild(loginNameLabel)
-const loginNameInput = document.createElement('input')
-loginForm.appendChild(loginNameInput)
+// const loginNameLabel = document.createElement('label')
+// loginNameLabel.textContent = 'Name '
+// loginForm.appendChild(loginNameLabel)
+// const loginNameInput = document.createElement('input')
+// loginForm.appendChild(loginNameInput)
 
-const loginEmailLabel = document.createElement('label')
-loginEmailLabel.textContent = 'Email '
-loginForm.appendChild(loginEmailLabel)
-const loginEmailInput = document.createElement('input')
-loginForm.appendChild(loginEmailInput)
+// const loginEmailLabel = document.createElement('label')
+// loginEmailLabel.textContent = 'Email '
+// loginForm.appendChild(loginEmailLabel)
+// const loginEmailInput = document.createElement('input')
+// loginForm.appendChild(loginEmailInput)
 
 const loginUsernameLabel = document.createElement('label')
 loginUsernameLabel.textContent = 'Username '
@@ -168,19 +168,38 @@ loginForm.appendChild(loginUsernameInput)
 const loginPasswordLabel = document.createElement('label')
 loginPasswordLabel.textContent = 'Password '
 loginForm.appendChild(loginPasswordLabel)
-const LoginPasswordInput = document.createElement('input')
-loginForm.appendChild(LoginPasswordInput)
+const loginPasswordInput = document.createElement('input')
+loginForm.appendChild(loginPasswordInput)
 
-const loginPasswordRepeatLabel = document.createElement('label')
-loginPasswordRepeatLabel.textContent = 'Repeat Password '
-loginForm.appendChild(loginPasswordRepeatLabel)
-const loginPasswordRepeatInput = document.createElement('input')
-loginForm.appendChild(loginPasswordRepeatInput)
+// const loginPasswordRepeatLabel = document.createElement('label')
+// loginPasswordRepeatLabel.textContent = 'Repeat Password '
+// loginForm.appendChild(loginPasswordRepeatLabel)
+// const loginPasswordRepeatInput = document.createElement('input')
+// loginForm.appendChild(loginPasswordRepeatInput)
 
 const loginSubmitButton = document.createElement('button')
 loginSubmitButton.textContent = 'Login'
 loginForm.appendChild(loginSubmitButton)
 loginView.appendChild(loginForm)
+
+loginForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const username = loginUsernameInput.value
+    const password = loginPasswordInput.value
+
+    try {
+        logic.loginUser(username, password)
+
+        loginForm.reset()
+        loginFeedback.textContent = ''
+
+        loginView.style.display = 'none'
+        registerView.style.display = ''
+    } catch (error) {
+        loginFeedback.textContent = error.message
+    }
+})
 
 const loginRegisterLink = document.createElement('a')
 loginRegisterLink.textContent = 'Register'
@@ -193,5 +212,9 @@ loginRegisterLink.addEventListener('click', function (event) {
     loginView.style.display = 'none'
     registerView.style.display = ''
 })
+
+const loginFeedback = document.createElement('p')
+loginView.appendChild(loginFeedback)
+
 
 document.body.appendChild(loginView)
