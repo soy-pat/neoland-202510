@@ -1,6 +1,6 @@
 function Logic() { }
 
-Logic.prototype.registeruser = function (
+Logic.prototype.registerUser = function (
   name,
   email,
   username,
@@ -10,8 +10,8 @@ Logic.prototype.registeruser = function (
   if (typeof name !== 'string') throw new Error('invalid name type');
   if (name.length < 1) throw new Error('invalid name length');
 
-  if (typeof email !== 'string') throw new Error('invalid surname type');
-  if (surname.length < 6) throw new Error('invalid surname length');
+  if (typeof email !== 'string') throw new Error('invalid email type');
+  if (email.length < 6) throw new Error('invalid email length');
 
   if (typeof username !== 'string') throw new Error('invalid username type');
   if (username.length < 3) throw new Error('invalid username length');
