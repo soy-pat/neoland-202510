@@ -53,7 +53,7 @@ Logic.prototype.loginUser = function (
 
   let user = data.findUserByUsername(username)
 
-  if (user === null) throw new Error('user username does not exist')
+  if (user === null) throw new Error('user not found')
 
   if (user.password !== password) throw new Error('invalid password')
 };

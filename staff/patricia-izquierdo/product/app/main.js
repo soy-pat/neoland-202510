@@ -195,7 +195,7 @@ loginForm.addEventListener('submit', function (event) {
         loginFeedback.textContent = ''
 
         loginView.style.display = 'none'
-        registerView.style.display = ''
+        homeView.style.display = ''
     } catch (error) {
         loginFeedback.textContent = error.message
     }
@@ -218,3 +218,18 @@ loginView.appendChild(loginFeedback)
 
 
 document.body.appendChild(loginView)
+
+// home
+
+const homeView = document.createElement('div')
+homeView.style.display = 'none'
+
+const homeTitle = document.createElement('h1')
+homeTitle.textContent = 'MyPet'
+homeView.appendChild(homeTitle)
+
+const homeSubtitle = document.createElement('h2')
+homeSubtitle.textContent = 'Welcome Home!'
+homeView.appendChild(homeSubtitle)
+
+document.body.appendChild(homeView)
