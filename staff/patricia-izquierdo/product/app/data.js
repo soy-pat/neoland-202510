@@ -25,6 +25,8 @@ function Data() {
   this.userscount = 0;
   this.pets = [];
   this.petscount = 0;
+  // to know which user is logged doing actions
+  this.loggedInUserId = null
 }
 
 Data.prototype.insertUser = function (user) {
@@ -53,6 +55,14 @@ Data.prototype.findUserByUsername = function (username) {
     if (user.username === username) return user
   }
   return null
+}
+
+Data.prototype.setLoggedInUserId = function (userId) {
+  this.loggedInUserId = userId
+}
+
+Data.prototype.getLoggedInUserId = function () {
+  return this.loggedInUserId
 }
 
 // instance

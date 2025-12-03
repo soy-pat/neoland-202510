@@ -56,6 +56,8 @@ Logic.prototype.loginUser = function (
   if (user === null) throw new Error('user not found')
 
   if (user.password !== password) throw new Error('invalid password')
+
+  data.setLoggedInUserId(user.id)
 };
 
 // instancia
