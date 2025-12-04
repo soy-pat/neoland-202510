@@ -5,7 +5,7 @@ document.body.className = 'p-6'
 //landing
 
 const landingView = document.createElement('div')
-landingView.style.display = 'none'
+// landingView.style.display = 'none'
 
 const landingTitle = document.createElement('h1')
 landingTitle.textContent = 'MyPet'
@@ -340,7 +340,7 @@ document.body.appendChild(loginView)
 // home
 
 const homeView = document.createElement('div')
-//homeView.style.display = 'none'
+homeView.style.display = 'none'
 
 const homeTitle = document.createElement('h1')
 homeTitle.textContent = 'MyPet'
