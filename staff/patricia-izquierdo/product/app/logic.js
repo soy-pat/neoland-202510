@@ -58,7 +58,15 @@ Logic.prototype.loginUser = function (
   if (user.password !== password) throw new Error('invalid password')
 
   data.setLoggedInUserId(user.id)
-};
+}
+
+Logic.prototype.logoutUser = function () {
+  data.setLoggedInUserId = null
+}
+
+Logic.prototype.addPet = function (name, birthdate, weight, image) {
+
+}
 
 // instancia
 

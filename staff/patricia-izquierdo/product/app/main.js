@@ -5,6 +5,7 @@ document.body.className = 'p-6'
 //landing
 
 const landingView = document.createElement('div')
+landingView.style.display = 'none'
 
 const landingTitle = document.createElement('h1')
 landingTitle.textContent = 'MyPet'
@@ -339,7 +340,7 @@ document.body.appendChild(loginView)
 // home
 
 const homeView = document.createElement('div')
-homeView.style.display = 'none'
+//homeView.style.display = 'none'
 
 const homeTitle = document.createElement('h1')
 homeTitle.textContent = 'MyPet'
@@ -348,6 +349,8 @@ homeView.appendChild(homeTitle)
 const homeSubtitle = document.createElement('h2')
 homeSubtitle.textContent = 'Welcome Home!'
 homeView.appendChild(homeSubtitle)
+
+const homeTopPanel = document.createElement('div')
 
 const homeAddPetButton = document.createElement('button')
 homeAddPetButton.textContent = '+ Pet'
@@ -360,6 +363,21 @@ homeAddPetButton.addEventListener('click', function (event) {
 
     homeView.style.display = 'none'
     addPetView.style.display = ''
+})
+
+const homeLogoutButton = document.createElement('button')
+homeLogoutButton.textContent = 'Logout'
+homeLogoutButton.type = 'button'
+homeLogoutButton.className = 'border-2 border-solid border-black bg-black text-white px-4 self-center'
+homeView.appendChild(homeLogoutButton)
+
+homeLogoutButton.addEventListener('click', function (event) {
+    event.preventDefault()
+
+    logic.logoutUser()
+
+    homeView.style.display = 'none'
+    loginView.style.display = ''
 })
 
 document.body.appendChild(homeView)
