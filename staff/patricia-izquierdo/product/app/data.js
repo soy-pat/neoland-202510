@@ -57,6 +57,15 @@ Data.prototype.findUserByUsername = function (username) {
   return null
 }
 
+Data.prototype.findUserById = function (id) {
+  for (let i = 0; i < this.users.length; i++) {
+    const user = this.users[i]
+
+    if (user.id === id) return user
+  }
+  return null
+}
+
 Data.prototype.setLoggedInUserId = function (userId) {
   this.loggedInUserId = userId
 }

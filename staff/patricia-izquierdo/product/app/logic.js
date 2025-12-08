@@ -65,19 +65,15 @@ Logic.prototype.logoutUser = function () {
 }
 
 Logic.prototype.addPet = function (name, birthdate, weight, image) {
+  if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+  const user = data.findUserById(data.getLoggedInUserId())
+  if (user === null) throw new Error('user not found')
+
   if (typeof name !== 'string') throw new Error('invalid name type')
   if (name.length < 1) throw new Error('invalid name length')
 
   if (typeof birthdate !== 'string') throw new Error('invalid birthdate type')
-  // if (birthdate.length !== 10) throw new Error('invalid birthdate length')
-  // if (birthdate[4] !== '-' || birthdate[7] !== '-') throw new Error('invalid birthdate format')
-
-  // const year = parseInt(birthdate.slice(0, 4))
-  // if (typeof year !== 'number' || isNaN(year)) throw new Error('invalid birthdate format')
-  // const month = parseInt(birthdate.slice(5, 7))
-  // if (typeof month !== 'number' || isNaN(year)) throw new Error('invalid birthdate format')
-  // const day = parseInt(birthdate.slice(7, 10))
-  // if (typeof day !== 'number' || isNaN(year)) throw new Error('invalid birthdate format')
 
   const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/ //new RegExp
   if (!isoDateRegex.test(birthdate)) throw new Error('invalid birthdate format')
@@ -87,6 +83,10 @@ Logic.prototype.addPet = function (name, birthdate, weight, image) {
   const pet = new Performance('pet-' + data.petscount, + data.getLoggedInUserId(), name, birthdate, weight, image)
 
   data.insertPet(pet)
+
+}
+
+Logic.prototype.getPets = function () {
 
 }
 
