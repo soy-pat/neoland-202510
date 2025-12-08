@@ -351,12 +351,14 @@ homeSubtitle.textContent = 'Welcome Home!'
 homeView.appendChild(homeSubtitle)
 
 const homeTopPanel = document.createElement('div')
+homeTopPanel.className = 'flex justify-between'
+homeView.appendChild(homeTopPanel)
 
 const homeAddPetButton = document.createElement('button')
 homeAddPetButton.textContent = '+ Pet'
 homeAddPetButton.type = 'button'
 homeAddPetButton.className = 'border-2 border-solid border-black bg-black text-white px-4 self-center'
-homeView.appendChild(homeAddPetButton)
+homeTopPanel.appendChild(homeAddPetButton)
 
 homeAddPetButton.addEventListener('click', function (event) {
     event.preventDefault()
@@ -369,7 +371,7 @@ const homeLogoutButton = document.createElement('button')
 homeLogoutButton.textContent = 'Logout'
 homeLogoutButton.type = 'button'
 homeLogoutButton.className = 'border-2 border-solid border-black bg-black text-white px-4 self-center'
-homeView.appendChild(homeLogoutButton)
+homeTopPanel.appendChild(homeLogoutButton)
 
 homeLogoutButton.addEventListener('click', function (event) {
     event.preventDefault()
