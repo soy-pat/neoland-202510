@@ -7,15 +7,15 @@ function User(id, name, email, username, password, role) {
   this.role = role;
 }
 
-function Pet(id, userId, chip, name, birthdate, species, race, colors) {
+function Pet(id, userId, /*chip,*/ name, birthdate, /*species, race, colors*/) {
   this.id = id;
   this.userId = userId;
-  this.chip = chip;
+  // this.chip = chip;
   this.name = name;
   this.birthdate = birthdate;
-  this.species = species;
-  this.race = race;
-  this.colors = colors;
+  // this.species = species;
+  // this.race = race;
+  // this.colors = colors;
 }
 
 // manager
