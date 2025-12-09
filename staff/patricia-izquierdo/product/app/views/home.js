@@ -42,8 +42,7 @@ homeLogoutButton.addEventListener('click', function (event) {
     for (let i = homePetList.children.length - 1; i >= 0; i--) {
         const child = homePetList.children[i]
 
-        // homePetList.removeChild(child)
-        child.remove()
+        homePetList.removeChild(child)
     }
 
     homeView.style.display = 'none'

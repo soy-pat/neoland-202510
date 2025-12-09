@@ -94,6 +94,32 @@ addPetForm.addEventListener('submit', function (event) {
         addPetForm.reset()
         addPetFeedback.textContent = ''
 
+        for (let i = homePetList.children.length - 1; i >= 0; i--) {
+            const child = homePetList.children[i]
+
+            homePetList.removeChild(child)
+        }
+
+        const pets = logic.getPets()
+
+        for (let i = 0; i < pets.length; i++) {
+            const pet = pets[i]
+
+            const item = document.createElement('li')
+            item.className = 'flex'
+
+            const image = document.createElement('img')
+            image.src = pet.image
+            image.className = 'rounded-[50%] w-20'
+            item.appendChild(image)
+
+            const name = document.createElement('p')
+            name.textContent = pet.name
+            item.appendChild(name)
+
+            homePetList.appendChild(item)
+        }
+
         addPetView.style.display = 'none'
         homeView.style.display = ''
 
