@@ -7,15 +7,17 @@ function User(id, name, email, username, password, role) {
   this.role = role;
 }
 
-function Pet(id, userId, /*chip,*/ name, birthdate, /*species, race, colors*/) {
+function Pet(id, userId, /*chip,*/ name, birthdate, weight,/*species, race, colors*/ image) {
   this.id = id;
   this.userId = userId;
   // this.chip = chip;
   this.name = name;
   this.birthdate = birthdate;
+  this.weight = weight
   // this.species = species;
   // this.race = race;
   // this.colors = colors;
+  this.image = image
 }
 
 // manager
@@ -38,6 +40,17 @@ Data.prototype.insertPet = function (pet) {
   this.pets.push(pet);
   this.petscount++;
 };
+
+Data.prototype.findPetsByUserId = function (userId) {
+  const foundPets = []
+
+  for (let i = 0; i < this.pets.length; i++) {
+    const pet = this.pets[i]
+    if (pet.userId === userId)
+      foundPets.push(this.pets[i])
+  }
+  return foundPets
+}
 
 Data.prototype.findUserByEmail = function (email) {
   for (let i = 0; i < this.users.length; i++) {
