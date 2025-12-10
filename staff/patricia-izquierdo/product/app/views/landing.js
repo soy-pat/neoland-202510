@@ -1,48 +1,48 @@
 //landing
 
-const landingView = document.createElement('div')
-// landingView.style.display = 'none'
+const landingView = createView()
+// hideView(landingView)
 
-const landingTitle = document.createElement('h1')
-landingTitle.textContent = 'MyPet'
-landingTitle.className = 'font-bold text-xl'
-landingView.appendChild(landingTitle)
+const landingTitle = createTitle()
+setTextContent(landingTitle, 'MyPet')
+setClass(landingTitle, 'font-bold text-xl')
+addChild(landingView, landingTitle)
 
-const landingWelcome = document.createElement('p')
-landingWelcome.textContent = 'Welcome!'
-landingView.appendChild(landingWelcome)
+const landingWelcome = createParagraph()
+setTextContent(landingWelcome, 'Welcome!')
+addChild(landingView, landingWelcome)
 
-const landingAccess = document.createElement('p')
+const landingAccess = createParagraph()
 
 const landingLoginLink = document.createElement('a')
-landingLoginLink.textContent = 'Login'
+setTextContent(landingLoginLink, 'Login')
 landingLoginLink.href = ''
-landingLoginLink.className = 'underline font-bold'
-landingAccess.appendChild(landingLoginLink)
+setClass(landingLoginLink, 'underline font-bold')
+addChild(landingAccess, landingLoginLink)
 
-const landingOrText = document.createTextNode(' or ')
-landingAccess.appendChild(landingOrText)
+const landingOrText = createTextNode(' or ')
+addChild(landingAccess, landingOrText)
 
 const landingRegisterLink = document.createElement('a')
-landingRegisterLink.textContent = 'Register'
+setTextContent(landingRegisterLink, 'Register')
 landingRegisterLink.href = ''
-landingRegisterLink.className = 'underline font-bold'
-landingAccess.appendChild(landingRegisterLink)
+setClass(landingRegisterLink, 'underline font-bold')
+addChild(landingAccess, landingRegisterLink)
 
-landingView.appendChild(landingAccess)
+addChild(landingView, landingAccess)
 
 landingLoginLink.addEventListener('click', function (event) {
     event.preventDefault()
 
-    landingView.style.display = 'none'
-    loginView.style.display = ''
+    hideView(landingView)
+    showView(loginView)
 })
 
 landingRegisterLink.addEventListener('click', function (event) {
     event.preventDefault()
 
-    landingView.style.display = 'none'
-    registerView.style.display = ''
+    hideView(landingView)
+    showView(registerView)
 })
 
 document.body.appendChild(landingView)

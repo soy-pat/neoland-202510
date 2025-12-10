@@ -1,98 +1,98 @@
 // add pet
 
-const addPetView = document.createElement('div')
-addPetView.style.display = 'none'
+const addPetView = createView()
+hideView(addPetView)
 
-const addPetTitle = document.createElement('h1')
-addPetTitle.textContent = 'MyPet'
-addPetTitle.className = 'font-bold text-xl'
-addPetView.appendChild(addPetTitle)
+const addPetTitle = createTitle()
+setTextContent(addPetTitle, 'MyPet')
+setClass(addPetTitle, 'font-bold text-xl')
+addChild(addPetView, addPetTitle)
 
-const addPetTopPanel = document.createElement('div')
-addPetTopPanel.className = 'flex justify-between'
-addPetView.appendChild(addPetTopPanel)
+const addPetTopPanel = createView()
+setClass(addPetTopPanel, 'flex justify-between')
+addChild(addPetView, addPetTopPanel)
 
 const addPetSubtitle = document.createElement('h2')
-addPetSubtitle.textContent = 'Add Pet'
-addPetSubtitle.className = 'font-bold'
-addPetTopPanel.appendChild(addPetSubtitle)
+setTextContent(addPetSubtitle, 'Add Pet')
+setClass(addPetSubtitle, 'font-bold')
+addChild(addPetTopPanel, addPetSubtitle)
 
 const addPetBackLink = document.createElement('a')
-addPetBackLink.textContent = '< Back'
+setTextContent(addPetBackLink, '< Back')
 addPetBackLink.href = ''
-addPetBackLink.className = 'underline font-bold'
-addPetTopPanel.appendChild(addPetBackLink)
+setClass(addPetBackLink, 'underline font-bold')
+addChild(addPetTopPanel, addPetBackLink)
 
 addPetBackLink.addEventListener('click', function (event) {
     event.preventDefault()
 
-    addPetView.style.display = 'none'
-    homeView.style.display = ''
+    hideView(addPetView)
+    showView(homeView)
 })
 
 const addPetForm = document.createElement('form')
-addPetForm.className = 'flex flex-col'
+setClass(addPetForm, 'flex flex-col')
 
 const addPetNameLabel = document.createElement('label')
-addPetNameLabel.textContent = 'Name '
+setTextContent(addPetNameLabel, 'Name ')
 addPetNameLabel.htmlFor = 'name'
-addPetForm.appendChild(addPetNameLabel)
+addChild(addPetForm, addPetNameLabel)
 const addPetNameInput = document.createElement('input')
-addPetNameInput.id = 'name'
-addPetNameInput.type = 'text'
-addPetNameInput.className = 'border rounded-lg px-2 border-solid border-black'
-addPetForm.appendChild(addPetNameInput)
+setId(addPetNameInput, 'name')
+setType(addPetNameInput, 'text')
+setClass(addPetNameInput, 'border rounded-lg px-2 border-solid border-black')
+addChild(addPetForm, addPetNameInput)
 
 const addPetDateOfBirthLabel = document.createElement('label')
-addPetDateOfBirthLabel.textContent = 'Date of Birth '
+setTextContent(addPetDateOfBirthLabel, 'Date of Birth')
 addPetDateOfBirthLabel.htmlFor = 'date'
-addPetForm.appendChild(addPetDateOfBirthLabel)
+addChild(addPetForm, addPetDateOfBirthLabel)
 const addPetDateOfBirthInput = document.createElement('input')
-addPetDateOfBirthInput.id = 'date'
-addPetDateOfBirthInput.type = 'date'
-addPetDateOfBirthInput.className = 'border rounded-lg px-2 border-solid border-black'
-addPetForm.appendChild(addPetDateOfBirthInput)
+setId(addPetDateOfBirthInput, 'date')
+setType(addPetDateOfBirthInput, 'date')
+setClass(addPetDateOfBirthInput, 'border rounded-lg px-2 border-solid border-black')
+addChild(addPetForm, addPetDateOfBirthInput)
 
 const addPetWeightLabel = document.createElement('label')
-addPetWeightLabel.textContent = 'Weight (kg) '
+setTextContent(addPetWeightLabel, 'Weight (kg)')
 addPetWeightLabel.htmlFor = 'weight'
-addPetForm.appendChild(addPetWeightLabel)
+addChild(addPetForm, addPetWeightLabel)
 const addPetWeightInput = document.createElement('input')
-addPetWeightInput.id = 'weight'
-addPetWeightInput.type = 'number'
+setId(addPetWeightInput, 'weight')
+setType(addPetWeightInput, 'number')
 addPetWeightInput.step = '0.01'
-addPetWeightInput.className = 'border rounded-lg px-2 border-solid border-black'
-addPetForm.appendChild(addPetWeightInput)
+setClass(addPetWeightInput, 'border rounded-lg px-2 border-solid border-black')
+addChild(addPetForm, addPetWeightInput)
 
 const addPetImageLabel = document.createElement('label')
-addPetImageLabel.textContent = 'Image '
+setTextContent(addPetImageLabel, 'Image ')
 addPetImageLabel.htmlFor = 'image'
-addPetForm.appendChild(addPetImageLabel)
+addChild(addPetForm, addPetImageLabel)
 const addPetImageInput = document.createElement('input')
-addPetImageInput.id = 'image'
-addPetImageInput.type = 'url'
-addPetImageInput.className = 'border rounded-lg px-2 border-solid border-black'
-addPetForm.appendChild(addPetImageInput)
+setId(addPetImageInput, 'image')
+setType(addPetImageInput, 'url')
+setClass(addPetImageInput, 'border rounded-lg px-2 border-solid border-black')
+addChild(addPetForm, addPetImageInput)
 
 const addPetSubmitButton = document.createElement('button')
-addPetSubmitButton.textContent = 'Add'
-addPetSubmitButton.type = 'submit'
-addPetSubmitButton.className = 'border-2 border-solid border-black bg-black text-white px-4 self-center'
-addPetForm.appendChild(addPetSubmitButton)
+setTextContent(addPetSubmitButton, 'Add')
+setType(addPetSubmitButton, 'submit')
+setClass(addPetSubmitButton, 'border-2 border-solid border-black bg-black text-white px-4 self-center')
+addChild(addPetForm, addPetSubmitButton)
 
 addPetForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    const name = addPetNameInput.value
-    const birthdate = addPetDateOfBirthInput.value
+    const name = getValue(addPetNameInput)
+    const birthdate = getValue(addPetDateOfBirthInput)
     const weight = parseFloat(addPetWeightInput.value)
-    const image = addPetImageInput.value
+    const image = getValue(addPetImageInput)
 
     try {
         logic.addPet(name, birthdate, weight, image)
 
         addPetForm.reset()
-        addPetFeedback.textContent = ''
+        setTextContent(addPetFeedback, '')
 
         for (let i = homePetList.children.length - 1; i >= 0; i--) {
             const child = homePetList.children[i]
@@ -100,37 +100,19 @@ addPetForm.addEventListener('submit', function (event) {
             homePetList.removeChild(child)
         }
 
-        const pets = logic.getPets()
+        renderHomePetList()
 
-        for (let i = 0; i < pets.length; i++) {
-            const pet = pets[i]
-
-            const item = document.createElement('li')
-            item.className = 'flex'
-
-            const image = document.createElement('img')
-            image.src = pet.image
-            image.className = 'rounded-[50%] w-20'
-            item.appendChild(image)
-
-            const name = document.createElement('p')
-            name.textContent = pet.name
-            item.appendChild(name)
-
-            homePetList.appendChild(item)
-        }
-
-        addPetView.style.display = 'none'
-        homeView.style.display = ''
+        hideView(addPetView)
+        showView(homeView)
 
     } catch (error) {
-        addPetFeedback.textContent = error.message
+        setTextContent(addPetFeedback, error.message)
     }
 })
 
-const addPetFeedback = document.createElement('p')
-addPetView.appendChild(addPetFeedback)
+const addPetFeedback = createParagraph()
+addChild(addPetView, addPetFeedback)
 
-addPetView.appendChild(addPetForm)
+addChild(addPetView, addPetForm)
 
 document.body.appendChild(addPetView)
