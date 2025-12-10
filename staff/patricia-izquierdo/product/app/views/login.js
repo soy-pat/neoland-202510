@@ -13,42 +13,42 @@ setTextContent(loginSubtitle, 'Login')
 setClass(loginSubtitle, 'font-bold italic')
 addChild(loginView, loginSubtitle)
 
-const loginForm = document.createElement('form')
+const loginForm = createForm()
 setClass(loginForm, 'flex flex-col')
 
-// const loginNameLabel = document.createElement('label')
+// const loginNameLabel = createLabel()
 // loginNameLabel.textContent = 'Name '
 // loginForm.appendChild(loginNameLabel)
-// const loginNameInput = document.createElement('input')
+// const loginNameInput = createInput()
 // loginForm.appendChild(loginNameInput)
 
-// const loginEmailLabel = document.createElement('label')
+// const loginEmailLabel = createLabel()
 // loginEmailLabel.textContent = 'Email '
 // loginForm.appendChild(loginEmailLabel)
-// const loginEmailInput = document.createElement('input')
+// const loginEmailInput = createInput()
 // loginForm.appendChild(loginEmailInput)
 
-const loginUsernameLabel = document.createElement('label')
+const loginUsernameLabel = createLabel()
 setTextContent(loginUsernameLabel, 'Username')
-loginUsernameLabel.htmlFor = 'username'
+setFor(loginUsernameLabel, 'username')
 addChild(loginForm, loginUsernameLabel)
-const loginUsernameInput = document.createElement('input')
+const loginUsernameInput = createInput()
 setId(loginUsernameInput, 'username')
 setType(loginUsernameInput, 'text')
 setClass(loginUsernameInput, 'border px-2 rounded-lg border-solid border-black')
 addChild(loginForm, loginUsernameInput)
 
-const loginPasswordLabel = document.createElement('label')
+const loginPasswordLabel = createLabel()
 setTextContent(loginPasswordLabel, 'Password ')
-loginPasswordLabel.htmlFor = 'password'
+setFor(loginPasswordLabel, 'password')
 addChild(loginForm, loginPasswordLabel)
-const loginPasswordInput = document.createElement('input')
+const loginPasswordInput = createInput()
 setId(loginPasswordInput, 'password')
 setType(loginPasswordInput, 'password')
 setClass(loginPasswordInput, 'border px-2 rounded-lg border-solid border-black')
 addChild(loginForm, loginPasswordInput)
 
-const showPasswordButtonLogin = document.createElement('button')
+const showPasswordButtonLogin = createButton()
 setTextContent(showPasswordButtonLogin, 'Show')
 setType(showPasswordButtonLogin, 'button')
 setClass(showPasswordButtonLogin, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
@@ -71,13 +71,13 @@ showPasswordButtonLogin.addEventListener('click', function (event) {
     }
 })
 
-// const loginPasswordRepeatLabel = document.createElement('label')
+// const loginPasswordRepeatLabel = createLabel()
 // loginPasswordRepeatLabel.textContent = 'Repeat Password '
 // loginForm.appendChild(loginPasswordRepeatLabel)
-// const loginPasswordRepeatInput = document.createElement('input')
+// const loginPasswordRepeatInput = createInput()
 // loginForm.appendChild(loginPasswordRepeatInput)
 
-const loginSubmitButton = document.createElement('button')
+const loginSubmitButton = createButton()
 setTextContent(loginSubmitButton, 'Login')
 setType(loginSubmitButton, 'submit')
 setClass(loginSubmitButton, 'border-2 border-solid border-black bg-black text-white px-4 self-center')
@@ -93,7 +93,7 @@ loginForm.addEventListener('submit', function (event) {
     try {
         logic.loginUser(username, password)
 
-        loginForm.reset()
+        reset(loginForm)
         setTextContent(loginFeedback, '')
 
         renderHomePetList()
@@ -105,9 +105,8 @@ loginForm.addEventListener('submit', function (event) {
     }
 })
 
-const loginRegisterLink = document.createElement('a')
+const loginRegisterLink = createLink()
 setTextContent(loginRegisterLink, 'Register')
-loginRegisterLink.href = ''
 setClass(loginRegisterLink, 'underline font-bold')
 addChild(loginView, loginRegisterLink)
 

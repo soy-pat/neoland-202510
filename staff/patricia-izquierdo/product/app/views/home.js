@@ -15,7 +15,7 @@ const homeTopPanel = createView()
 setClass(homeTopPanel, 'flex justify-between')
 addChild(homeView, homeTopPanel)
 
-const homeAddPetButton = document.createElement('button')
+const homeAddPetButton = createButton()
 setTextContent(homeAddPetButton, '+ Pet')
 setType(homeAddPetButton, 'button')
 setClass(homeAddPetButton, 'border-2 border-solid border-black bg-black text-white px-4 self-center')
@@ -28,7 +28,7 @@ homeAddPetButton.addEventListener('click', function (event) {
     showView(addPetView)
 })
 
-const homeLogoutButton = document.createElement('button')
+const homeLogoutButton = createButton()
 setTextContent(homeLogoutButton, 'Logout')
 setType(homeLogoutButton, 'button')
 setClass(homeLogoutButton, 'border-2 border-solid border-black bg-black text-white px-4 self-center')
@@ -49,7 +49,7 @@ homeLogoutButton.addEventListener('click', function (event) {
     showView(loginView)
 })
 
-const homePetList = document.createElement('ul')
+const homePetList = createUnorderedList()
 addChild(homeView, homePetList)
 
 document.body.appendChild(homeView)
@@ -60,11 +60,11 @@ function renderHomePetList() {
     for (let i = 0; i < pets.length; i++) {
         const pet = pets[i]
 
-        const item = document.createElement('li')
+        const item = createListItem()
         setClass(item, 'flex')
 
-        const image = document.createElement('img')
-        image.src = pet.image
+        const image = createImage()
+        setSource(image, pet.image)
         setClass(image, 'rounded-[50%] w-20')
 
         addChild(item, image)

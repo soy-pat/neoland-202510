@@ -14,18 +14,16 @@ addChild(landingView, landingWelcome)
 
 const landingAccess = createParagraph()
 
-const landingLoginLink = document.createElement('a')
+const landingLoginLink = createLink()
 setTextContent(landingLoginLink, 'Login')
-landingLoginLink.href = ''
 setClass(landingLoginLink, 'underline font-bold')
 addChild(landingAccess, landingLoginLink)
 
 const landingOrText = createTextNode(' or ')
 addChild(landingAccess, landingOrText)
 
-const landingRegisterLink = document.createElement('a')
+const landingRegisterLink = createLink()
 setTextContent(landingRegisterLink, 'Register')
-landingRegisterLink.href = ''
 setClass(landingRegisterLink, 'underline font-bold')
 addChild(landingAccess, landingRegisterLink)
 
