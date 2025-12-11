@@ -16,6 +16,10 @@ function addChild(element, childElement) {
     element.appendChild(childElement)
 }
 
+function removeChild(element, childElement) {
+    element.removeChild(childElement)
+}
+
 function setClass(element, clazz) {
     element.className = clazz
 }
@@ -72,6 +76,10 @@ function showView(view) {
 
 function createTitle() {
     return createElement('h1')
+}
+
+function createTitle2() {
+    return createElement('h2')
 }
 
 function createParagraph() {

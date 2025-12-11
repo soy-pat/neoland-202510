@@ -5,13 +5,14 @@ hideView(homeView)
 
 const homeTitle = createTitle()
 setTextContent(homeTitle, 'MyPet')
+setClass(homeTitle, 'font-bold text-xl')
 addChild(homeView, homeTitle)
 
-const homeSubtitle = document.createElement('h2')
+const homeSubtitle = createTitle2()
 setTextContent(homeSubtitle, 'Welcome Home!')
 addChild(homeView, homeSubtitle)
 
-const homeTopPanel = createView()
+const homeTopPanel = createPanel()
 setClass(homeTopPanel, 'flex justify-between')
 addChild(homeView, homeTopPanel)
 
@@ -39,11 +40,7 @@ homeLogoutButton.addEventListener('click', function (event) {
 
     logic.logoutUser()
 
-    for (let i = homePetList.children.length - 1; i >= 0; i--) {
-        const child = homePetList.children[i]
-
-        homePetList.removeChild(child)
-    }
+    clearHomePetList()
 
     hideView(homeView)
     showView(loginView)
@@ -52,7 +49,7 @@ homeLogoutButton.addEventListener('click', function (event) {
 const homePetList = createUnorderedList()
 addChild(homeView, homePetList)
 
-document.body.appendChild(homeView)
+addChild(document.body, homeView)
 
 function renderHomePetList() {
     const pets = logic.getPets()
@@ -60,26 +57,26 @@ function renderHomePetList() {
     for (let i = 0; i < pets.length; i++) {
         const pet = pets[i]
 
-        const item = createListItem()
-        setClass(item, 'flex')
+        const petItem = createListItem()
+        setClass(petItem, 'flex')
 
         const image = createImage()
         setSource(image, pet.image)
         setClass(image, 'rounded-[50%] w-20')
 
-        addChild(item, image)
+        addChild(petItem, image)
 
         const name = createParagraph()
         setTextContent(name, pet.name)
-        addChild(item, name)
+        addChild(petItem, name)
 
-        addChild(homePetList, item)
+        addChild(homePetList, petItem)
     }
 }
 
 function clearHomePetList() {
     for (let i = homePetList.children.length - 1; i >= 0; i--) {
         const child = homePetList.children[i]
-        homePetList.removeChild(child)
+        removeChild(homePetList, child)
     }
 }

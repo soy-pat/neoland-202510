@@ -8,25 +8,13 @@ setTextContent(loginTitle, 'MyPet')
 setClass(loginTitle, 'font-bold')
 addChild(loginView, loginTitle)
 
-const loginSubtitle = document.createElement('h2')
+const loginSubtitle = createTitle2()
 setTextContent(loginSubtitle, 'Login')
 setClass(loginSubtitle, 'font-bold italic')
 addChild(loginView, loginSubtitle)
 
 const loginForm = createForm()
 setClass(loginForm, 'flex flex-col')
-
-// const loginNameLabel = createLabel()
-// loginNameLabel.textContent = 'Name '
-// loginForm.appendChild(loginNameLabel)
-// const loginNameInput = createInput()
-// loginForm.appendChild(loginNameInput)
-
-// const loginEmailLabel = createLabel()
-// loginEmailLabel.textContent = 'Email '
-// loginForm.appendChild(loginEmailLabel)
-// const loginEmailInput = createInput()
-// loginForm.appendChild(loginEmailInput)
 
 const loginUsernameLabel = createLabel()
 setTextContent(loginUsernameLabel, 'Username')
@@ -48,34 +36,28 @@ setType(loginPasswordInput, 'password')
 setClass(loginPasswordInput, 'border px-2 rounded-lg border-solid border-black')
 addChild(loginForm, loginPasswordInput)
 
-const showPasswordButtonLogin = createButton()
-setTextContent(showPasswordButtonLogin, 'Show')
-setType(showPasswordButtonLogin, 'button')
-setClass(showPasswordButtonLogin, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
-addChild(loginForm, showPasswordButtonLogin)
+const loginShowPasswordButton = createButton()
+setTextContent(loginShowPasswordButton, 'Show')
+setType(loginShowPasswordButton, 'button')
+setClass(loginShowPasswordButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
+addChild(loginForm, loginShowPasswordButton)
 
-showPasswordButtonLogin.addEventListener('click', function (event) {
+loginShowPasswordButton.addEventListener('click', function (event) {
     event.preventDefault()
 
     if (getType(loginPasswordInput) === 'password') {
         setType(loginPasswordInput, 'text')
-        setTextContent(showPasswordButtonLogin, 'Hide')
-        setClass(showPasswordButtonLogin, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
+        setTextContent(loginShowPasswordButton, 'Hide')
+        setClass(loginShowPasswordButton, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
         setClass(loginPasswordInput, 'border px-2 rounded-lg border-solid border-black bg-[gold]')
     }
-    else if (getType(loginPasswordInput) === 'text') {
+    else {
         setType(loginPasswordInput, 'password')
-        setTextContent(showPasswordButtonLogin, 'Show')
-        setClass(showPasswordButtonLogin, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
+        setTextContent(loginShowPasswordButton, 'Show')
+        setClass(loginShowPasswordButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
         setClass(loginPasswordInput, 'border px-2 rounded-lg border-solid border-black')
     }
 })
-
-// const loginPasswordRepeatLabel = createLabel()
-// loginPasswordRepeatLabel.textContent = 'Repeat Password '
-// loginForm.appendChild(loginPasswordRepeatLabel)
-// const loginPasswordRepeatInput = createInput()
-// loginForm.appendChild(loginPasswordRepeatInput)
 
 const loginSubmitButton = createButton()
 setTextContent(loginSubmitButton, 'Login')
@@ -120,4 +102,4 @@ loginRegisterLink.addEventListener('click', function (event) {
 const loginFeedback = createParagraph()
 addChild(loginView, loginFeedback)
 
-document.body.appendChild(loginView)
+addChild(document.body, loginView)

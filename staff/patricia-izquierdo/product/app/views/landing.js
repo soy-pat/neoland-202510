@@ -12,22 +12,22 @@ const landingWelcome = createParagraph()
 setTextContent(landingWelcome, 'Welcome!')
 addChild(landingView, landingWelcome)
 
-const landingAccess = createParagraph()
+const landingNavigation = createNavigation()
 
 const landingLoginLink = createLink()
 setTextContent(landingLoginLink, 'Login')
 setClass(landingLoginLink, 'underline font-bold')
-addChild(landingAccess, landingLoginLink)
+addChild(landingNavigation, landingLoginLink)
 
 const landingOrText = createTextNode(' or ')
-addChild(landingAccess, landingOrText)
+addChild(landingNavigation, landingOrText)
 
 const landingRegisterLink = createLink()
 setTextContent(landingRegisterLink, 'Register')
 setClass(landingRegisterLink, 'underline font-bold')
-addChild(landingAccess, landingRegisterLink)
+addChild(landingNavigation, landingRegisterLink)
 
-addChild(landingView, landingAccess)
+addChild(landingView, landingNavigation)
 
 landingLoginLink.addEventListener('click', function (event) {
     event.preventDefault()
@@ -43,4 +43,4 @@ landingRegisterLink.addEventListener('click', function (event) {
     showView(registerView)
 })
 
-document.body.appendChild(landingView)
+addChild(document.body, landingView)

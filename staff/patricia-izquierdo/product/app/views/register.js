@@ -8,7 +8,7 @@ setTextContent(registerTitle, 'MyPet')
 setClass(registerTitle, 'font-bold')
 addChild(registerView, registerTitle)
 
-const registerSubtitle = document.createElement('h2')
+const registerSubtitle = createTitle2()
 setTextContent(registerSubtitle, 'Register')
 setClass(registerSubtitle, 'font-bold italic')
 addChild(registerView, registerSubtitle)
@@ -57,58 +57,58 @@ setType(registerPasswordInput, 'password')
 setId(registerPasswordInput, 'password')
 setClass(registerPasswordInput, 'border px-2 rounded-lg border-solid border-black')
 addChild(registerForm, registerPasswordInput)
-const showPasswordButtonRegister = createButton()
-setTextContent(showPasswordButtonRegister, 'Show')
+const registerShowPasswordButton = createButton()
+setTextContent(registerShowPasswordButton, 'Show')
 // to not work as submit button
-setType(showPasswordButtonRegister, 'button')
-setClass(showPasswordButtonRegister, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
-addChild(registerForm, showPasswordButtonRegister)
+setType(registerShowPasswordButton, 'button')
+setClass(registerShowPasswordButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
+addChild(registerForm, registerShowPasswordButton)
 
-showPasswordButtonRegister.addEventListener('click', function (event) {
+registerShowPasswordButton.addEventListener('click', function (event) {
     event.preventDefault()
 
     if (getType(registerPasswordInput) === 'password') {
         setType(registerPasswordInput, 'text')
-        setTextContent(showPasswordButtonRegister, 'Hide')
-        setClass(showPasswordButtonRegister, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
+        setTextContent(registerShowPasswordButton, 'Hide')
+        setClass(registerShowPasswordButton, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
         setClass(registerPasswordInput, 'border px-2 rounded-lg border-solid border-black bg-[gold]')
     }
-    else if (getType(registerPasswordInput) === 'text') {
+    else {
         setType(registerPasswordInput, 'password')
-        setTextContent(showPasswordButtonRegister, 'Show')
-        setClass(showPasswordButtonRegister, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
+        setTextContent(registerShowPasswordButton, 'Show')
+        setClass(registerShowPasswordButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
         setClass(registerPasswordInput, 'border px-2  rounded-lg border-solid border-black')
     }
 })
 
 const registerPasswordRepeatLabel = createLabel()
 setTextContent(registerPasswordRepeatLabel, 'Repeat Password ')
-setFor(registerPasswordRepeatLabel, 'passwordrepeat')
+setFor(registerPasswordRepeatLabel, 'passwordRepeat')
 addChild(registerForm, registerPasswordRepeatLabel)
 const registerPasswordRepeatInput = createInput()
-setId(registerPasswordRepeatInput, 'passwordrepeat')
+setId(registerPasswordRepeatInput, 'passwordRepeat')
 setType(registerPasswordRepeatInput, 'password')
 setClass(registerPasswordRepeatInput, 'border px-2 rounded-lg border-solid border-black')
 addChild(registerForm, registerPasswordRepeatInput)
 
-const showPasswordRepeatButtonRegister = createButton()
-setTextContent(showPasswordRepeatButtonRegister, 'Show ')
-setType(showPasswordRepeatButtonRegister, 'button')
-setClass(showPasswordRepeatButtonRegister, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
-addChild(registerForm, showPasswordRepeatButtonRegister)
-showPasswordRepeatButtonRegister.addEventListener('click', function (event) {
+const registerShowPasswordRepeatButton = createButton()
+setTextContent(registerShowPasswordRepeatButton, 'Show ')
+setType(registerShowPasswordRepeatButton, 'button')
+setClass(registerShowPasswordRepeatButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
+addChild(registerForm, registerShowPasswordRepeatButton)
+registerShowPasswordRepeatButton.addEventListener('click', function (event) {
     event.preventDefault()
 
     if (getType(registerPasswordRepeatInput) === 'password') {
         setType(registerPasswordRepeatInput, 'text')
-        setTextContent(showPasswordRepeatButtonRegister, 'Hide ')
-        setClass(showPasswordRepeatButtonRegister, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
+        setTextContent(registerShowPasswordRepeatButton, 'Hide ')
+        setClass(registerShowPasswordRepeatButton, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
         setClass(registerPasswordRepeatInput, 'border px-2 rounded-lg border-solid border-black bg-[gold]')
     }
     else if (getType(registerPasswordRepeatInput) === 'text') {
         setType(registerPasswordRepeatInput, 'password')
-        setTextContent(showPasswordRepeatButtonRegister, 'Show ')
-        setClass(showPasswordRepeatButtonRegister, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
+        setTextContent(registerShowPasswordRepeatButton, 'Show ')
+        setClass(registerShowPasswordRepeatButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
         setClass(registerPasswordRepeatInput, 'border rounded-lg px-2 border-solid border-black')
     }
 })
@@ -157,4 +157,4 @@ registerLoginLink.addEventListener('click', function (event) {
 const registerFeedback = createParagraph()
 addChild(registerView, registerFeedback)
 
-document.body.appendChild(registerView)
+addChild(document.body, registerView)
