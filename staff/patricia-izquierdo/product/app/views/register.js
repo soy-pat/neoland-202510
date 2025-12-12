@@ -5,12 +5,10 @@ hideView(registerView)
 
 const registerTitle = createTitle()
 setTextContent(registerTitle, 'MyPet')
-setClass(registerTitle, 'font-bold')
 addChild(registerView, registerTitle)
 
 const registerSubtitle = createTitle2()
 setTextContent(registerSubtitle, 'Register')
-setClass(registerSubtitle, 'font-bold italic')
 addChild(registerView, registerSubtitle)
 
 const registerForm = createForm()
@@ -72,8 +70,7 @@ registerShowPasswordButton.addEventListener('click', function (event) {
         setTextContent(registerShowPasswordButton, 'Hide')
         setClass(registerShowPasswordButton, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
         setClass(registerPasswordInput, 'border px-2 rounded-lg border-solid border-black bg-[gold]')
-    }
-    else {
+    } else {
         setType(registerPasswordInput, 'password')
         setTextContent(registerShowPasswordButton, 'Show')
         setClass(registerShowPasswordButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
@@ -105,7 +102,7 @@ registerShowPasswordRepeatButton.addEventListener('click', function (event) {
         setClass(registerShowPasswordRepeatButton, 'border-2 border-solid border-black bg-red-50 px-2 self-end')
         setClass(registerPasswordRepeatInput, 'border px-2 rounded-lg border-solid border-black bg-[gold]')
     }
-    else if (getType(registerPasswordRepeatInput) === 'text') {
+    else {
         setType(registerPasswordRepeatInput, 'password')
         setTextContent(registerShowPasswordRepeatButton, 'Show ')
         setClass(registerShowPasswordRepeatButton, 'border-2 border-solid border-black bg-emerald-50 px-2 self-end')
@@ -116,7 +113,7 @@ registerShowPasswordRepeatButton.addEventListener('click', function (event) {
 const registerSubmitButton = createButton()
 setTextContent(registerSubmitButton, 'Register')
 setType(registerSubmitButton, 'submit')
-setClass(registerSubmitButton, 'border-2 border-solid border-black bg-black text-white px-4 self-center')
+addClass(registerSubmitButton, 'self-center')
 addChild(registerForm, registerSubmitButton)
 addChild(registerView, registerForm)
 
@@ -144,7 +141,6 @@ registerForm.addEventListener('submit', function (event) {
 
 const registerLoginLink = createLink()
 setTextContent(registerLoginLink, 'Login')
-setClass(registerLoginLink, 'underline font-bold')
 addChild(registerView, registerLoginLink)
 
 registerLoginLink.addEventListener('click', function (event) {

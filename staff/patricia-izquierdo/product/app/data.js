@@ -32,14 +32,14 @@ function Data() {
 }
 
 Data.prototype.insertUser = function (user) {
-  this.users.push(user);
-  this.userscount++;
-};
+  this.users.push(user)
+  this.userscount++
+}
 
 Data.prototype.insertPet = function (pet) {
-  this.pets.push(pet);
-  this.petscount++;
-};
+  this.pets.push(pet)
+  this.petscount++
+}
 
 Data.prototype.findPetsByUserId = function (userId) {
   const foundPets = []
@@ -50,6 +50,15 @@ Data.prototype.findPetsByUserId = function (userId) {
       foundPets.push(this.pets[i])
   }
   return foundPets
+}
+
+Data.prototype.findPetById = function (petId) {
+  for (let i = 0; i < this.pets.length; i++) {
+    const pet = this.pets[i]
+
+    if (pet.id === petId)
+      return pet
+  }
 }
 
 Data.prototype.findUserByEmail = function (email) {
