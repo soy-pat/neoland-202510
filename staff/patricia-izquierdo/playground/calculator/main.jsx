@@ -22,82 +22,55 @@ function App() {
     const handleAllClearClicked = () => setDisplayValue('0')
 
     const handleZeroClicked = () => {
-        if (displayValue !== '0') {
-            const newValue = displayValue + '0'
-            setDisplayValue(newValue)
-        }
+        logic.selectZero()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleOneClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('1')
-        else {
-            const newValue = displayValue + '1'
-            setDisplayValue(newValue)
-        }
+        logic.selectOne()
+
+        setDisplayValue(logic.getCurrentValue)
     }
+
     const handleTwoClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('2')
-        else {
-            const newValue = displayValue + '2'
-            setDisplayValue(newValue)
-        }
+        logic.selectTwo()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleThreeClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('3')
-        else {
-            const newValue = displayValue + '3'
-            setDisplayValue(newValue)
-        }
+        logic.selectThree()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleFourClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('4')
-        else {
-            const newValue = displayValue + '4'
-            setDisplayValue(newValue)
-        }
+        logic.selectFour()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleFiveClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('5')
-        else {
-            const newValue = displayValue + '5'
-            setDisplayValue(newValue)
-        }
+        logic.selectFive()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleSixClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('6')
-        else {
-            const newValue = displayValue + '6'
-            setDisplayValue(newValue)
-        }
+        logic.selectSix()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleSevenClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('7')
-        else {
-            const newValue = displayValue + '7'
-            setDisplayValue(newValue)
-        }
+        logic.selectSeven()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleEightClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('8')
-        else {
-            const newValue = displayValue + '8'
-            setDisplayValue(newValue)
-        }
+        logic.selectEight()
+
+        setDisplayValue(logic.getCurrentValue)
     }
     const handleNineClicked = () => {
-        if (displayValue === '0')
-            setDisplayValue('9')
-        else {
-            const newValue = displayValue + '9'
-            setDisplayValue(newValue)
-        }
+        logic.selectNine()
+
+        setDisplayValue(logic.getCurrentValue)
     }
 
     const handleDivideClicked = () => setDisplayValue(displayValue + '÷')
@@ -157,23 +130,23 @@ function App() {
         const lastIndexOfMultiply = displayValue.lastIndexOf('×')
         const lastIndexOfSubtract = displayValue.lastIndexOf('-')
         const lastIndexOfAdd = displayValue.lastIndexOf('+')
-
+    
         const lastIndexOfOperation = Math.max(lastIndexOfDivide, lastIndexOfMultiply, lastIndexOfSubtract, lastIndexOfAdd)
-
+    
         let newValue
-
+    
         if (lastIndexOfOperation === -1) {
             if (displayValue === '0') return
-
+    
             if (!displayValue.includes('(')) {
                 newValue = '(-' + displayValue + ')'
             } else {
                 const operand = displayValue.slice(2, displayValue.length - 1)
-
+    
                 newValue = operand
             }
         }
-
+    
         setDisplayValue(newValue)
         */
 
