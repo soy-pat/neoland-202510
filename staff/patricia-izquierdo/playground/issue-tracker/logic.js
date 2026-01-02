@@ -20,6 +20,12 @@ class Logic {
     getAllIssues() {
         return data.getIssues()
     }
+
+    closeIssue(idIssue) {
+        const issue = data.findIssueById(idIssue)
+
+        data.closeIssue(issue)
+    }
 }
 
 // instance

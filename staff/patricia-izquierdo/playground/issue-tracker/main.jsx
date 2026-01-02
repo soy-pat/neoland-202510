@@ -5,6 +5,7 @@ const useState = React.useState
 
 function App() {
 
+    let idIssue = ''
     const issuesState = useState([])
     const issues = issuesState[0]
     const setIssues = issuesState[1]
@@ -39,9 +40,29 @@ function App() {
         }
     }
 
-    const handleIssueComplete = idIssue => {
+    const handleIssueComplete = event => {
+        event.preventDefault()
 
-        console.log(idIssue)
+        try {
+            const idIssue = event.currentTarget.id
+
+            logic.closeIssue(idIssue)
+
+            const issues = logic.getAllIssues()
+
+            const newIssues = []
+
+            for (let i = 0; i < issues.length; i++) {
+                const issue = issues[i]
+
+                newIssues.push(issue)
+            }
+
+            setIssues(newIssues)
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const listIssues = []
@@ -49,24 +70,49 @@ function App() {
     for (let i = 0; i < issues.length; i++) {
         const issue = issues[i]
 
-        const subjectIssue = issue.subject
-        const bodyIssue = issue.body
-        const idIssue = issue.id
+        if (issue.status === 'open') {
 
-        const listIssue = <li className="text-xs">
-            <div className="flex flex-row border p-2 text-xs m-5 justify-between">
-                <div className="flex flex-col">
+            const subjectIssue = issue.subject
+            const bodyIssue = issue.body
+            idIssue = issue.id
+
+            const listIssue = <li className="text-xs">
+                <div className="flex flex-row border p-2 text-xs m-5 justify-between">
+                    <div className="flex flex-col">
+                        <h3 className="font-bold text-left">{subjectIssue}</h3>
+                        <p className="text-left">{bodyIssue}</p>
+                    </div>
+                    <div className="flex flex-col">
+                        <button type="button" id={idIssue} onClick={handleIssueComplete}>✅</button>
+                        <button type="button">🗑️</button>
+                    </div>
+                </div>
+            </li>
+
+            listIssues.push(listIssue)
+        }
+    }
+
+    const listClosedIssues = []
+
+    for (let i = 0; i < issues.length; i++) {
+        const issue = issues[i]
+
+        if (issue.status === 'closed') {
+
+            const subjectIssue = issue.subject
+            const bodyIssue = issue.body
+            idIssue = issue.id
+
+            const listClosedIssue = <li className="text-xs">
+                <div className="flex flex-col border p-2 text-xs m-5 justify-between">
                     <h3 className="font-bold text-left">{subjectIssue}</h3>
                     <p className="text-left">{bodyIssue}</p>
                 </div>
-                <div className="flex flex-col">
-                    <button type="button" onClick={handleIssueComplete(idIssue)}>✅</button>
-                    <button type="button">🗑️</button>
-                </div>
-            </div>
-        </li>
+            </li>
 
-        listIssues.push(listIssue)
+            listClosedIssues.push(listClosedIssue)
+        }
     }
 
     return <div className="flex flex-row">
@@ -92,7 +138,11 @@ function App() {
             </div>
         </div>
         <div className="flex flex-col text-xl grow basis-0 min-w-0 text-center">CLOSED
-            <div></div>
+            <div>
+                <ul>
+                    {listClosedIssues}
+                </ul>
+            </div>
         </div>
     </div>
 }

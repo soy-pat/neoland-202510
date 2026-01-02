@@ -12,6 +12,21 @@ class Data {
     getIssues() {
         return data.issues
     }
+
+    findIssueById(idIssue) {
+        for (let i = 0; i < this.issues.length; i++) {
+            const issue = this.issues[i]
+
+            if (issue.id === idIssue)
+                return issue
+        }
+    }
+
+    closeIssue(issue) {
+        const indexOfIssue = this.issues.indexOf(issue)
+
+        this.issues[indexOfIssue].status = 'closed'
+    }
 }
 
 // instance
