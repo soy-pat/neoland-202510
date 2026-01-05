@@ -17,6 +17,14 @@ class Logic {
         data.insertIssue(issue)
     }
 
+    removeIssue(idIssue) {
+        const issue = data.findIssueById(idIssue)
+
+        if (issue.status === 'closed') throw new Error('invalid issue status')
+
+        data.deleteIssue(issue)
+    }
+
     getAllIssues() {
         return data.getIssues()
     }
@@ -25,6 +33,12 @@ class Logic {
         const issue = data.findIssueById(idIssue)
 
         data.closeIssue(issue)
+    }
+
+    inProgressIssue(idIssue) {
+        const issue = data.findIssueById(idIssue)
+
+        data.setInProgressIssue(issue)
     }
 }
 

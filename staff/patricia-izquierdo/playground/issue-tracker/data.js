@@ -9,6 +9,12 @@ class Data {
         data.issuesCount++
     }
 
+    deleteIssue(issue) {
+        const isseIndexOf = this.issues.indexOf(issue)
+        this.issues.splice(isseIndexOf)
+        data.issuesCount--
+    }
+
     getIssues() {
         return data.issues
     }
@@ -26,6 +32,12 @@ class Data {
         const indexOfIssue = this.issues.indexOf(issue)
 
         this.issues[indexOfIssue].status = 'closed'
+    }
+
+    setInProgressIssue(issue) {
+        const indexOfIssue = this.issues.indexOf(issue)
+
+        this.issues[indexOfIssue].status = 'in-progress'
     }
 }
 
