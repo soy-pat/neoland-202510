@@ -32,11 +32,8 @@ function App() {
 
             const newIssues = []
 
-            for (let i = 0; i < issues.length; i++) {
-                const issue = issues[i]
-
+            for (const issue of issues)
                 newIssues.push(issue)
-            }
 
             setIssues(newIssues)
 
@@ -59,11 +56,8 @@ function App() {
 
             const newIssues = []
 
-            for (let i = 0; i < issues.length; i++) {
-                const issue = issues[i]
-
+            for (const issue of issues)
                 newIssues.push(issue)
-            }
 
             setIssues(newIssues)
 
@@ -85,11 +79,8 @@ function App() {
 
             const newIssues = []
 
-            for (let i = 0; i < issues.length; i++) {
-                const issue = issues[i]
-
+            for (const issue of issues)
                 newIssues.push(issue)
-            }
 
             setIssues(newIssues)
         } catch (error) {
@@ -128,11 +119,8 @@ function App() {
 
             const newIssues = []
 
-            for (let i = 0; i < issues.length; i++) {
-                const issue = issues[i]
-
+            for (const issue of issues)
                 newIssues.push(issue)
-            }
 
             setIssues(newIssues)
 
