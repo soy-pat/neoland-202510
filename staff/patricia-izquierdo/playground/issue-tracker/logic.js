@@ -32,13 +32,17 @@ class Logic {
     closeIssue(idIssue) {
         const issue = data.findIssueById(idIssue)
 
-        data.closeIssue(issue)
+        if (!issue) throw new Error('issue not found')
+
+        issue.status = 'closed'
     }
 
     inProgressIssue(idIssue) {
         const issue = data.findIssueById(idIssue)
 
-        data.setInProgressIssue(issue)
+        if (!issue) throw new Error('issue not found')
+
+        issue.status = 'in-progress'
     }
 }
 

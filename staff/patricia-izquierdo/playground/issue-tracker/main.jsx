@@ -6,14 +6,20 @@ const useState = React.useState
 function App() {
 
     // estado de issues
+    /*
     const issuesState = useState([])
     const issues = issuesState[0]
     const setIssues = issuesState[1]
+    */
+    const [issues, setIssues] = useState([])
 
     // estado para las vistas
+    /*
     const viewIssuesSate = useState('home')
     const viewIssues = viewIssuesSate[0]
     const setViewIssues = viewIssuesSate[1]
+    */
+    const [viewIssues, setViewIssues] = useState('home')
 
     const handleIssueSubmit = event => {
         event.preventDefault()

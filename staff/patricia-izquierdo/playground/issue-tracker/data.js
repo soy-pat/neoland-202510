@@ -20,25 +20,13 @@ class Data {
     }
 
     findIssueById(idIssue) {
-        for (let i = 0; i < this.issues.length; i++) {
-            const issue = this.issues[i]
-
+        for (const issue of this.issues)
             if (issue.id === idIssue)
                 return issue
-        }
+
+        return null
     }
 
-    closeIssue(issue) {
-        const indexOfIssue = this.issues.indexOf(issue)
-
-        this.issues[indexOfIssue].status = 'closed'
-    }
-
-    setInProgressIssue(issue) {
-        const indexOfIssue = this.issues.indexOf(issue)
-
-        this.issues[indexOfIssue].status = 'in-progress'
-    }
 }
 
 // instance
