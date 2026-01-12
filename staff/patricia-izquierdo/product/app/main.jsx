@@ -5,7 +5,12 @@ root.render(<App />)
 const useState = React.useState
 
 function App() {
+    console.log('App -> call')
+
     const [view, setView] = useState('landing')
+    const [message, setMessage] = useState('')
+    const [passwordType, setPasswordType] = useState('password')
+    const [passwordRepeatType, setPasswordRepeatType] = useState('password')
 
     const handleLoginClick = event => {
         event.preventDefault()
@@ -18,6 +23,63 @@ function App() {
 
         setView('register')
     }
+
+    const handleLoginSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const username = form.username.value
+        const password = form.password.value
+
+        try {
+            logic.loginUser(username, password)
+
+            form.reset()
+
+            setView('home')
+            setMessage('')
+        } catch (error) {
+            setMessage(error.message)
+        }
+    }
+
+    const handleRegisterSubmit = event => {
+        event.preventDefault()
+
+        const form = event.target
+
+        const name = form.name.value
+        const email = form.email.value
+        const username = form.username.value
+        const password = form.password.value
+        const passwordRepeat = form.passwordRepeat.value
+
+        try {
+            logic.registerUser(name, email, username, password, passwordRepeat)
+
+            form.reset()
+
+            setView('login')
+            setMessage('')
+        } catch (error) {
+            setMessage(message)
+        }
+    }
+
+    const handleTogglePasswordClick = event => {
+        event.preventDefault()
+
+        setPasswordType(passwordType === 'password' ? 'text' : 'password')
+    }
+
+    const handleTogglePasswordRepeatClick = event => {
+        event.preventDefault()
+
+        setPasswordRepeatType(passwordRepeatType === 'password' ? 'text' : 'password')
+    }
+
+    console.log('App -> render')
 
     // landing
     if (view === 'landing')
@@ -37,20 +99,20 @@ function App() {
 
             <h2 className="font-bold">Login</h2>
 
-            <form className="flex flex-col">
+            <form className="flex flex-col" onSubmit={handleLoginSubmit}>
                 <label htmlFor="username">Username</label>
                 <input id="username" type="text" className="border px-1" />
 
                 <label htmlFor="password">Password</label>
-                <input id="password" type="password" className="border px-1" />
+                <input id="password" type={passwordType} className={passwordType === 'password' ? 'border px-1' : 'border px-1 bg-[gold]'} />
+                <button className="self-end" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password' ? 'Show' : 'Hide'}</button>
 
-                <button className="self-end" type="button">Show</button>
                 <button className="bg-black text-white px-1 self-center" type="submit">Login</button>
             </form>
 
-            <a className="cursor-pointer underline font-bold">Register</a>
+            <a className="cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
 
-            <p></p>
+            <p>{message}</p>
         </div>
 
     // register
@@ -60,7 +122,7 @@ function App() {
 
             <h2 className="font-bold">Register</h2>
 
-            <form className="flex flex-col">
+            <form className="flex flex-col" onSubmit={handleRegisterSubmit}>
                 <label htmlFor="name">Name</label>
                 <input id="name" type="text" className="border px-1" />
 
@@ -71,19 +133,19 @@ function App() {
                 <input id="username" type="text" className="border px-1" />
 
                 <label htmlFor="password">Password</label>
-                <input id="password" type="password" className="border px-1" />
-                <button className="self-end" type="button">Show</button>
+                <input id="password" type={passwordType} className={passwordType === 'password' ? 'border px-1' : 'border px-1 bg-[gold]'} />
+                <button className="self-end" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password' ? 'Show' : 'Hide'}</button>
 
                 <label htmlFor="passwordRepeat">Repeat Password</label>
-                <input id="passwordRepeat" type="password" className="border px-1" />
-                <button className="self-end" type="button">Show</button>
+                <input id="passwordRepeat" type={passwordRepeatType} className={passwordRepeatType === 'password' ? 'border px-1' : 'border px-1 bg-[gold]'} />
+                <button className="self-end" type="button" onClick={handleTogglePasswordRepeatClick}>{passwordRepeatType === 'password' ? 'Show' : 'Hide'}</button>
 
                 <button className="bg-black text-white px-1 self-center" type="submit">Register</button>
             </form>
 
-            <a className="cursor-pointer underline font-bold">Login</a>
+            <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
 
-            <p></p>
+            <p>{message}</p>
         </div>
 
     // home
