@@ -63,7 +63,7 @@ function App() {
             setView('login')
             setMessage('')
         } catch (error) {
-            setMessage(message)
+            setMessage(error.message)
         }
     }
 
