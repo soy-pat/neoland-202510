@@ -146,6 +146,7 @@ function App() {
 
             const pets = logic.getPets()
 
+            setMessage('')
             setView('home')
             setPets(pets)
         } catch (error) {
