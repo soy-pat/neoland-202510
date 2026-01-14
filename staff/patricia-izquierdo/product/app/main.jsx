@@ -86,6 +86,8 @@ function App() {
 
             setView('login')
             setMessage('')
+            setPasswordType('password')
+            setPasswordRepeatType('password')
         } catch (error) {
             setMessage(error.message)
         }
