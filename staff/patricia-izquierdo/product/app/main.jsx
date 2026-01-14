@@ -13,9 +13,11 @@ function App() {
     const [passwordType, setPasswordType] = useState('password')
     const [passwordRepeatType, setPasswordRepeatType] = useState('password')
     const [pets, setPets] = useState([])
+    const [petId, setPetId] = useState(null)
 
     const loginFormRef = useRef()
     const registerFormRef = useRef()
+    const deletePetDivRef = useRef()
 
     const handleLoginClick = event => {
         event.preventDefault()
@@ -56,17 +58,11 @@ function App() {
 
             const pets = logic.getPets()
 
-            const newPets = []
-
-            for (const pet of pets) {
-                newPets.push(pet)
-            }
-
             setView('home')
             setMessage('')
             setPasswordType('password')
             setPasswordRepeatType('password')
-            setPets(newPets)
+            setPets(pets)
         } catch (error) {
             setMessage(error.message)
         }
@@ -148,23 +144,31 @@ function App() {
 
             const pets = logic.getPets()
 
-            const newPets = []
-
-            for (const pet of pets) {
-                newPets.push(pet)
-            }
-
             setView('home')
-            setPets(newPets)
+            setPets(pets)
         } catch (error) {
             setMessage(error.message)
         }
     }
-    const handleDeletePet = event => {
+
+    const handleDeletePetClick = event => {
         event.preventDefault()
 
         const button = event.target
+
         const petId = button.id
+
+        setPetId(petId)
+    }
+
+    const handleCancelDeletePetClick = event => {
+        event.preventDefault()
+
+        setPetId(null)
+    }
+
+    const handleConfirmDeletePetClick = event => {
+        event.preventDefault()
 
         try {
             setView('home')
@@ -173,14 +177,9 @@ function App() {
 
             const pets = logic.getPets()
 
-            const newPets = []
-
-            for (const pet of pets) {
-                newPets.push(pet)
-            }
-
             setView('home')
-            setPets(newPets)
+            setPets(pets)
+            setPetId(null)
         } catch (error) {
             setMessage(error.message)
         }
@@ -266,7 +265,7 @@ function App() {
 
                     <p>{pet.name}</p>
                 </div>
-                <button className="bg-black text-white px-1 justify-self-end" type="button" id={pet.id} onClick={handleDeletePet}>🗑️</button>
+                <button className="bg-black text-white px-1 justify-self-end" type="button" id={pet.id} onClick={handleDeletePetClick}>🗑️</button>
             </li>
 
             petItems.push(petItem)
@@ -286,15 +285,16 @@ function App() {
                 {petItems}
             </ul>
 
-            <div className="w-full h-full fixed top-0 left-0 bg-black/75 flex justify-center items-center" style={{ display: 'none' }}>
+            {petId && <div className="w-full h-full fixed top-0 left-0 bg-black/75 flex justify-center items-center" ref={deletePetDivRef}>
                 <div className="bg-white border-black border-2 p-2">
                     <p className="text-center">Delete Pet?</p>
 
                     <div className="flex justify-center gap-2">
-                        <button className="bg-black text-white px-1">❌</button> <button className="bg-black text-white px-1">✅</button>
+                        <button className="bg-black text-white px-1" onClick={handleCancelDeletePetClick}>❌</button>
+                        <button className="bg-black text-white px-1" onClick={handleConfirmDeletePetClick}>✅</button>
                     </div>
                 </div>
-            </div>
+            </div>}
 
             <p>{message}</p>
         </div>
