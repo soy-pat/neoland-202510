@@ -1,17 +1,19 @@
-// function Landing(props)
-function Landing({ onLoginClick, onRegisterClick }) {
+function Landing({ onGoToLogin, onGoToRegister }) {
+    console.log('Landing -> call')
 
     const handleLoginClick = event => {
         event.preventDefault()
 
-        onLoginClick()
+        onGoToLogin()
     }
 
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        onRegisterClick()
+        onGoToRegister()
     }
+
+    console.log('Landing -> render')
 
     return <div className="p-4">
         <h1 className="font-bold text-xl">MyPet</h1>

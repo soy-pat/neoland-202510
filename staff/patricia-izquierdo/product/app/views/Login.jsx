@@ -1,4 +1,7 @@
-function Login({ onLogin, onRegisterClick }) {
+const { useState } = React
+
+function Login({ onGoToHome, onGoToRegister }) {
+    console.log('Login -> call')
 
     const [message, setMessage] = useState('')
     const [passwordType, setPasswordType] = useState('password')
@@ -19,7 +22,7 @@ function Login({ onLogin, onRegisterClick }) {
             setMessage('')
             setPasswordType('password')
 
-            onLogin()
+            onGoToHome()
         } catch (error) {
             setMessage(error.message)
         }
@@ -34,25 +37,23 @@ function Login({ onLogin, onRegisterClick }) {
     const handleRegisterClick = event => {
         event.preventDefault()
 
-        onRegisterClick()
+        onGoToRegister()
     }
 
+    console.log('Login -> render')
 
     return <div className="p-4">
         <h1 className="font-bold text-xl">MyPet</h1>
 
         <h2 className="font-bold">Login</h2>
 
-        <form className="flex flex-col" onSubmit={handleLoginSubmit}>
-            <label htmlFor="username">Username</label>
-            <input id="username" name="username" autoComplete="username" type="text" className="border px-1" />
+        <Form onSubmit={handleLoginSubmit}>
+            <Field alias="username" type="text">Username</Field>
 
-            <label htmlFor="password">Password</label>
-            <input id="password" name="password" autoComplete="off" type={passwordType} className={passwordType === 'password' ? 'border px-1' : 'border px-1 bg-[gold]'} />
-            <button className="self-end" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password' ? 'Show' : 'Hide'}</button>
+            <PasswordField alias="password">Password</PasswordField>
 
-            <button className="bg-black text-white px-1 self-center" type="submit">Login</button>
-        </form>
+            <Button className="self-center" type="submit">Login</Button>
+        </Form>
 
         <a className="cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
 

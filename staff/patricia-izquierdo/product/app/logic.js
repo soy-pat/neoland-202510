@@ -79,28 +79,6 @@ class Logic {
         data.insertPet(pet)
     }
 
-    deletePet(petId) {
-        if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
-
-        const user = data.findUserById(data.getLoggedInUserId())
-        if (user === null) throw new Error('user not found')
-
-        if (typeof petId !== 'string') throw new Error('invalid pet-id type')
-
-        const petIdRegex = /^\pet-[0-9]+$/
-        if (!petIdRegex.test(petId)) throw new Error('invalid pet-id format')
-
-        const pet = data.findPetById(petId)
-
-        if (pet === null) throw new Error('pet not found')
-
-        if (pet.userId !== data.getLoggedInUserId()) throw new Error('user not owner of pet')
-
-        const petIndex = data.pets.indexOf(pet)
-
-        data.pets.splice(petIndex, 1)
-    }
-
     getPets() {
         if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 

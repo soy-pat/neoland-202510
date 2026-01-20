@@ -1,8 +1,9 @@
-function Register({ onRegister, onLoginClick }) {
+const { useState } = React
+
+function Register({ onGoToLogin }) {
+    console.log('Register -> call')
 
     const [message, setMessage] = useState('')
-    const [passwordType, setPasswordType] = useState('password')
-    const [passwordRepeatType, setPasswordRepeatType] = useState('password')
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
@@ -21,64 +22,42 @@ function Register({ onRegister, onLoginClick }) {
             form.reset()
 
             setMessage('')
-            setPasswordType('password')
-            setPasswordRepeatType('password')
 
-            onRegister()
+            onGoToLogin()
         } catch (error) {
             setMessage(error.message)
         }
     }
 
-    const handleTogglePasswordClick = event => {
-        event.preventDefault()
-
-        setPasswordType(passwordType === 'password' ? 'text' : 'password')
-    }
-
-
-    const handleTogglePasswordRepeatClick = event => {
-        event.preventDefault()
-
-        setPasswordRepeatType(passwordType === 'password' ? 'text' : 'password')
-    }
-
     const handleLoginClick = event => {
         event.preventDefault()
 
-        onLoginClick()
+        onGoToLogin()
     }
 
+    console.log('Register -> render')
 
     return <div className="p-4">
         <h1 className="font-bold text-xl">MyPet</h1>
 
         <h2 className="font-bold">Register</h2>
 
-        <form className="flex flex-col" onSubmit={handleRegisterSubmit}>
-            <label htmlFor="name">Name</label>
-            <input id="name" name="name" autoComplete="name" type="text" className="border px-1" />
+        <Form onSubmit={handleRegisterSubmit}>
+            <Field alias="name" type="text">Name</Field>
 
-            <label htmlFor="email">Email</label>
-            <input id="email" name="email" autoComplete="email" type="email" className="border px-1" />
+            <Field alias="email" type="email">E-mail</Field>
 
-            <label htmlFor="username">Username</label>
-            <input id="username" name="username" autoComplete="username" type="text" className="border px-1" />
+            <Field alias="username" type="text">Username</Field>
 
-            <label htmlFor="password">Password</label>
-            <input id="password" name="password" autoComplete="off" type={passwordType} className={passwordType === 'password' ? 'border px-1' : 'border px-1 bg-[gold]'} />
-            <button className="self-end" type="button" onClick={handleTogglePasswordClick}>{passwordType === 'password' ? 'Show' : 'Hide'}</button>
+            <PasswordField alias="password">Password</PasswordField>
 
-            <label htmlFor="passwordRepeat">Repeat Password</label>
-            <input id="passwordRepeat" name="passwordRepeat" autoComplete="off" type={passwordRepeatType} className={passwordRepeatType === 'password' ? 'border px-1' : 'border px-1 bg-[gold]'} />
-            <button className="self-end" type="button" onClick={handleTogglePasswordRepeatClick}>{passwordRepeatType === 'password' ? 'Show' : 'Hide'}</button>
+            <PasswordField alias="passwordRepeat">Repeat Password</PasswordField>
 
-            <button className="bg-black text-white px-1 self-center" type="submit">Register</button>
-        </form>
+            <Button className="self-center" type="submit">Register</Button>
+        </Form>
 
         <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
 
         <p>{message}</p>
     </div>
-
 }
