@@ -20,7 +20,7 @@ function Landing({ onGoToLogin, onGoToRegister }) {
         <p>Welcome!</p>
 
         <nav>
-            <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a> or <a className="cursor-pointer underline font-bold" onClick={handleRegisterClick}>Register</a>
+            <Anchor onClick={handleLoginClick}>Login</Anchor> or <Anchor onClick={handleRegisterClick}>Register</Anchor>
         </nav>
     </div>
 }

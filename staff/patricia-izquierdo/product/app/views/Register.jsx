@@ -56,7 +56,7 @@ function Register({ onGoToLogin }) {
             <Button className="self-center" type="submit">Register</Button>
         </Form>
 
-        <a className="cursor-pointer underline font-bold" onClick={handleLoginClick}>Login</a>
+        <Anchor onClick={handleLoginClick}>Login</Anchor>
 
         <p>{message}</p>
     </div>

@@ -1,3 +1,8 @@
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
+const ISODATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
+const PET_ID_REGEX = /^\pet-[0-9]+$/
+
 class Logic {
     constructor() {
     }
@@ -53,6 +58,47 @@ class Logic {
         data.setLoggedInUserId(null)
     }
 
+    changeUserEmail(email, newEmail, newEmailRepeat) {
+        if (typeof email !== 'string') throw new Error('invalid email type')
+        if (email.length < 6) throw new Error('invalid email length')
+        if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
+
+        if (typeof newEmail !== 'string') throw new Error('invalid email type')
+        if (newEmail.length < 6) throw new Error('invalid email length')
+        if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
+
+        if (typeof newEmailRepeat !== 'string') throw new Error('invalid email type')
+        if (newEmailRepeat.length < 6) throw new Error('invalid email length')
+        if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
+
+        if (newEmail !== newEmailRepeat) throw new Error('newEmail do not match newEmailRepeat')
+
+        const user = data.findUserById(data.getLoggedInUserId())
+
+        if (user.email !== email) throw new Error('email do not belong to user')
+
+        user.email = email
+    }
+
+    changeUserPassword(password, newPassword, newPasswordRepeat) {
+        if (typeof password !== 'string') throw new Error('invalid password type')
+        if (password.length < 8) throw new Error('invalid password length')
+
+        if (typeof newPassword !== 'string') throw new Error('invalid password type')
+        if (newPassword.length < 8) throw new Error('invalid password length')
+
+        if (typeof newPassword !== 'string') throw new Error('invalid password type')
+        if (newPassword.length < 8) throw new Error('invalid password length')
+
+        if (newPassword !== newPasswordRepeat) throw new Error('newPassword do not march newPasswordRepeat')
+
+        const user = data.findUserById(data.getLoggedInUserId())
+
+        if (user.password !== password) throw new Error('incorrect password')
+
+        user.password = newPassword
+    }
+
     addPet(name, birthdate, weight, image) {
         if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
@@ -64,15 +110,13 @@ class Logic {
 
         if (typeof birthdate !== 'string') throw new Error('invalid birthdate type')
 
-        const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/
-        if (!isoDateRegex.test(birthdate)) throw new Error('invalid birthdate format')
+        if (!ISODATE_REGEX.test(birthdate)) throw new Error('invalid birthdate format')
 
         if (typeof weight !== 'number' || isNaN(weight)) throw new Error('invalid weight type')
 
         if (typeof image !== 'string') throw new Error('invalid image type')
 
-        const urlRegex = /(www|http:|https:)+[^\s]+[\w]/
-        if (!urlRegex.test(image)) throw new Error('invalid image format')
+        if (!URL_REGEX.test(image)) throw new Error('invalid image format')
 
         const pet = new Pet('pet-' + data.petsCount, data.getLoggedInUserId(), name, birthdate, weight, image)
 
@@ -98,8 +142,7 @@ class Logic {
 
         if (typeof petId !== 'string') throw new Error('invalid pet-id type')
 
-        const petIdRegex = /^\pet-[0-9]+$/
-        if (!petIdRegex.test(petId)) throw new Error('invalid pet-id format')
+        if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
 
         const pet = data.findPetById(petId)
 
