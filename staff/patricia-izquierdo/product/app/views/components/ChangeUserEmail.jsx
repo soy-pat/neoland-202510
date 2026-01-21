@@ -1,6 +1,6 @@
 const { useState } = React
 
-function ChangeUserEmail({ }) {
+function ChangeUserEmail() {
     console.log('ChangeUserEmail -> call')
 
     const [message, setMessage] = useState('')

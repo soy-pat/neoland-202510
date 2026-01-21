@@ -1,6 +1,6 @@
 const { useState } = React
 
-function ChangeUserPassword({ }) {
+function ChangeUserPassword() {
     console.log('ChangeUserPassword -> call')
 
     const [message, setMessage] = useState('')

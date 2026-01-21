@@ -52,25 +52,19 @@ function PetList() {
 
     console.log('PetList -> render')
 
-    const petItems = []
-
-    for (const pet of pets) {
-        const petItem = <li className="flex items-center border-2 border-black p-2 justify-between">
-            <div className="flex items-center gap-4">
-                <img src={pet.image} className="rounded-full w-10 h-10 object-cover" />
-
-                <p>{pet.name}</p>
-            </div>
-
-            <Button id={pet.id} className="justify-self-end" onClick={handleDeletePetClick}>🗑️</Button>
-        </li>
-
-        petItems.push(petItem)
-    }
+    // map mete todos los los componentes del array (array.map) en un nuevo array. Por eso lo podemos sustituir por el petItems
 
     return <div>
         <ul className="flex flex-col gap-2 mt-2">
-            {petItems}
+            {pets.map(pet => <li className="flex items-center border-2 border-black p-2 justify-between">
+                <div className="flex items-center gap-4">
+                    <img src={pet.image} className="rounded-full w-10 h-10 object-cover" />
+
+                    <p>{pet.name}</p>
+                </div>
+
+                <Button id={pet.id} className="justify-self-end" onClick={handleDeletePetClick}>🗑️</Button>
+            </li>)}
         </ul>
 
         {petId && <div className="w-full h-full fixed top-0 left-0 bg-black/75 flex justify-center items-center">
