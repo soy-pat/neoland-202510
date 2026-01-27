@@ -1,4 +1,6 @@
-function Landing({ onGoToLogin, onGoToRegister }) {
+import { Anchor } from './components/commons/Anchor'
+
+export function Landing({ onGoToLogin, onGoToRegister }) {
     console.log('Landing -> call')
 
     const handleLoginClick = event => {

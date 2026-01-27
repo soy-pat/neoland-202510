@@ -1,6 +1,10 @@
-const { useState } = React
+import { useState } from 'react'
 
-function Profile({ onGoToHome }) {
+import { Anchor } from './components/commons/Anchor'
+import { ChangeUserEmail } from './components/ChangeUserEmail'
+import { ChangeUserPassword } from './components/ChangeUserPassword'
+
+export function Profile({ onGoToHome }) {
     console.log('Profile -> call')
 
     const [view, setView] = useState(null)

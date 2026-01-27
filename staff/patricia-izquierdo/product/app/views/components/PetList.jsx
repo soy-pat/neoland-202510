@@ -1,6 +1,10 @@
-const { useState, useEffect } = React
+import { useState, useEffect } from 'react'
 
-function PetList() {
+import { Button } from './commons/Button'
+
+import { logic } from '../../logic'
+
+export function PetList() {
     console.log('PetList -> call')
 
     const [message, setMessage] = useState('')

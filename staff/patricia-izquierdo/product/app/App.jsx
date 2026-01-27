@@ -1,6 +1,13 @@
-const { useState } = React
+import { useState } from 'react'
 
-function App() {
+import { Landing } from './views/Landing'
+import { Home } from './views/Home'
+import { AddPet } from './views/AddPet'
+import { Login } from './views/Login'
+import { Profile } from './views/Profile'
+import { Register } from './views/Register'
+
+export function App() {
     console.log('App -> call')
 
     const [view, setView] = useState('landing')

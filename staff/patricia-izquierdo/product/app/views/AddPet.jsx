@@ -1,6 +1,13 @@
-const { useState } = React
+import { useState } from 'react'
 
-function AddPet({ onGoToHome }) {
+import { Anchor } from './components/commons/Anchor'
+import { Form } from './components/commons/Form'
+import { Field } from './components/commons/Field'
+import { Button } from './components/commons/Button'
+
+import { logic } from '../logic'
+
+export function AddPet({ onGoToHome }) {
     console.log('AddPet -> call')
 
     const [message, setMessage] = useState('')
