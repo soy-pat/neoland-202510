@@ -1,0 +1,25 @@
+{
+  "hash": "311b7a04",
+  "configHash": "c77a437b",
+  "lockfileHash": "e3b0c442",
+  "browserHash": "ff1740cc",
+  "optimized": {
+    "react": {
+      "src": "../../staff/patricia-izquierdo/product/app/node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "8e10eab3",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../staff/patricia-izquierdo/product/app/node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "bc1efbca",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-YNCGK26Z": {
+      "file": "chunk-YNCGK26Z.js"
+    }
+  }
+}
