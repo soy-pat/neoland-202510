@@ -1,4 +1,4 @@
-import { data, User, Pet } from './data'
+const { data, User, Pet } = require('./data')
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
@@ -15,6 +15,7 @@ class Logic {
 
         if (typeof email !== 'string') throw new Error('invalid email type')
         if (email.length < 6) throw new Error('invalid email length')
+        if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
 
         if (typeof username !== 'string') throw new Error('invalid username type')
         if (username.length < 3) throw new Error('invalid username length')
@@ -65,34 +66,34 @@ class Logic {
         if (email.length < 6) throw new Error('invalid email length')
         if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
 
-        if (typeof newEmail !== 'string') throw new Error('invalid email type')
-        if (newEmail.length < 6) throw new Error('invalid email length')
-        if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
+        if (typeof newEmail !== 'string') throw new Error('invalid newEmail type')
+        if (newEmail.length < 6) throw new Error('invalid newEmail length')
+        if (!EMAIL_REGEX.test(newEmail)) throw new Error('invalid newEmail format')
 
-        if (typeof newEmailRepeat !== 'string') throw new Error('invalid email type')
-        if (newEmailRepeat.length < 6) throw new Error('invalid email length')
-        if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
+        if (typeof newEmailRepeat !== 'string') throw new Error('invalid newEmailRepeat type')
+        if (newEmailRepeat.length < 6) throw new Error('invalid newEmailRepeat length')
+        if (!EMAIL_REGEX.test(newEmailRepeat)) throw new Error('invalid newEmailRepeat format')
 
-        if (newEmail !== newEmailRepeat) throw new Error('newEmail do not match newEmailRepeat')
+        if (newEmail !== newEmailRepeat) throw new Error('newEmail and newEmailRepeat do not match')
 
         const user = data.findUserById(data.getLoggedInUserId())
 
         if (user.email !== email) throw new Error('email do not belong to user')
 
-        user.email = email
+        user.email = newEmail
     }
 
     changeUserPassword(password, newPassword, newPasswordRepeat) {
         if (typeof password !== 'string') throw new Error('invalid password type')
         if (password.length < 8) throw new Error('invalid password length')
 
-        if (typeof newPassword !== 'string') throw new Error('invalid password type')
-        if (newPassword.length < 8) throw new Error('invalid password length')
+        if (typeof newPassword !== 'string') throw new Error('invalid newPassword type')
+        if (newPassword.length < 8) throw new Error('invalid newPassword length')
 
-        if (typeof newPassword !== 'string') throw new Error('invalid password type')
-        if (newPassword.length < 8) throw new Error('invalid password length')
+        if (typeof newPasswordRepeat !== 'string') throw new Error('invalid newPasswordRepeat type')
+        if (newPasswordRepeat.length < 8) throw new Error('invalid newPasswordRepeat length')
 
-        if (newPassword !== newPasswordRepeat) throw new Error('newPassword do not march newPasswordRepeat')
+        if (newPassword !== newPasswordRepeat) throw new Error('newPassword and newPasswordRepeat do not match')
 
         const user = data.findUserById(data.getLoggedInUserId())
 
@@ -160,4 +161,8 @@ class Logic {
 
 // instance
 
-export const logic = new Logic()
+const logic = new Logic()
+
+module.exports = {
+    logic
+}
