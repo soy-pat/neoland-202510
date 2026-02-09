@@ -27,7 +27,7 @@ api.post('/users/auth', jsonBodyParser, (req, res) => {
 
         const userId = logic.authenticateUser(username, password)
 
-        res.send(userId)
+        res.json(userId)
     } catch (error) {
         res.status(400).json({ error: error.constructor.name, message: error.message })
     }
