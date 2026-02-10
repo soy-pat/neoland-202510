@@ -12,7 +12,6 @@ export function Login({ onGoToHome, onGoToRegister }) {
     console.log('Login -> call')
 
     const [message, setMessage] = useState('')
-    const [passwordType, setPasswordType] = useState('password')
 
     const handleLoginSubmit = event => {
         event.preventDefault()
@@ -24,22 +23,17 @@ export function Login({ onGoToHome, onGoToRegister }) {
 
         try {
             logic.loginUser(username, password)
+                .then(() => {
+                    form.reset()
 
-            form.reset()
+                    setMessage('')
 
-            setMessage('')
-            setPasswordType('password')
-
-            onGoToHome()
+                    onGoToHome()
+                })
+                .catch(error => setMessage(error.message))
         } catch (error) {
             setMessage(error.message)
         }
-    }
-
-    const handleTogglePasswordClick = event => {
-        event.preventDefault()
-
-        setPasswordType(passwordType === 'password' ? 'text' : 'password')
     }
 
     const handleRegisterClick = event => {

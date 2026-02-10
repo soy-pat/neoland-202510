@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 import { Form } from './components/commons/Form'
-import { Anchor } from './components/commons/Anchor'
 import { Field } from './components/commons/Field'
-import { Button } from './components/commons/Button'
 import { PasswordField } from './components/commons/PasswordField'
+import { Button } from './components/commons/Button'
+import { Anchor } from './components/commons/Anchor'
 
 import { logic } from '../logic'
 
@@ -26,12 +26,14 @@ export function Register({ onGoToLogin }) {
 
         try {
             logic.registerUser(name, email, username, password, passwordRepeat)
+                .then(() => {
+                    form.reset()
 
-            form.reset()
+                    setMessage('')
 
-            setMessage('')
-
-            onGoToLogin()
+                    onGoToLogin()
+                })
+                .catch(error => setMessage(error.message))
         } catch (error) {
             setMessage(error.message)
         }

@@ -15,9 +15,11 @@ export function PetList() {
         console.log('PetList -> useEffect')
 
         try {
-            const pets = logic.getPets()
-
-            setPets(pets)
+            logic.getPets()
+                .then((pets) => {
+                    setPets(pets)
+                })
+                .catch(error => setMessage(error.message))
         } catch (error) {
             setMessage(error.message)
         }

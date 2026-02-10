@@ -1,4 +1,4 @@
-const { data, User, Pet } = require('./data')
+import { data, User, Pet } from './data'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
@@ -28,17 +28,28 @@ class Logic {
 
         if (password !== passwordRepeat) throw new Error('passwords do not match')
 
-        let user = data.findUserByEmail(email)
+        return fetch('http://localhost:8080/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, username, password, passwordRepeat })
+        })
+            .then(res => {
+                debugger
+                const { status } = res
 
-        if (user !== null) throw new Error('user email already exists')
+                if (status === 201)
+                    return
 
-        user = data.findUserByUsername(username)
+                return res.json()
+                    .then(body => {
+                        debugger
+                        const { error, message } = body
 
-        if (user !== null) throw new Error('user username already exists')
-
-        user = new User('user-' + data.usersCount, name, email, username, password, 'regular')
-
-        data.insertUser(user)
+                        throw new Error(message)
+                    })
+            })
     }
 
     loginUser(username, password) {
@@ -48,13 +59,32 @@ class Logic {
         if (typeof password !== 'string') throw new Error('invalid password type')
         if (password.length < 8) throw new Error('invalid password length')
 
-        const user = data.findUserByUsername(username)
+        return fetch('http://localhost:8080/users/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+            .then(res => {
+                debugger
+                const { status } = res
 
-        if (user === null) throw new Error('user not found')
+                if (status === 200)
+                    return res.json()
+                        .then(userId => {
+                            debugger
+                            data.setLoggedInUserId(userId)
+                        })
 
-        if (user.password !== password) throw new Error('incorrect password')
+                return res.json()
+                    .then(body => {
+                        debugger
+                        const { error, message } = body
 
-        data.setLoggedInUserId(user.id)
+                        throw new Error(message)
+                    })
+            })
     }
 
     logoutUser() {
@@ -132,9 +162,34 @@ class Logic {
         const user = data.findUserById(data.getLoggedInUserId())
         if (user === null) throw new Error('user not found')
 
-        const pets = data.findPetsByUserId(data.getLoggedInUserId())
+        const userId = user.id
 
-        return pets
+        return fetch('http://localhost:8080/pets', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Basic ${userId}`
+            }
+
+        })
+            .then(res => {
+                debugger
+                const { status } = res
+
+                if (status === 200)
+                    return res.json()
+                        .then(pets => {
+                            debugger
+                            return pets
+                        })
+
+                return res.json()
+                    .then(body => {
+                        debugger
+                        const { error, message } = body
+
+                        console.error(error, message)
+                    })
+            })
     }
 
     deletePet(petId) {
@@ -161,8 +216,4 @@ class Logic {
 
 // instance
 
-const logic = new Logic()
-
-module.exports = {
-    logic
-}
+export const logic = new Logic()
