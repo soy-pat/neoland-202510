@@ -22,8 +22,10 @@ export function ChangeUserEmail() {
 
         try {
             logic.changeUserEmail(email, newEmail, newEmailRepeat)
-
-            form.reset()
+                .then(() => {
+                    form.reset()
+                })
+                .catch(error => setMessage(error.message))
         } catch (error) {
             setMessage(error.message)
         }
