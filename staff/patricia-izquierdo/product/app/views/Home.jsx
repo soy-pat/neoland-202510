@@ -3,13 +3,14 @@ import { useState } from 'react'
 import { Anchor } from './components/commons/Anchor'
 import { Button } from './components/commons/Button'
 import { PetList } from './components/PetList'
+import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
 
 export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
     console.log('Home -> call')
 
-    const [message, setMessage] = useState('')
+    const [feedback, setFeedback] = useState(null) // { message, level }
 
     const handleAddPetClick = event => {
         event.preventDefault()
@@ -23,11 +24,11 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
         try {
             logic.logoutUser()
 
-            setMessage('')
+            setFeedback(null)
 
             onGoToLogin()
         } catch (error) {
-            setMessage('sorry, there was an error on logout, please, try it later')
+            setFeedback({ message: 'sorry, there was an error on logout, please, try it later', level: 'error' })
         }
     }
 
@@ -54,6 +55,6 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile }) {
 
         <PetList />
 
-        <p>{message}</p>
+        {feedback && <Feedback feedback={feedback} />}
     </div>
 } 

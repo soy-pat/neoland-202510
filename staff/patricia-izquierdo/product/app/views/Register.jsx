@@ -11,7 +11,7 @@ import { logic } from '../logic'
 export function Register({ onGoToLogin }) {
     console.log('Register -> call')
 
-    const [message, setMessage] = useState('')
+    const [feedback, setFeedback] = useState(null) // { message, level }
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
@@ -29,13 +29,13 @@ export function Register({ onGoToLogin }) {
                 .then(() => {
                     form.reset()
 
-                    setMessage('')
+                    setFeedback(null)
 
                     onGoToLogin()
                 })
-                .catch(error => setMessage(error.message))
+                .catch(error => setFeedback({ message: error.message, level: 'error' }))
         } catch (error) {
-            setMessage(error.message)
+            setFeedback({ message: error.message, level: 'error' })
         }
     }
 
@@ -68,6 +68,6 @@ export function Register({ onGoToLogin }) {
 
         <Anchor onClick={handleLoginClick}>Login</Anchor>
 
-        <p>{message}</p>
+        {feedback && <Feedback feedback={feedback} />}
     </div>
 }
