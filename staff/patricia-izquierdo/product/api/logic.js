@@ -169,6 +169,24 @@ class Logic {
 
         data.pets.splice(petIndex, 1)
     }
+
+    getPet(userId, petId) {
+        if (typeof userId !== 'string') throw new Error('invalid userId type')
+        if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+        if (typeof petId !== 'string') throw new Error('invalid pet-id type')
+        if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
+
+        const user = data.findUserById(userId)
+        if (!user) throw new Error('user not found')
+
+        const pet = data.findPetById(petId)
+
+        if (!pet) throw new Error('pet not found')
+
+        if (pet.userId !== userId) throw new Error('user not owner of pet')
+
+        return pet
+    }
 }
 
 // instance

@@ -5,10 +5,10 @@ import { Feedback } from './commons/Feedback'
 
 import { logic } from '../../logic'
 
-export function PetList() {
+export function PetList({ onGoToPetDetail }) {
     console.log('PetList -> call')
 
-    const [feedback, setFeedback] = useState(null)
+    const [feedback, setFeedback] = useState(null) // { message, level }
     const [pets, setPets] = useState([])
     const [petId, setPetId] = useState(null)
 
@@ -17,7 +17,7 @@ export function PetList() {
 
         try {
             logic.getPets()
-                .then((pets) => {
+                .then(pets => {
                     setPets(pets)
                 })
                 .catch(error => setFeedback({ message: error.message, level: 'error' }))
@@ -26,8 +26,9 @@ export function PetList() {
         }
     }, [])
 
-    const handleDeletePetClick = event => {
+    const handleRemovePetClick = event => {
         event.preventDefault()
+        event.stopPropagation()
 
         const button = event.target
 
@@ -36,17 +37,17 @@ export function PetList() {
         setPetId(petId)
     }
 
-    const handleCancelDeletePetClick = event => {
+    const handleCancelRemovePetClick = event => {
         event.preventDefault()
 
         setPetId(null)
     }
 
-    const handleConfirmDeletePetClick = event => {
+    const handleConfirmRemovePetClick = event => {
         event.preventDefault()
 
         try {
-            logic.deletePet(petId)
+            logic.removePet(petId)
                 .then(() => {
                     return logic.getPets()
                 })
@@ -60,20 +61,28 @@ export function PetList() {
         }
     }
 
-    console.log('PetList -> render')
+    const handleGoToPetDetailClick = event => {
+        event.preventDefault()
 
-    // map mete todos los los componentes del array (array.map) en un nuevo array. Por eso lo podemos sustituir por el petItems
+        const li = event.currentTarget
+
+        const petId = li.id
+
+        onGoToPetDetail(petId)
+    }
+
+    console.log('PetList -> render')
 
     return <div>
         <ul className="flex flex-col gap-2 mt-2">
-            {pets.map(pet => <li className="flex items-center border-2 border-black p-2 justify-between">
+            {pets.map(pet => <li id={pet.id} className="flex items-center border-2 border-black p-2 justify-between" onClick={handleGoToPetDetailClick}>
                 <div className="flex items-center gap-4">
                     <img src={pet.image} className="rounded-full w-10 h-10 object-cover" />
 
                     <p>{pet.name}</p>
                 </div>
 
-                <Button id={pet.id} className="justify-self-end" onClick={handleDeletePetClick}>🗑️</Button>
+                <Button id={pet.id} className="justify-self-end" onClick={handleRemovePetClick}>🗑️</Button>
             </li>)}
         </ul>
 
@@ -82,8 +91,8 @@ export function PetList() {
                 <p className="text-center">Delete Pet?</p>
 
                 <div className="flex justify-center gap-2">
-                    <Button onClick={handleCancelDeletePetClick}>❌</Button>
-                    <Button onClick={handleConfirmDeletePetClick}>✅</Button>
+                    <Button onClick={handleCancelRemovePetClick}>❌</Button>
+                    <Button onClick={handleConfirmRemovePetClick}>✅</Button>
                 </div>
             </div>
         </div>}

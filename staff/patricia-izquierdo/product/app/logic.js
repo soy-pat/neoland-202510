@@ -1,4 +1,4 @@
-import { data, User, Pet } from './data'
+import { data } from './data'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
@@ -70,7 +70,6 @@ class Logic {
                 if (status === 200)
                     return res.json()
                         .then(userId => {
-
                             data.setLoggedInUserId(userId)
                         })
 
@@ -88,6 +87,8 @@ class Logic {
     }
 
     changeUserEmail(email, newEmail, newEmailRepeat) {
+        if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
         if (typeof email !== 'string') throw new Error('invalid email type')
         if (email.length < 6) throw new Error('invalid email length')
         if (!EMAIL_REGEX.test(email)) throw new Error('invalid email format')
@@ -120,12 +121,14 @@ class Logic {
                     .then(body => {
                         const { error, message } = body
 
-                        console.error(error, message)
+                        throw new Error(message)
                     })
             })
     }
 
     changeUserPassword(password, newPassword, newPasswordRepeat) {
+        if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
         if (typeof password !== 'string') throw new Error('invalid password type')
         if (password.length < 8) throw new Error('invalid password length')
 
@@ -137,18 +140,31 @@ class Logic {
 
         if (newPassword !== newPasswordRepeat) throw new Error('newPassword and newPasswordRepeat do not match')
 
-        const user = data.findUserById(data.getLoggedInUserId())
+        return fetch('http://localhost:8080/users/password', {
+            method: 'PATCH',
+            headers: {
+                Authorization: 'Basic ' + data.getLoggedInUserId(),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password, newPassword, newPasswordRepeat })
+        })
+            .then(res => {
+                const { status } = res
 
-        if (user.password !== password) throw new Error('incorrect password')
+                if (status === 204)
+                    return
 
-        user.password = newPassword
+                return res.json()
+                    .then(body => {
+                        const { error, message } = body
+
+                        throw new Error(message)
+                    })
+            })
     }
 
     addPet(name, birthdate, weight, image) {
         if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
-
-        const user = data.findUserById(data.getLoggedInUserId())
-        if (user === null) throw new Error('user not found')
 
         if (typeof name !== 'string') throw new Error('invalid name type')
         if (name.length < 1) throw new Error('invalid name length')
@@ -179,7 +195,6 @@ class Logic {
 
                 return res.json()
                     .then(body => {
-
                         const { error, message } = body
 
                         throw new Error(message)
@@ -193,9 +208,8 @@ class Logic {
         return fetch('http://localhost:8080/pets', {
             method: 'GET',
             headers: {
-                'Authorization': `Basic ${userId}`
+                Authorization: 'Basic ' + data.getLoggedInUserId()
             }
-
         })
             .then(res => {
                 const { status } = res
@@ -203,7 +217,6 @@ class Logic {
                 if (status === 200)
                     return res.json()
                         .then(pets => {
-
                             return pets
                         })
 
@@ -211,12 +224,12 @@ class Logic {
                     .then(body => {
                         const { error, message } = body
 
-                        console.error(error, message)
+                        throw new Error(message)
                     })
             })
     }
 
-    deletePet(petId) {
+    removePet(petId) {
         if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
 
         if (typeof petId !== 'string') throw new Error('invalid pet-id type')
@@ -239,7 +252,36 @@ class Logic {
                     .then(body => {
                         const { error, message } = body
 
-                        console.error(error, message)
+                        throw new Error(message)
+                    })
+            })
+    }
+
+    getPet(petId) {
+        if (data.getLoggedInUserId() === null) throw new Error('user not logged in')
+
+        if (typeof petId !== 'string') throw new Error('invalid pet-id type')
+
+        if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
+
+        return fetch('http://localhost:8080/pets/' + petId, {
+            // method: 'GET',
+            headers: {
+                Authorization: 'Basic ' + data.getLoggedInUserId()
+            }
+        })
+            .then(res => {
+                const { status } = res
+
+                if (status === 200)
+                    return res.json()
+                        .then(pet => pet)
+
+                return res.json()
+                    .then(body => {
+                        const { error, message } = body
+
+                        throw new Error(message)
                     })
             })
     }
