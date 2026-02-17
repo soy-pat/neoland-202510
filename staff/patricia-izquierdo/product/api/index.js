@@ -65,6 +65,18 @@ api.patch('/users/password', jsonBodyParser, (req, res) => {
     }
 })
 
+api.get('/users/me', jsonBodyParser, (req, res) => {
+    try {
+        const userId = req.headers.authorization.slice(6)
+
+        const user = logic.getUser(userId)
+
+        res.json(user)
+    } catch (error) {
+        res.status(400).json({ error: error.constructor.name, message: error.message })
+    }
+})
+
 api.post('/pets', jsonBodyParser, (req, res) => {
     try {
         const userId = req.headers.authorization.slice(6)

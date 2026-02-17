@@ -26,16 +26,7 @@ export function PetList({ onGoToPetDetail }) {
         }
     }, [])
 
-    const handleRemovePetClick = event => {
-        event.preventDefault()
-        event.stopPropagation()
-
-        const button = event.target
-
-        const petId = button.id
-
-        setPetId(petId)
-    }
+    const handleRemovePetClick = petId => setPetId(petId)
 
     const handleCancelRemovePetClick = event => {
         event.preventDefault()
@@ -61,29 +52,26 @@ export function PetList({ onGoToPetDetail }) {
         }
     }
 
-    const handleGoToPetDetailClick = event => {
-        event.preventDefault()
-
-        const li = event.currentTarget
-
-        const petId = li.id
-
-        onGoToPetDetail(petId)
-    }
+    const handleGoToPetDetailClick = petId => onGoToPetDetail(petId)
 
     console.log('PetList -> render')
 
     return <div>
         <ul className="flex flex-col gap-2 mt-2">
-            {pets.map(pet => <li id={pet.id} className="flex items-center border-2 border-black p-2 justify-between" onClick={handleGoToPetDetailClick}>
-                <div className="flex items-center gap-4">
-                    <img src={pet.image} className="rounded-full w-10 h-10 object-cover" />
+            {pets.map(pet =>
+                <li className="flex items-center border-2 border-black p-2 justify-between" onClick={() => handleGoToPetDetailClick(pet.id)}>
+                    <div className="flex items-center gap-4">
+                        <img src={pet.image} className="rounded-full w-10 h-10 object-cover" />
 
-                    <p>{pet.name}</p>
-                </div>
+                        <p>{pet.name}</p>
+                    </div>
 
-                <Button id={pet.id} className="justify-self-end" onClick={handleRemovePetClick}>🗑️</Button>
-            </li>)}
+                    <Button className="justify-self-end" onClick={event => {
+                        event.stopPropagation()
+
+                        handleRemovePetClick(pet.id)
+                    }}>🗑️</Button>
+                </li>)}
         </ul>
 
         {petId && <div className="w-full h-full fixed top-0 left-0 bg-black/75 flex justify-center items-center">
