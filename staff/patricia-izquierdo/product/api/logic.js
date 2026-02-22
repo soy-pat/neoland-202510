@@ -37,7 +37,7 @@ class Logic {
 
         if (user !== null) throw new Error('user username already exists')
 
-        user = new User('user-' + data.usersCount, name, email, username, password, 'regular')
+        user = new User('user-' + data.usersCount, name, email, username, password, null, 'regular')
 
         data.insertUser(user)
     }
@@ -120,9 +120,23 @@ class Logic {
         const user = data.findUserById(userId)
         if (!user) throw new Error('user not found')
 
-        const { name, email, username } = user
+        const { name, email, username, image } = user
 
-        return { name, email, username }
+        return { name, email, username, image }
+    }
+
+    changeUserImage(userId, image) {
+        if (typeof userId !== 'string') throw new Error('invalid userId type')
+        if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+
+        if (typeof image !== 'string') throw new Error('invalid image type')
+        if (!URL_REGEX.test(image)) throw new Error('invalid image format')
+
+        const user = data.findUserById(userId)
+
+        if (!user) throw new Error('user not found')
+
+        user.image = image
     }
 
     addPet(userId, name, birthdate, weight, image) {
@@ -136,13 +150,11 @@ class Logic {
         if (name.length < 1) throw new Error('invalid name length')
 
         if (typeof birthdate !== 'string') throw new Error('invalid birthdate type')
-
         if (!ISODATE_REGEX.test(birthdate)) throw new Error('invalid birthdate format')
 
         if (typeof weight !== 'number' || isNaN(weight)) throw new Error('invalid weight type')
 
         if (typeof image !== 'string') throw new Error('invalid image type')
-
         if (!URL_REGEX.test(image)) throw new Error('invalid image format')
 
         const pet = new Pet('pet-' + data.petsCount, userId, name, birthdate, weight, image)
@@ -165,6 +177,7 @@ class Logic {
     removePet(userId, petId) {
         if (typeof userId !== 'string') throw new Error('invalid userId type')
         if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+
         if (typeof petId !== 'string') throw new Error('invalid pet-id type')
         if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
 
@@ -185,6 +198,7 @@ class Logic {
     getPet(userId, petId) {
         if (typeof userId !== 'string') throw new Error('invalid userId type')
         if (!USER_ID_REGEX.test(userId)) throw new Error('invalid userId format')
+
         if (typeof petId !== 'string') throw new Error('invalid pet-id type')
         if (!PET_ID_REGEX.test(petId)) throw new Error('invalid pet-id format')
 

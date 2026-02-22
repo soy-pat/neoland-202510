@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Anchor } from './components/commons/Anchor'
 import { ChangeUserEmail } from './components/ChangeUserEmail'
 import { ChangeUserPassword } from './components/ChangeUserPassword'
+import { ChangeUserImage } from './components/ChangeUserImage'
 
 export function Profile({ onGoToHome }) {
     console.log('Profile -> call')
@@ -27,6 +28,12 @@ export function Profile({ onGoToHome }) {
         setView('change-password')
     }
 
+    const handleImageClick = event => {
+        event.preventDefault()
+
+        setView('change-image')
+    }
+
     console.log('Profile -> render')
 
     return <div className="p-4">
@@ -41,10 +48,13 @@ export function Profile({ onGoToHome }) {
         <ul>
             <li><Anchor onClick={handleChangeEmailClick}>Change e-mail</Anchor></li>
             <li><Anchor onClick={handlePasswordClick}>Change password</Anchor></li>
+            <li><Anchor onClick={handleImageClick}>Change image</Anchor></li>
         </ul>
 
         {view === 'change-email' && <ChangeUserEmail />}
 
         {view === 'change-password' && <ChangeUserPassword />}
+
+        {view === 'change-image' && <ChangeUserImage />}
     </div>
 }

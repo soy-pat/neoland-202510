@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Anchor } from './components/commons/Anchor'
 import { Button } from './components/commons/Button'
@@ -12,6 +12,21 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail
     console.log('Home -> call')
 
     const [feedback, setFeedback] = useState(null) // { message, level }
+    const [name, setName] = useState('World')
+    const [image, setImage] = useState('https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dWF6c2VwcTFwaWdtNXRoZm9mZXltaWVnaGZmNnI3NTU5M3hndGNsMSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4X0i61SrJIyPe/giphy.gif')
+
+    useEffect(() => {
+        try {
+            logic.getLoggedInUser()
+                .then(user => {
+                    setName(user.name)
+                    setImage(user.image || image)
+                })
+                .catch(error => setFeedback({ message: error.message, level: 'error' }))
+        } catch (error) {
+            setFeedback({ message: error.message, level: 'error' })
+        }
+    }, [])
 
     const handleAddPetClick = event => {
         event.preventDefault()
@@ -46,7 +61,7 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail
     return <div className="p-4">
         <h1 className="font-bold text-xl">MyPet</h1>
 
-        <h2 className="font-bold">Welcome, Home!</h2>
+        <h2 className="font-bold flex gap-2 items-center">Hello, {name}! <img className="rounded-full w-10 h-10 object-cover" src={image} /></h2>
 
         <div className="flex justify-between">
             <Anchor onClick={handleAddPetClick}>+ Pet</Anchor>
