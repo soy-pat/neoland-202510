@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { Anchor } from './components/commons/Anchor'
 import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { Button } from './components/commons/Button'
+import { Anchor } from './components/commons/Anchor'
 import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
@@ -58,7 +58,7 @@ export function AddPet({ onGoToHome }) {
 
             <Field alias="birthdate" type="date">Birthdate</Field>
 
-            <Field alias="weight" type="number">Weight (kg)</Field>
+            <Field alias="weight" type="number" step="0.1">Weight (kg)</Field>
 
             <Field alias="image" type="url">Image</Field>
 

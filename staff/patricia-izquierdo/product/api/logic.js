@@ -77,7 +77,6 @@ class Logic {
         if (newEmail !== newEmailRepeat) throw new Error('newEmail and newEmailRepeat do not match')
 
         const user = data.findUserById(userId)
-
         if (!user) throw new Error('user not found')
 
         if (user.email !== email) throw new Error('email do not belong to user')
@@ -88,7 +87,7 @@ class Logic {
 
         const { name, username, password, image } = user
 
-        data.updateUser(new User(userId, name, email, username, password, image))
+        data.updateUser(new User(userId, name, newEmail, username, password, image))
     }
 
     changeUserPassword(userId, password, newPassword, newPasswordRepeat) {
@@ -114,7 +113,7 @@ class Logic {
 
         const { name, email, username, image } = user
 
-        data.updateUser(new User(userId, name, email, username, password, image))
+        data.updateUser(new User(userId, name, email, username, newPassword, image))
     }
 
     getUser(userId) {
