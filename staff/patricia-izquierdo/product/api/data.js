@@ -45,33 +45,27 @@ class Data {
     }
 
     findUserByEmail(email) {
-        for (let i = 0; i < this.users.length; i++) {
-            const user = this.users[i]
+        const user = this.users.find(user => user.email === email)
 
-            if (user.email === email) return user
-        }
-
-        return null
+        return user || null
     }
 
     findUserByUsername(username) {
-        for (let i = 0; i < this.users.length; i++) {
-            const user = this.users[i]
+        const user = this.users.find(user => user.username === username)
 
-            if (user.username === username) return user
-        }
-
-        return null
+        return user || null
     }
 
-    findUserById(id) {
-        for (let i = 0; i < this.users.length; i++) {
-            const user = this.users[i]
+    findUserById(userId) {
+        const user = this.users.find(user => user.id === userId)
 
-            if (user.id === id) return user
-        }
+        return user || null
+    }
 
-        return null
+    updateUser(updatedUser) {
+        const index = this.users.findIndex(user => user.id === updatedUser.id)
+
+        this.users[index] = updatedUser
     }
 
     insertPet(pet) {
@@ -80,27 +74,27 @@ class Data {
     }
 
     findPetsByUserId(userId) {
-        const foundPets = []
-
-        for (let i = 0; i < this.pets.length; i++) {
-            const pet = this.pets[i]
-
-            if (pet.userId === userId)
-                foundPets.push(pet)
-        }
+        const foundPets = this.pets.filter(pet => pet.userId === userId)
 
         return foundPets
     }
 
     findPetById(petId) {
-        for (let i = 0; i < this.pets.length; i++) {
-            const pet = this.pets[i]
+        const pet = this.pets.find(pet => pet.id === petId)
 
-            if (pet.id === petId)
-                return pet
-        }
+        return pet || null
+    }
 
-        return null
+    updatePet(updatedPet) {
+        const index = this.pets.findIndex(pet => pet.id === updatedPet.id)
+
+        this.pets[index] = updatedPet
+    }
+
+    deletePet(petId) {
+        const index = this.pets.findIndex(pet => pet.id === petId)
+
+        data.pets.splice(index, 1)
     }
 }
 
