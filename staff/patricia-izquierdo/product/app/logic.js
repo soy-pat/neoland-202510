@@ -1,3 +1,4 @@
+
 import { data } from './data'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -81,7 +82,11 @@ class Logic {
     }
 
     logoutUser() {
-        data.setLoggedInUserId(null)
+        data.removeLoggedInUserId()
+    }
+
+    isUserLoggedIn() {
+        return !!data.getLoggedInUserId()
     }
 
     changeUserEmail(email, newEmail, newEmailRepeat) {

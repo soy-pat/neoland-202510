@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+import { Routes, Route, useNavigate, Navigate } from 'react-router'
 
 import { Landing } from './views/Landing'
 import { Login } from './views/Login'
@@ -8,22 +10,39 @@ import { AddPet } from './views/AddPet'
 import { Profile } from './views/Profile'
 import { PetDetail } from './views/PetDetail'
 import { ModifyPet } from './views/ModifyPet'
+import { Feedback } from './views/components/commons/Feedback'
+
+import { logic } from './logic'
 
 export function App() {
     console.log('App -> call')
 
-    const [view, setView] = useState('landing')
+    const [feedback, setFeedback] = useState(null)
+    const [loggedIn, setLoggedIn] = useState(false)
     const [petId, setPetId] = useState(null)
 
-    const handleGoToLogin = () => setView('login')
+    const navigate = useNavigate()
 
-    const handleGoToRegister = () => setView('register')
+    useEffect(() => {
+        setTimeout(() => {
+            try {
+                const loggedIn = logic.isUserLoggedIn()
+                setLoggedIn(loggedIn)
+            } catch (error) {
+                setFeedback({ message: error.message, level: 'error' })
+            }
+        }, 1000)
+    })
 
-    const handleGoToHome = () => setView('home')
+    const handleGoToLogin = () => navigate('/login')
 
-    const handleGoToAddPet = () => setView('add-pet')
+    const handleGoToRegister = () => navigate('/register')
 
-    const handleGoToProfile = () => setView('profile')
+    const handleGoToHome = () => navigate('/')
+
+    const handleGoToAddPet = () => navigate('/add-pet')
+
+    const handleGoToProfile = () => navigate('/profile')
 
     const handleGoToPetDetailById = petId => {
         setPetId(petId)
@@ -31,27 +50,27 @@ export function App() {
         handleGoToPetDetail()
     }
 
-    const handleGoToPetDetail = () => setView('pet-detail')
+    const handleGoToPetDetail = () => navigate('/pet-detail')
 
-    const handleGoToModifyPet = () => setView('modify-pet')
+    const handleGoToModifyPet = () => navigate('/modify-pet')
 
     console.log('App -> render')
 
     return <>
-        {view === 'landing' && <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />}
+        <Routes>
+            <Route path="/" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />
+                :
+                <Home onGoToAddPet={handleGoToAddPet} onGoToLogin={handleGoToLogin} onGoToProfile={handleGoToProfile} onGoToPetDetail={handleGoToPetDetailById} />
+            } />
+            <Route path="/login" element={!loggedIn ? <Login onGoToHome={handleGoToHome} onGoToRegister={handleGoToRegister} /> : <Navigate to="/" />} />
+            <Route path="/register" element={!loggedIn ? <Register onGoToLogin={handleGoToLogin} /> : <Navigate to="/" />} />
+            <Route path="/add-pet" element={loggedIn ? <AddPet onGoToHome={handleGoToHome} /> : <Navigate to="/login" />} />
+            <Route path="/profile" element={loggedIn ? <Profile onGoToHome={handleGoToHome} /> : <Navigate to="/login" />} />
+            <Route path="/pet-detail" element={loggedIn ? <PetDetail petId={petId} onGoToHome={handleGoToHome} onGoToModifyPet={handleGoToModifyPet} /> : <Navigate to="/login" />} />
+            <Route path="/modify-pet" element={loggedIn ? <ModifyPet petId={petId} onGoBack={handleGoToPetDetail} /> : <Navigate to="/login" />} />
+        </Routes>
 
-        {view === 'login' && <Login onGoToHome={handleGoToHome} onGoToRegister={handleGoToRegister} />}
-
-        {view === 'register' && <Register onGoToLogin={handleGoToLogin} />}
-
-        {view === 'home' && <Home onGoToAddPet={handleGoToAddPet} onGoToLogin={handleGoToLogin} onGoToProfile={handleGoToProfile} onGoToPetDetail={handleGoToPetDetailById} />}
-
-        {view === 'add-pet' && <AddPet onGoToHome={handleGoToHome} />}
-
-        {view === 'profile' && <Profile onGoToHome={handleGoToHome} />}
-
-        {view === 'pet-detail' && <PetDetail petId={petId} onGoToHome={handleGoToHome} onGoToModifyPet={handleGoToModifyPet} />}
-
-        {view === 'modify-pet' && <ModifyPet petId={petId} onGoBack={handleGoToPetDetail} />}
+        {feedback && <Feedback feedback={feedback} />}
     </>
 }
