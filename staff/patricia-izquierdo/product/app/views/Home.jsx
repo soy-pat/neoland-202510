@@ -9,14 +9,15 @@ import { PetList } from './components/PetList'
 
 import { logic } from '../logic'
 
-export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail }) {
+export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDetail }) {
     console.log('Home -> call')
 
-    const [feedback, setFeedback] = useState(null) // { message, level }
+    const [feedback, setFeedback] = useState(null)
     const [name, setName] = useState(null)
     const [image, setImage] = useState('https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dWF6c2VwcTFwaWdtNXRoZm9mZXltaWVnaGZmNnI3NTU5M3hndGNsMSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4X0i61SrJIyPe/giphy.gif')
 
     useEffect(() => {
+
         setTimeout(() => {
             try {
                 logic.getLoggedInUser()
@@ -43,9 +44,7 @@ export function Home({ onGoToAddPet, onGoToLogin, onGoToProfile, onGoToPetDetail
         try {
             logic.logoutUser()
 
-            setFeedback(null)
-
-            onGoToLogin()
+            onUserLoggedOut()
         } catch (error) {
             setFeedback({ message: 'sorry, there was an error on logout, please, try it later', level: 'error' })
         }

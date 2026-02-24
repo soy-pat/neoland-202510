@@ -11,7 +11,7 @@ import { logic } from '../logic'
 export function Register({ onGoToLogin }) {
     console.log('Register -> call')
 
-    const [feedback, setFeedback] = useState(null) // { message, level }
+    const [feedback, setFeedback] = useState(null)
 
     const handleRegisterSubmit = event => {
         event.preventDefault()
