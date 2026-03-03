@@ -1,11 +1,16 @@
 import express from 'express'
 import cors from 'cors'
 import morganBody from 'morgan-body'
+import jwt from 'jsonwebtoken'
 
 import './populate.js'
 
 import { logic } from './logic.js'
-import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError } from './errors.js'
+import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError, AuthError } from './errors.js'
+
+const { JsonWebTokenError } = jwt
+
+const JWT_SECRET = 'a superman le puede la criptonita'
 
 const api = express()
 
@@ -41,7 +46,9 @@ api.post('/users/auth', (req, res, next) => {
 
         const userId = logic.authenticateUser(username, password)
 
-        res.json(userId)
+        const token = jwt.sign({ sub: userId }, JWT_SECRET)
+
+        res.json(token)
     } catch (error) {
         next(error)
     }
@@ -49,7 +56,9 @@ api.post('/users/auth', (req, res, next) => {
 
 api.patch('/users/me/email', (req, res, next) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { email, newEmail, newEmailRepeat } = req.body
 
@@ -63,7 +72,9 @@ api.patch('/users/me/email', (req, res, next) => {
 
 api.patch('/users/me/password', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { password, newPassword, newPasswordRepeat } = req.body
 
@@ -77,7 +88,9 @@ api.patch('/users/me/password', (req, res) => {
 
 api.get('/users/me', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const user = logic.getUser(userId)
 
@@ -103,7 +116,9 @@ api.patch('/users/me/image', (req, res) => {
 
 api.post('/pets', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { name, birthdate, weight, image } = req.body
 
@@ -117,7 +132,9 @@ api.post('/pets', (req, res) => {
 
 api.get('/pets', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const pets = logic.getPets(userId)
 
@@ -129,7 +146,9 @@ api.get('/pets', (req, res) => {
 
 api.delete('/pets/:petId', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { petId } = req.params
 
@@ -143,7 +162,9 @@ api.delete('/pets/:petId', (req, res) => {
 
 api.get('/pets/:petId', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { petId } = req.params
 
@@ -157,7 +178,9 @@ api.get('/pets/:petId', (req, res) => {
 
 api.put('/pets/:petId', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7) // Bearer eyJ...
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { petId } = req.params
 
@@ -187,7 +210,10 @@ api.use((error, req, res, next) => {
         status = 401
     else if (error instanceof OwnershipError)
         status = 403
-    else
+    else if (error instanceof JsonWebTokenError) {
+        status = 401
+        errorName = AuthError.name
+    } else
         errorName = SystemError.name
 
     res.status(status).json({ error: errorName, message })
