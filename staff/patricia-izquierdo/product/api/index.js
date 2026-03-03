@@ -102,7 +102,9 @@ api.get('/users/me', (req, res) => {
 
 api.patch('/users/me/image', (req, res) => {
     try {
-        const userId = req.headers.authorization.slice(6)
+        const token = req.headers.authorization.slice(7)
+
+        const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
         const { image } = req.body
 
