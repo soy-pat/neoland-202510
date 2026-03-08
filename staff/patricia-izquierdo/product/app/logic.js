@@ -118,7 +118,7 @@ class Logic {
         return fetch('http://localhost:8080/users/me/email', {
             method: 'PATCH',
             headers: {
-                Authorization: 'Bearer ' + data.getToken(),
+                Authorization: `Bearer ${data.getToken()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email, newEmail, newEmailRepeat })
@@ -159,7 +159,7 @@ class Logic {
         return fetch('http://localhost:8080/users/me/password', {
             method: 'PATCH',
             headers: {
-                Authorization: 'Bearer ' + data.getToken(),
+                Authorization: `Bearer ${data.getToken()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ password, newPassword, newPasswordRepeat })
@@ -189,7 +189,7 @@ class Logic {
         return fetch('http://localhost:8080/users/me', {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + data.getToken()
+                Authorization: `Bearer ${data.getToken()}`
             }
         })
             .catch(error => { throw new SystemError('connection error') })
@@ -221,7 +221,7 @@ class Logic {
         return fetch('http://localhost:8080/users/me/image', {
             method: 'PATCH',
             headers: {
-                Authorization: 'Bearer ' + data.getToken(),
+                Authorization: `Bearer ${data.getToken()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ image })
@@ -264,7 +264,7 @@ class Logic {
         return fetch('http://localhost:8080/pets', {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + data.getToken(),
+                Authorization: `Bearer ${data.getToken()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ name, birthdate, weight, image })
@@ -294,7 +294,7 @@ class Logic {
         return fetch('http://localhost:8080/pets', {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + data.getToken()
+                Authorization: `Bearer ${data.getToken()}`
             }
         })
             .catch(error => { throw new SystemError('connection error') })
@@ -327,7 +327,7 @@ class Logic {
         return fetch('http://localhost:8080/pets/' + petId, {
             method: 'DELETE',
             headers: {
-                Authorization: 'Bearer ' + data.getToken()
+                Authorization: `Bearer ${data.getToken()}`
             }
         })
             .catch(error => { throw new SystemError('connection error') })
@@ -355,10 +355,9 @@ class Logic {
         if (typeof petId !== 'string') throw new ValidationError('invalid pet-id type')
         if (!PET_ID_REGEX.test(petId)) throw new ValidationError('invalid pet-id format')
 
-        return fetch('http://localhost:8080/pets/' + petId, {
-            // method: 'GET',
+        return fetch(`http://localhost:8080/pets/${petId}`, {
             headers: {
-                Authorization: 'Bearer ' + data.getToken()
+                Authorization: `Bearer ${data.getToken()}`
             }
         })
             .catch(error => { throw new SystemError('connection error') })
@@ -367,7 +366,6 @@ class Logic {
 
                 if (status === 200)
                     return res.json()
-                // .then(pet => pet)
 
                 return res.json()
                     .catch(error => { throw new SystemError('json error') })
@@ -400,10 +398,10 @@ class Logic {
 
         if (!URL_REGEX.test(image)) throw new ValidationError('invalid image format')
 
-        return fetch('http://localhost:8080/pets/' + petId, {
+        return fetch(`http://localhost:8080/pets/${petId}`, {
             method: 'PUT',
             headers: {
-                Authorization: 'Bearer ' + data.getToken(),
+                Authorization: `Bearer ${data.getToken()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ name, birthdate, weight, image })
@@ -430,4 +428,4 @@ class Logic {
 
 // instance
 
-export const logic = new Logic()    
+export const logic = new Logic()

@@ -1,17 +1,13 @@
-import { useState } from 'react'
 
 import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { Button } from './components/commons/Button'
 import { Anchor } from './components/commons/Anchor'
-import { Feedback } from './components/commons/Feedback'
 
 import { logic } from '../logic'
 
-export function AddPet({ onGoToHome }) {
+export function AddPet({ onGoToHome, onError }) {
     console.log('AddPet -> call')
-
-    const [feedback, setFeedback] = useState(null)
 
     const handleBackClick = event => {
         event.preventDefault()
@@ -36,9 +32,9 @@ export function AddPet({ onGoToHome }) {
 
                     onGoToHome()
                 })
-                .catch(error => setFeedback({ message: error.message, level: 'error' }))
+                .catch(error => onError(error))
         } catch (error) {
-            setFeedback({ message: error.message, level: 'error' })
+            onError(error)
         }
     }
 
@@ -64,7 +60,5 @@ export function AddPet({ onGoToHome }) {
 
             <Button className="self-center mt-4" type="submit">Add Pet</Button>
         </Form>
-
-        {feedback && <Feedback feedback={feedback} />}
     </div>
 }
