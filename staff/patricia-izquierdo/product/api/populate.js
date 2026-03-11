@@ -1,49 +1,99 @@
-import { MongoClient, ObjectId } from 'mongodb'
+import mongoose from 'mongoose'
 
-const client = new MongoClient('mongodb://localhost:27017')
+const { Schema, ObjectId, model } = mongoose
 
-client.connect()
-    .then(() => {
-        const db = client.db('product')
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const URL_REGEX = /(www|http:|https:)+[^\s]+[\w]/
 
-        const users = db.collection('users')
-        const pets = db.collection('pets')
+const userSchema = new Schema({
+    name: {
+        type: String,
+        minLength: 1,
+        required: true
+    },
 
-        users.find({}).toArray()
-            .then(users => console.table(users))
-            .catch(error => console.error(error))
+    email: {
+        type: String,
+        minLength: 6,
+        match: EMAIL_REGEX,
+        required: true,
+        unique: true
+    },
 
-        pets.find({}).toArray()
-            .then(pets => console.table(pets))
-            .catch(error => console.error(error))
+    username: {
+        type: String,
+        minLength: 3,
+        required: true,
+        unique: true
+    },
 
-        // users.insertOne({ name: 'To Mate', email: 'to@mate.com', username: 'tomate', password: '123123123' })
-        //     .then(result => console.log(result))
-        //     .catch(error => console.error(error))
+    password: {
+        type: String,
+        minLength: 8,
+        required: true
+    },
 
-        // users.updateOne({ _id: new ObjectId('69af2afb0ee7fe4bc0e45870') }, { $set: { password: '345345345' } })
-        //     .then(result => console.log(result))
-        //     .catch(error => console.error(error))
+    image: {
+        type: String,
+        match: URL_REGEX,
+        default: null
+    },
 
-        // users.deleteOne({ _id: new ObjectId('69b06ed6b486761b89f6443b') })
-        //     .then(result => console.log(result))
-        //     .catch(error => console.error(error))
+    role: {
+        type: String,
+        enum: ['regular', 'administrator'],
+        default: 'regular',
+        required: true
+    }
+})
 
-        // users.findOne({ _id: new ObjectId('69b06ee1cc11453fec3ba354') })
-        //     .then(user => console.log(user))
-        //     .catch(error => console.error(error))
+const petSchema = new Schema({
+    owner: {
+        type: ObjectId
+    },
 
-        // users.find({ name: /l/i }).toArray()
-        //     .then(users => console.table(users))
-        //     .then(users => console.log(users))
-        //     .catch(error => console.error(error))
+    name: {
+        type: String,
+        minLength: 1,
+        required: true
+    },
 
-        pets.insertOne({ userId: new ObjectId('69af22954d59c13ca7bf6889'), name: 'Salami', birthdate: new Date('2021-04-05'), weight: 4, image: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGlnZzExdnhoNXY4NDZ2MnY1d2c4MWk0MzczNDJvMTJtd2sxMndvayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YggtBfM5OkFsQ/giphy.gif' })
-            .then(result => console.log(result))
-            .catch(error => console.error(error))
+    birthdate: {
+        type: Date,
+        required: true
+    },
 
-        // pets.deleteMany({ userId: new ObjectId('69af21784d59c13ca7bf6888') })
-        //     .then(result => console.log(result))
-        //     .catch(error => console.error(error))
+    weight: {
+        type: Number,
+        required: true
+    },
+
+    image: {
+        type: String,
+        match: URL_REGEX,
+        required: true
+    }
+})
+
+const User = model('User', userSchema)
+const Pet = model('Pet', petSchema)
+
+mongoose.connect('mongodb://localhost:27017/product')
+
+const wendy = new User({ name: 'Wendy Darling', email: 'wendy@darling.com', username: 'wendydarling', password: '123123123' })
+const peter = new User({ name: 'Peter Pan', email: 'peter@pan.com', username: 'peterpan', password: '123123123' })
+
+Promise.all([wendy.save(), peter.save()])
+    .then(([wendy, peter]) => {
+        console.log(wendy, peter)
+
+        const tor = new Pet({ owner: wendy.id, name: 'Tor', birthdate: new Date('2020-01-20'), weight: 3, image: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcG1rMGp0b2Flazd6OGh3amFlcTZ1YWM1ejV3c2plMG04NmtzeG5sbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/cYpV2OjeIyBRu5GpHQ/giphy.gif' })
+
+        const corito = new Pet({ owner: wendy.id, name: 'Corito', birthdate: new Date('2025-04-26'), weight: 0.1, image: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2RscmxobGp6Z2RiNDk4b2w3YmwzcjM4NnFzOG01MWY3cjBvZ2VnYSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hSLfmcaoLe2D2IBSNN/giphy.gif' })
+
+        const salami = new Pet({ owner: peter.id, name: 'Salami', birthdate: new Date('2022-08-18'), weight: 8, image: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGlnZzExdnhoNXY4NDZ2MnY1d2c4MWk0MzczNDJvMTJtd2sxMndvayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YggtBfM5OkFsQ/giphy.gif' })
+
+        return Promise.all([tor.save(), corito.save(), salami.save()])
     })
+    .then(([tor, corito, salami]) => console.log(tor, corito, salami))
     .catch(error => console.error(error))
