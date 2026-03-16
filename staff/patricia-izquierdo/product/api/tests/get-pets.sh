@@ -1,1 +1,1 @@
-curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTQiLCJpYXQiOjE3NzI0ODQ2NTV9.lLMioCfKh-Ug1Cmd1EgV0Y60i5qfcakpmkvnhELBTeI' http://localhost:8080/pets/$1 -v
+curl -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OWI0NWQxNzVkYjI4NzIxZTgxOTgxNjMiLCJpYXQiOjE3NzM0MjgwMzEsImV4cCI6MTc3MzQzMTYzMX0.xJIh2lqX6ecibMWMXvHR0xIcv47V_nKvk-AKuSud1M8' http://localhost:8080/pets -v

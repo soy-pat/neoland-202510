@@ -3,7 +3,7 @@ import { UserModel, PetModel } from './models.js'
 
 // models
 
-export class User {
+export class UserData {
     constructor(id, name, email, username, password, image, role) {
         this.id = id
         this.name = name
@@ -15,18 +15,13 @@ export class User {
     }
 }
 
-export class Pet {
-    constructor(id, userId, /*chip,*/ name, /*gender,*/ birthdate, weight, /*species, race, colors,*/ image) {
+export class PetData {
+    constructor(id, ownerId, name, birthdate, weight, image) {
         this.id = id
-        this.userId = userId
-        // this.chip = chip
+        this.ownerId = ownerId
         this.name = name
-        // this.gender = gender
         this.birthdate = birthdate
         this.weight = weight
-        // this.species = species
-        // this.race = race
-        // this.colors = colors
         this.image = image
     }
 }
@@ -50,7 +45,7 @@ class Data {
 
                 const { id, name, email, username, password } = userModel
 
-                return new User(id, name, email, username, password)
+                return new UserData(id, name, email, username, password)
             })
     }
 
@@ -62,31 +57,45 @@ class Data {
 
                 const { id, name, email, username, password } = userModel
 
-                return new User(id, name, email, username, password)
+                return new UserData(id, name, email, username, password)
             })
     }
 
     findUserById(userId) {
-        const user = this.users.find(user => user.id === userId)
+        return UserModel.findById(userId)
+            .catch(error => { throw new SystemError(error.message) })
+            .then(userModel => {
+                if (!userModel) return null
 
-        return user || null
+                const { id, name, email, username, password, image, role } = userModel
+
+                return new UserData(id, name, email, username, password, image, role)
+            })
     }
 
-    updateUser(updatedUser) {
-        const index = this.users.findIndex(user => user.id === updatedUser.id)
-
-        this.users[index] = updatedUser
+    updateUser(user) {
+        return UserModel.updateOne({ _id: user.id }, user)
+            .catch(error => { throw new SystemError(error.message) })
+            .then(userModel => { })
     }
 
     insertPet(pet) {
-        this.pets.push(pet)
-        this.petsCount++
+        const { ownerId, name, birthdate, weight, image } = pet
+
+        const petModel = new PetModel({ owner: ownerId, name, birthdate, weight, image })
+
+        return petModel.save()
+            .catch(error => { throw new SystemError(error.message) })
+            .then(petModel => { })
     }
 
     findPetsByUserId(userId) {
-        const foundPets = this.pets.filter(pet => pet.userId === userId)
+        return PetModel.find({ owner: userId })
+            .then(petModels => petModels.map(petModel => {
+                const { id, owner, name, birthdate, weight, image } = petModel
 
-        return foundPets
+                return new PetData(id, owner.toString(), name, birthdate, weight, image)
+            }))
     }
 
     findPetById(petId) {
