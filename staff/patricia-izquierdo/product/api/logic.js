@@ -168,31 +168,38 @@ class Logic {
         validate.id(userId, 'userId')
         validate.id(petId, 'petId')
 
-        const user = data.findUserById(userId)
-        if (!user) throw new ExistenceError('user not found')
+        return data.findUserById(userId)
+            .then(user => {
+                if (!user) throw new ExistenceError('user not found')
 
-        const pet = data.findPetById(petId)
+                return data.findPetById(petId)
+            })
+            .then(pet => {
+                if (!pet) throw new ExistenceError('pet not found')
 
-        if (!pet) throw new ExistenceError('pet not found')
+                if (pet.ownerId !== userId) throw new OwnershipError('user not owner of pet')
 
-        if (pet.userId !== userId) throw new OwnershipError('user not owner of pet')
-
-        data.deletePet(petId)
+                return data.deletePet(petId)
+            })
     }
 
     getPet(userId, petId) {
         validate.id(userId, 'userId')
         validate.id(petId, 'petId')
 
-        const user = data.findUserById(userId)
-        if (!user) throw new ExistenceError('user not found')
+        return data.findUserById(userId)
+            .then(user => {
+                if (!user) throw new ExistenceError('user not found')
 
-        const pet = data.findPetById(petId)
-        if (!pet) throw new ExistenceError('pet not found')
+                return data.findPetById(petId)
+            })
+            .then(pet => {
+                if (!pet) throw new ExistenceError('pet not found')
 
-        if (pet.userId !== userId) throw new OwnershipError('user not owner of pet')
+                if (pet.ownerId !== userId) throw new OwnershipError('user not owner of pet')
 
-        return pet
+                return pet
+            })
     }
 
     modifyPet(userId, petId, name, birthdate, weight, image) {
@@ -203,18 +210,22 @@ class Logic {
         validate.number(weight, 'weight')
         validate.url(image, 'image')
 
-        const user = data.findUserById(userId)
-        if (!user) throw new ExistenceError('user not found')
+        return data.findUserById(userId)
+            .then(user => {
+                if (!user) throw new ExistenceError('user not found')
 
-        const pet = data.findPetById(petId)
-        if (!pet) throw new ExistenceError('pet not found')
+                return data.findPetById(petId)
+            })
+            .then(pet => {
+                if (!pet) throw new ExistenceError('pet not found')
 
-        if (pet.userId !== userId) throw new OwnershipError('user not owner of pet')
+                if (pet.ownerId !== userId) throw new OwnershipError('user not owner of pet')
 
-        data.updatePet(new PetData(petId, userId, name, birthdate, weight, image))
+                data.updatePet(new PetData(petId, userId, name, birthdate, weight, image))
+            })
     }
 }
 
 // instance
 
-export const logic = new Logic()
+export const logic = new Logic()    
