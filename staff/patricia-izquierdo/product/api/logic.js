@@ -4,11 +4,13 @@ import { validate } from './validate.js'
 import { DuplicityError, ExistenceError, CredentialError, OwnershipError } from './errors.js'
 
 class User {
-    constructor(id, name, email, username) {
+    constructor(id, name, email, username, image, role) {
         this.id = id
         this.name = name
         this.email = email
         this.username = username
+        this.image = image
+        this.role = role
     }
 }
 
@@ -111,9 +113,9 @@ class Logic {
             .then(userData => {
                 if (!userData) throw new ExistenceError('user not found')
 
-                const { name, email, username, image } = userData
+                const { name, email, username, image, role } = userData
 
-                return new User(userId, name, email, username, image)
+                return new User(userId, name, email, username, image, role)
             })
     }
 
@@ -126,6 +128,34 @@ class Logic {
                 if (!userData) throw new ExistenceError('user not found')
 
                 const { name, email, username, password, role } = userData
+
+                return data.updateUser(new UserData(userId, name, email, username, password, image, role))
+            })
+    }
+
+    changeUserName(userId, name) {
+        validate.id(userId, 'userId')
+        validate.name(name)
+
+        return data.findUserById(userId)
+            .then(userData => {
+                if (!userData) throw new ExistenceError('user not found')
+
+                const { email, username, password, image, role } = userData
+
+                return data.updateUser(new UserData(userId, name, email, username, password, image, role))
+            })
+    }
+
+    changeUserUsername(userId, username) {
+        validate.id(userId, 'userId')
+        validate.username(username)
+
+        return data.findUserById(userId)
+            .then(userData => {
+                if (!userData) throw new ExistenceError('user not found')
+
+                const { name, email, password, image, role } = userData
 
                 return data.updateUser(new UserData(userId, name, email, username, password, image, role))
             })

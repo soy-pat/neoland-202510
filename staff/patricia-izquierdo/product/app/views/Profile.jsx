@@ -4,6 +4,8 @@ import { Anchor } from './components/commons/Anchor'
 import { ChangeUserEmail } from './components/ChangeUserEmail'
 import { ChangeUserPassword } from './components/ChangeUserPassword'
 import { ChangeUserImage } from './components/ChangeUserImage'
+import { ChangeUserName } from './components/ChangeUserName'
+import { ChangeUserUsername } from './components/ChangeUserUsername'
 
 export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
     console.log('Profile -> call')
@@ -16,11 +18,25 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
         onGoToHome()
     }
 
+    const handleChangeNameClick = event => {
+        event.preventDefault()
+
+        onClear()
+        setView('change-name')
+    }
+
     const handleChangeEmailClick = event => {
         event.preventDefault()
 
         onClear()
         setView('change-email')
+    }
+
+    const handleChangeUsernameClick = event => {
+        event.preventDefault()
+
+        onClear()
+        setView('change-username')
     }
 
     const handlePasswordClick = event => {
@@ -49,12 +65,18 @@ export function Profile({ onGoToHome, onError, onSuccess, onClear }) {
         </div>
 
         <ul>
+            <li><Anchor onClick={handleChangeNameClick}>Change name</Anchor></li>
             <li><Anchor onClick={handleChangeEmailClick}>Change e-mail</Anchor></li>
+            <li><Anchor onClick={handleChangeUsernameClick}>Change username</Anchor></li>
             <li><Anchor onClick={handlePasswordClick}>Change password</Anchor></li>
             <li><Anchor onClick={handleImageClick}>Change image</Anchor></li>
         </ul>
 
+        {view === 'change-name' && <ChangeUserName onError={onError} onSuccess={onSuccess} />}
+
         {view === 'change-email' && <ChangeUserEmail onError={onError} onSuccess={onSuccess} />}
+
+        {view === 'change-username' && <ChangeUserUsername onError={onError} onSuccess={onSuccess} />}
 
         {view === 'change-password' && <ChangeUserPassword onError={onError} onSuccess={onSuccess} />}
 

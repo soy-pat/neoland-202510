@@ -122,6 +122,38 @@ database.connect('mongodb://localhost:27017/product')
             }
         })
 
+        api.patch('/users/me/name', (req, res, next) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { name } = req.body
+
+                logic.changeUserName(userId, name)
+                    .then(() => res.status(204).send())
+                    .catch(error => next(error))
+            } catch (error) {
+                next(error)
+            }
+        })
+
+        api.patch('/users/me/username', (req, res, next) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, JWT_SECRET)
+
+                const { username } = req.body
+
+                logic.changeUserUsername(userId, username)
+                    .then(() => res.status(204).send())
+                    .catch(error => next(error))
+            } catch (error) {
+                next(error)
+            }
+        })
+
         api.post('/pets', (req, res, next) => {
             try {
                 const token = req.headers.authorization.slice(7)
