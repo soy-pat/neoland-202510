@@ -29,8 +29,8 @@ export class PetData {
 // manager
 
 class Data {
-    insertUser(user) {
-        const userModel = new UserModel(user)
+    insertUser(userData) {
+        const userModel = new UserModel(userData)
 
         return userModel.save()
             .catch(error => { throw new SystemError(error.message) })
@@ -79,8 +79,8 @@ class Data {
             .then(userModel => { })
     }
 
-    insertPet(pet) {
-        const { ownerId, name, birthdate, weight, image } = pet
+    insertPet(petData) {
+        const { ownerId, name, birthdate, weight, image } = petData
 
         const petModel = new PetModel({ owner: ownerId, name, birthdate, weight, image })
 
@@ -111,8 +111,8 @@ class Data {
             })
     }
 
-    updatePet(pet) {
-        const { id, ownerId, name, birthdate, weight, image } = pet
+    updatePet(petData) {
+        const { id, ownerId, name, birthdate, weight, image } = petData
 
         return PetModel.updateOne({ _id: id }, { $set: { owner: ownerId, name, birthdate, weight, image } })
             .catch(error => { throw new SystemError(error.message) })

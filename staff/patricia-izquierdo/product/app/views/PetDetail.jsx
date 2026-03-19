@@ -6,6 +6,7 @@ import { Anchor } from './components/commons/Anchor'
 import { Button } from './components/commons/Button'
 
 import { logic } from '../logic'
+import { Spinner } from './components/Spinner'
 
 export function PetDetail({ onGoToHome, onGoToModifyPet, onError }) {
     console.log('PetDetail -> call')
@@ -43,16 +44,21 @@ export function PetDetail({ onGoToHome, onGoToModifyPet, onError }) {
             <Anchor onClick={handleBackClick}>&lt; Back</Anchor>
         </div>
 
-        {pet && <div className="flex flex-col items-center gap-4">
-            <img src={pet.image} className="rounded-full w-40 h-40 object-cover" />
+        {pet ? (() => {
+            const zuluDate = new Date(pet.birthdate)
+            const locaDateString = zuluDate.toLocaleDateString()
 
-            <p>{pet.name}</p>
+            return <div className="flex flex-col items-center gap-4">
+                <img src={pet.image} className="rounded-full w-40 h-40 object-cover" />
 
-            <p>{pet.weight}kg</p>
+                <p>{pet.name}</p>
 
-            <p>{pet.birthdate}</p>
+                <p>{pet.weight}kg</p>
 
-            <Button onClick={handleGoToModifyPet}>Modify</Button>
-        </div>}
+                <p>{locaDateString}</p>
+
+                <Button onClick={handleGoToModifyPet}>Modify</Button>
+            </div>
+        })() : <Spinner />}
     </div>
 }
