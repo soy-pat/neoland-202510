@@ -1,13 +1,16 @@
-
 import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { Button } from './components/commons/Button'
 import { Anchor } from './components/commons/Anchor'
 
+import { useContext } from '../context'
+
 import { logic } from '../logic'
 
-export function AddPet({ onGoToHome, onError }) {
+export function AddPet({ onGoToHome }) {
     console.log('AddPet -> call')
+
+    const { onError } = useContext()
 
     const handleBackClick = event => {
         event.preventDefault()

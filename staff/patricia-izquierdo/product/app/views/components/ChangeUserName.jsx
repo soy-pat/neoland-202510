@@ -4,46 +4,50 @@ import { Form } from './commons/Form'
 import { Field } from './commons/Field'
 import { Button } from './commons/Button'
 
+import { useContext } from '../../context'
+
 import { logic } from '../../logic'
 
-export function ChangeUserName({ onError, onSuccess }) {
-    console.log('ChangeUserName -> call')
+export function ChangeUserImage() {
+    console.log('ChangeUserImage -> call')
 
-    const [name, setName] = useState('')
+    const { onSuccess, onError } = useContext()
+
+    const [image, setImage] = useState('')
 
     useEffect(() => {
         try {
             logic.getLoggedInUser()
-                .then(user => setName(user.name))
+                .then(user => setImage(user.image))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
     }, [])
 
-    const handleChangeNameSubmit = event => {
+    const handleChangeImageSubmit = event => {
         event.preventDefault()
 
         const form = event.target
 
-        const name = form.name.value
+        const image = form.image.value
 
         try {
-            logic.changeUserName(name)
-                .then(() => onSuccess('user name successfully updated'))
+            logic.changeUserImage(image)
+                .then(() => onSuccess('user image successfully updated'))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
     }
 
-    console.log('ChangeUserName -> render')
+    console.log('ChangeUserImage -> render')
 
     return <div>
-        <Form onSubmit={handleChangeNameSubmit}>
-            <Field alias="name" type="text" defaultValue={name}>Name</Field>
+        <Form onSubmit={handleChangeImageSubmit}>
+            <Field alias="image" type="url" defaultValue={image}>Image</Field>
 
-            <Button className="self-center mt-4" type="submit">Update name</Button>
+            <Button className="self-center mt-4" type="submit">Update image</Button>
         </Form>
     </div>
 }
