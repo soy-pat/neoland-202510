@@ -2,7 +2,7 @@
   "name": "app",
   "version": "0.0.0",
   "description": "",
-    "type": "module",
+  "type": "module",
   "main": "data.js",
   "scripts": {
     "start": "vite",
@@ -17,6 +17,7 @@
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "com": "file:../com",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router": "^7.13.0"

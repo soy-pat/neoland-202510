@@ -1,4 +1,4 @@
-import { SystemError } from './errors.js'
+import { SystemError } from 'com'
 import { UserModel, PetModel } from './models.js'
 
 // models

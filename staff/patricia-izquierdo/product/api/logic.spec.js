@@ -5,7 +5,7 @@ import { database } from './models.js'
 
 import { logic } from './logic.js'
 import { data, UserData, PetData } from './data.js'
-import { CredentialError, DuplicityError, ExistenceError, OwnershipError } from './errors.js'
+import { CredentialError, DuplicityError, ExistenceError, OwnershipError } from 'com'
 
 describe('logic', () => {
     before(() => database.connect(process.env.TEST_DB_URL))

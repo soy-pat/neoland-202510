@@ -13,7 +13,7 @@ import { ModifyPet } from './views/ModifyPet'
 import { Feedback } from './views/components/commons/Feedback'
 import { Context } from './context'
 
-import { AuthError, ValidationError, ExistenceError, DuplicityError, CredentialError } from './errors'
+import { AuthError, ValidationError, ExistenceError, DuplicityError, CredentialError } from 'com'
 import { logic } from './logic'
 
 import { logger } from './logger'

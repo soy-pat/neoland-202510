@@ -1,6 +1,5 @@
 import { data } from './data'
-import { validate } from './validate'
-import { SystemError, AuthError, errorMap } from './errors'
+import { validate, SystemError, AuthError, errorMap } from 'com'
 
 class Logic {
     constructor() {

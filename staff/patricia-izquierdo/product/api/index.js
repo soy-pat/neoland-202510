@@ -4,7 +4,7 @@ import morganBody from 'morgan-body'
 import jwt from 'jsonwebtoken'
 
 import { logic } from './logic.js'
-import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError, AuthError } from './errors.js'
+import { DuplicityError, ExistenceError, OwnershipError, SystemError, ValidationError, CredentialError, AuthError } from 'com'
 
 import { database } from './models.js'
 

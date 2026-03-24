@@ -5,6 +5,7 @@ export class ValidationError extends Error {
         this.name = this.constructor.name
     }
 }
+
 export class ExistenceError extends Error {
     constructor(message) {
         super(message)
@@ -12,6 +13,7 @@ export class ExistenceError extends Error {
         this.name = this.constructor.name
     }
 }
+
 export class DuplicityError extends Error {
     constructor(message) {
         super(message)
@@ -19,6 +21,7 @@ export class DuplicityError extends Error {
         this.name = this.constructor.name
     }
 }
+
 export class CredentialError extends Error {
     constructor(message) {
         super(message)
@@ -26,6 +29,7 @@ export class CredentialError extends Error {
         this.name = this.constructor.name
     }
 }
+
 export class OwnershipError extends Error {
     constructor(message) {
         super(message)
@@ -33,6 +37,7 @@ export class OwnershipError extends Error {
         this.name = this.constructor.name
     }
 }
+
 export class AuthError extends Error {
     constructor(message) {
         super(message)
@@ -40,6 +45,7 @@ export class AuthError extends Error {
         this.name = this.constructor.name
     }
 }
+
 export class SystemError extends Error {
     constructor(message) {
         super(message)

@@ -1,9 +1,8 @@
 import bcrypt from 'bcryptjs'
 
 import { data, UserData, PetData } from './data.js'
-import { validate } from './validate.js'
 
-import { DuplicityError, ExistenceError, CredentialError, OwnershipError, SystemError } from './errors.js'
+import { validate, DuplicityError, ExistenceError, CredentialError, OwnershipError, SystemError } from 'com'
 
 class User {
     constructor(id, name, email, username, image, role) {
