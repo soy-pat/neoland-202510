@@ -1,4 +1,3 @@
-
 import bcrypt from 'bcryptjs'
 
 import { data, UserData, PetData } from './data.js'
@@ -85,7 +84,7 @@ class Logic {
             .then(userData => {
                 if (!userData) throw new ExistenceError('user not found')
 
-                if (userData.email !== email) throw new OwnershipError('email do not belong to user')
+                if (userData.email !== email) throw new OwnershipError('email does not belong to user')
 
                 return data.findUserByEmail(newEmail)
                     .then(otherUserData => {
@@ -109,11 +108,19 @@ class Logic {
             .then(userData => {
                 if (!userData) throw new ExistenceError('user not found')
 
-                if (userData.password !== password) throw new CredentialError('incorrect password')
+                return bcrypt.compare(password, userData.password)
+                    .catch(error => { throw new SystemError(error.message) })
+                    .then(match => {
+                        if (!match) throw new CredentialError('incorrect password')
 
-                const { name, email, username, image, role } = userData
+                        return bcrypt.hash(newPassword, 10)
+                            .catch(error => { throw new SystemError(error.message) })
+                            .then(newHash => {
+                                const { name, email, username, image, role } = userData
 
-                data.updateUser(new UserData(userId, name, email, username, newPassword, image, role))
+                                return data.updateUser(new UserData(userId, name, email, username, newHash, image, role))
+                            })
+                    })
             })
     }
 
