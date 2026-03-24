@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 
 import { database } from './models.js'
 
-import { logic } from './logic.js'
+import { logic, User, Pet } from './logic.js'
 import { data, UserData, PetData } from './data.js'
 import { CredentialError, DuplicityError, ExistenceError, OwnershipError } from 'com'
 
@@ -189,6 +189,253 @@ describe('logic', () => {
                 .finally(() => {
                     expect(caught).to.be.instanceOf(CredentialError)
                     expect(caught.message).to.equal('incorrect password')
+                })
+        })
+    })
+
+    describe('getUser', () => {
+        it('succeeds on existing user', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => logic.getUser(userData.id))
+                .then(user => {
+                    expect(user).to.be.instanceOf(User)
+                    expect(user.name).to.equal('Mi Ke')
+                    expect(user.email).to.equal('mi@ke.com')
+                    expect(user.username).to.equal('mike')
+                    expect(user.image).to.be.null
+                    expect(user.role).to.equal('regular')
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.getUser('012345678901234567890123')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+
+        })
+    })
+
+    describe('changeUserImage', () => {
+        it('succeeds on existing user', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => logic.changeUserImage(userData.id, 'https://image.com/123'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => {
+                    expect(userData.name).to.equal('Mi Ke')
+                    expect(userData.email).to.equal('mi@ke.com')
+                    expect(userData.username).to.equal('mike')
+                    expect(userData.password).to.equal(hashed)
+                    expect(userData.role).to.equal('regular')
+                    expect(userData.image).to.equal('https://image.com/123')
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.changeUserImage('012345678901234567890123', 'https://image.com/123')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+        })
+    })
+
+    describe('changeUserName', () => {
+        it('succeeds on existing user', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => logic.changeUserName(userData.id, 'Mi Ke 2'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => {
+                    expect(userData.name).to.equal('Mi Ke 2')
+                    expect(userData.email).to.equal('mi@ke.com')
+                    expect(userData.username).to.equal('mike')
+                    expect(userData.password).to.equal(hashed)
+                    expect(userData.role).to.equal('regular')
+                    expect(userData.image).to.be.null
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.changeUserName('012345678901234567890123', 'Mi Ke 2')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+        })
+    })
+
+    describe('changeUserUsername', () => {
+        it('succeeds on existing user', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => logic.changeUserUsername(userData.id, 'mike2'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => {
+                    expect(userData.name).to.equal('Mi Ke')
+                    expect(userData.email).to.equal('mi@ke.com')
+                    expect(userData.username).to.equal('mike2')
+                    expect(userData.password).to.equal(hashed)
+                    expect(userData.role).to.equal('regular')
+                    expect(userData.image).to.be.null
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.changeUserUsername('012345678901234567890123', 'mike2')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+        })
+    })
+
+    describe('addPet', () => {
+        it('succeeds on existing user', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => {
+                    return logic.addPet(userData.id, 'Tor Tuga', '2026-01-10', 2, 'https://image.com/123')
+                        .then(() => data.findPetsByUserId(userData.id))
+                        .then(pets => {
+                            expect(pets).to.have.lengthOf(1)
+
+                            const [pet] = pets
+                            expect(pet.name).to.equal('Tor Tuga')
+                            expect(pet.birthdate.getFullYear()).to.equal(2026)
+                            expect(pet.birthdate.getMonth()).to.equal(0)
+                            expect(pet.birthdate.getDate()).to.equal(10)
+                            expect(pet.weight).to.equal(2)
+                            expect(pet.image).to.equal('https://image.com/123')
+                        })
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.addPet('012345678901234567890123', 'Tor Tuga', '2026-01-10', 2, 'https://image.com/123')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+        })
+    })
+
+    describe('getPets', () => {
+        it('succeeds on existing user and pet', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => {
+                    return data.insertPet(new PetData(null, userData.id, 'Tor Tuga', '2026-01-10', 2, 'https://image.com/123'))
+                        .then(() => logic.getPets(userData.id))
+                        .then(pets => {
+                            expect(pets).to.have.lengthOf(1)
+
+                            const [pet] = pets
+                            expect(pet).instanceOf(Pet)
+                            expect(pet.ownerId).to.equal(userData.id)
+                            expect(pet.name).to.equal('Tor Tuga')
+                            expect(pet.birthdate.getFullYear()).to.equal(2026)
+                            expect(pet.birthdate.getMonth()).to.equal(0)
+                            expect(pet.birthdate.getDate()).to.equal(10)
+                            expect(pet.weight).to.equal(2)
+                            expect(pet.image).to.equal('https://image.com/123')
+                        })
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.getPets('012345678901234567890123')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+        })
+    })
+
+    describe('removePet', () => {
+        it('succeeds on existing user and pet', () => {
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => {
+                    return data.insertPet(new PetData(null, userData.id, 'Tor Tuga', '2026-01-10', 2, 'https://image.com/123'))
+                        .then(() => data.findPetsByUserId(userData.id))
+                        .then(petsData => {
+                            const [petData] = petsData
+
+                            return logic.removePet(userData.id, petData.id)
+                        })
+                        .then(() => data.findPetsByUserId(userData.id))
+                        .then(petsData => expect(petsData).to.have.lengthOf(0))
+                })
+        })
+
+        it('fails on non-existing user', () => {
+            let caught = null
+
+            return logic.removePet('012345678901234567890123', '012345678901234567890123')
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('user not found')
+                })
+        })
+
+        it('fails on existing user but non-existing pet', () => {
+            let caught = null
+
+            return data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular'))
+                .then(() => data.findUserByEmail('mi@ke.com'))
+                .then(userData => logic.removePet(userData.id, '012345678901234567890123'))
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(ExistenceError)
+                    expect(caught.message).to.equal('pet not found')
+                })
+        })
+
+        it('fails on existing user and existing pet from another user', () => {
+            let caught = null
+
+            return Promise.all([
+                data.insertUser(new UserData(null, 'Mi Ke', 'mi@ke.com', 'mike', hashed, null, 'regular')),
+                data.insertUser(new UserData(null, 'Mi Ke 2', 'mi@ke2.com', 'mike2', hashed, null, 'regular'))
+            ])
+                .then(() => data.findUserByEmail('mi@ke2.com'))
+                .then(userData2 => {
+                    return data.insertPet(new PetData(null, userData2.id, 'Tor Tuga', '2026-01-10', 2, 'https://image.com/123'))
+                        .then(() => data.findPetsByUserId(userData2.id))
+                        .then(petsData => {
+                            const [petData] = petsData
+
+                            return data.findUserByEmail('mi@ke.com')
+                                .then(userData => logic.removePet(userData.id, petData.id))
+                        })
+                })
+                .catch(error => caught = error)
+                .finally(() => {
+                    expect(caught).to.be.instanceOf(OwnershipError)
+                    expect(caught.message).to.equal('user not owner of pet')
                 })
         })
     })
