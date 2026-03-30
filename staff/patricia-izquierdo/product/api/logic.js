@@ -270,7 +270,7 @@ class Logic {
 
                 if (petData.ownerId !== userId) throw new OwnershipError('user not owner of pet')
 
-                data.updatePet(new PetData(petId, userId, name, birthdate, weight, image))
+                return data.updatePet(new PetData(petId, userId, name, birthdate, weight, image))
             })
     }
 }
