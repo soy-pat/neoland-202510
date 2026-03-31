@@ -9,7 +9,7 @@ import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-import { logger } from '../../logger'
+import { logger } from '../logger'
 
 export function Home({ onGoToAddPet, onUserLoggedOut, onGoToProfile, onGoToPetDetail }) {
     logger.debug('Home -> call')

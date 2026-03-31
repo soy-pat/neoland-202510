@@ -10,46 +10,46 @@ import { logic } from '../../logic'
 
 import { logger } from '../../logger'
 
-export function ChangeUserImage() {
-    logger.debug('ChangeUserImage -> call')
+export function ChangeUserName() {
+    logger.debug('ChangeUserName -> call')
 
     const { onSuccess, onError } = useContext()
 
-    const [image, setImage] = useState('')
+    const [name, setName] = useState('')
 
     useEffect(() => {
         try {
             logic.getLoggedInUser()
-                .then(user => setImage(user.image))
+                .then(user => setName(user.name))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
     }, [])
 
-    const handleChangeImageSubmit = event => {
+    const handleChangeNameSubmit = event => {
         event.preventDefault()
 
         const form = event.target
 
-        const image = form.image.value
+        const name = form.name.value
 
         try {
-            logic.changeUserImage(image)
-                .then(() => onSuccess('user image successfully updated'))
+            logic.changeUserName(name)
+                .then(() => onSuccess('user name successfully updated'))
                 .catch(error => onError(error))
         } catch (error) {
             onError(error)
         }
     }
 
-    logger.debug('ChangeUserImage -> render')
+    logger.debug('ChangeUserName -> render')
 
     return <div>
-        <Form onSubmit={handleChangeImageSubmit}>
-            <Field alias="image" type="url" defaultValue={image}>Image</Field>
+        <Form onSubmit={handleChangeNameSubmit}>
+            <Field alias="name" type="text" defaultValue={name}>Name</Field>
 
-            <Button className="self-center mt-4" type="submit">Update image</Button>
+            <Button className="self-center mt-4" type="submit">Update name</Button>
         </Form>
     </div>
 }

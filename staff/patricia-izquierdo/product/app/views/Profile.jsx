@@ -9,7 +9,7 @@ import { ChangeUserUsername } from './components/ChangeUserUsername'
 
 import { useContext } from '../context'
 
-import { logger } from '../../logger'
+import { logger } from '../logger'
 
 export function Profile({ onGoToHome }) {
     logger.debug('Profile -> call')

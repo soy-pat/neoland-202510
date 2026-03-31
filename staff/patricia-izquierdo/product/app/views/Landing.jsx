@@ -1,6 +1,6 @@
 import { Anchor } from './components/commons/Anchor'
 
-import { logger } from '../../logger'
+import { logger } from '../logger'
 
 export function Landing({ onGoToLogin, onGoToRegister }) {
     logger.debug('Landing -> call')

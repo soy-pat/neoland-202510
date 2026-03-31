@@ -9,7 +9,7 @@ import { useContext } from '../context'
 
 import { logic } from '../logic'
 
-import { logger } from '../../logger'
+import { logger } from '../logger'
 
 export function Register({ onGoToLogin }) {
     logger.debug('Register -> call')

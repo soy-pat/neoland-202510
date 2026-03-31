@@ -1,5 +1,4 @@
 
-
 function debug(message) {
     console.debug('%cDEBUG ' + message, 'font-weight: bold; color: lightgreen;')
 }
