@@ -10,10 +10,10 @@ App for book readers tu upload their books reviews and see another reviews from 
 - register
 - login
 - add review
-- search users
-- see review from another users
+- search books
+- see reviews from another users after search a book
 - see user reviews
-- update credentials (password, username, email, image)
+- update profile (password, username, email, image)
 - delete review
 - logout
 
@@ -22,5 +22,14 @@ App for book readers tu upload their books reviews and see another reviews from 
 [Figma](https://www.figma.com/design/rbRI4FbDXlYEQMBrBne3PU/Letterbooksd?node-id=0-1&t=9U4FpiLBEj2ZgdKF-1)
 
 # Technical description
+
+## Data Model
+UserData
+- id (unique, string)
+- name (required, string)
+- email (required, unique, string)
+- username (required, unique, string)
+- password (required, hashed, string)
+- image (string)
 
 TODO
