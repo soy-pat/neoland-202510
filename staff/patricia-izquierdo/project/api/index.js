@@ -1,0 +1,57 @@
+import express from 'express'
+import cors from 'cors'
+import morganBody from 'morgan-body'
+import jwt from 'jsonwebtoken'
+
+import { logic } from './logic.js'
+
+import { database } from './models.js'
+
+database.connect(process.env.DB_URL)
+    .then(() => {
+
+        const { JsonWebTOkenError } = jwt
+
+        const api = express()
+
+        const jsonBodyParser = express.json()
+
+        api.use(cors())
+
+        api.use(jsonBodyParser)
+
+        morganBody(api, {
+            logAllReqHeader: true,
+            logAllResHeader: true
+        })
+        api.get('/', (req, res) => res.json({ message: 'hello! :)' }))
+
+        api.post('/users', (req, res) => {
+            try {
+                const { name, email, username, password, passwordRepeat } = req.body
+
+                logic.registerUser(name, email, username, password, passwordRepeat)
+
+                res.status(201).send()
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+        api.post('/users/auth', (req, res) => {
+            try {
+                const { username, password } = req.body
+
+                logic.authenticateUser(username, password)
+                    .then(userId => {
+                        const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' })
+
+                        res.json(token)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
+    })
+    .catch(error => console.error(error))

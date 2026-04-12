@@ -21,6 +21,10 @@ export function App() {
         <Routes>
             <Route path="/" element={<Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />} />
 
+            <Route path="/register" element={<Register onGoToLogin={handleGoToLogin} />} />
+
+            <Route path="/login" element={<Login />} />
+
         </Routes>
     </div>
 }
