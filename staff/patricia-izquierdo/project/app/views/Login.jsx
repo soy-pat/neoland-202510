@@ -8,7 +8,7 @@ import { Field } from './components/commons/Field'
 
 import { logic } from '../logic.js'
 
-export function Login() {
+export function Login({ onGoToMyReviews }) {
 
     const [message, setMessage] = useState('')
 

@@ -52,6 +52,22 @@ database.connect(process.env.DB_URL)
             }
         })
 
+        api.post('/reviews', (req, res) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const { title, image, stars, subject, body } = req.body
+
+                logic.addReview(userId, title, image, stars, subject, body)
+
+                res.status(201).send()
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
         api.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
     })
     .catch(error => console.error(error))

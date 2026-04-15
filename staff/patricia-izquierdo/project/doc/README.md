@@ -32,4 +32,12 @@ UserData
 - password (required, hashed, string)
 - image (string)
 
+ReviewData
+- id (unique, string)
+- title (required, string)
+- image (required, string)
+- stars (required, string)
+- subject (required, string)
+- body (required, string)
+
 TODO

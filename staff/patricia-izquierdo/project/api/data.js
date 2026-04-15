@@ -1,4 +1,4 @@
-import { UserModel } from './models.js'
+import { UserModel, ReviewModel } from './models.js'
 
 export class UserData {
     constructor(id, name, email, username, password, image) {
@@ -8,6 +8,18 @@ export class UserData {
         this.username = username
         this.password = password
         this.image = image
+    }
+}
+
+export class ReviewData {
+    constructor(id, userId, title, image, stars, subject, body) {
+        this.id = id
+        this.userId = userId
+        this.title = title
+        this.image = image
+        this.stars = stars
+        this.subject = subject
+        this.body = body
     }
 }
 
@@ -32,6 +44,18 @@ class Data {
             })
     }
 
+    findUserById(userId) {
+        return UserModel.findById(userId)
+            .catch(error => { throw new SystemError(error.message) })
+            .then(userModel => {
+                if (!userModel) return null
+
+                const { id, name, email, username, password, image } = userModel
+
+                return new UserData(id, name, email, username, password, image)
+            })
+    }
+
     findUserByUsername(username) {
         return UserModel.findOne({ username })
             .catch(error => { throw new Error(error.message) })
@@ -42,6 +66,14 @@ class Data {
 
                 return new UserData(id, name, email, username, password, image)
             })
+    }
+
+    insertReview(reviewData) {
+        const reviewModel = new ReviewModel(reviewData)
+
+        return reviewModel.save()
+            .catch(error => { throw new Error(error.message) })
+            .then(reviewModel => { })
     }
 }
 
