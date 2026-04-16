@@ -5,6 +5,7 @@ import { MyReviews } from "./views/MyReviews"
 import { AddReview } from "./views/AddReview"
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router'
+import { MyReview } from "./views/MyReview"
 
 export function App() {
 
@@ -34,6 +35,8 @@ export function App() {
             <Route path="/myReviews" element={<MyReviews onGoToAddReview={handleGoToAddReview} />} />
 
             <Route path="/addReview" element={<AddReview onGoToMyReviews={handleGoToMyReviews} />} />
+
+            <Route path="/myReview" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
 
         </Routes>
     </div>

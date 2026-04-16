@@ -68,6 +68,20 @@ database.connect(process.env.DB_URL)
             }
         })
 
+        api.get('/reviews', (req, res) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const reviews = logic.getReviews(userId)
+                    .then(reviews => res.json(reviews))
+                // .catch(error => next(error))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
         api.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
     })
     .catch(error => console.error(error))

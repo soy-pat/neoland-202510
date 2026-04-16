@@ -32,7 +32,8 @@ const userSchema = new Schema({
 
 const reviewSchema = new Schema({
     userId: {
-        type: ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     title: {
         type: String,

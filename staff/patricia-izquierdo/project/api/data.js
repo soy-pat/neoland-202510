@@ -1,4 +1,5 @@
 import { UserModel, ReviewModel } from './models.js'
+import { ObjectId } from 'mongodb'
 
 export class UserData {
     constructor(id, name, email, username, password, image) {
@@ -74,6 +75,16 @@ class Data {
         return reviewModel.save()
             .catch(error => { throw new Error(error.message) })
             .then(reviewModel => { })
+    }
+
+    findReviewsByUserId(userId) {
+        return ReviewModel.find({ userId: new ObjectId(userId) })
+            .catch(error => { throw new Error(error.message) })
+            .then(reviewModels => reviewModels.map(reviewModel => {
+                const { id, userId, title, image, stars, subject, body } = reviewModel
+
+                return new ReviewData(id, userId.toString(), title, image, stars, subject, body)
+            }))
     }
 }
 
