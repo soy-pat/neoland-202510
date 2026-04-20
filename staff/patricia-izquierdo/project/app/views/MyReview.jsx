@@ -10,10 +10,14 @@ import { NavegationBar } from './components/commons/NavegationBar'
 import { BookSubject } from './components/commons/BookSubject'
 import { BookBody } from './components/commons/BookBody'
 import { CircularBotton } from './components/commons/CircularButton'
+import { Button } from './components/commons/Button'
 
-export function MyReview() {
+export function MyReview({ onGoToMyReviews }) {
 
     const [review, setReview] = useState(null)
+    const [deleteMode, setDeleteMode] = useState(null)
+
+    const [message, setMessage] = useState('')
 
     const { reviewId } = useParams()
 
@@ -26,6 +30,36 @@ export function MyReview() {
             console.log(error)
         }
     })
+
+    const handleRemoveReviewClick = event => {
+        event.preventDefault()
+
+        setDeleteMode(true)
+    }
+
+    const handleNoRemoveReviewClick = event => {
+        event.preventDefault()
+
+        setDeleteMode(null)
+
+    }
+
+    const handleYesRemoveReviewClick = event => {
+        event.preventDefault()
+
+        try {
+            logic.removeReview(reviewId)
+                .then(() => {
+
+                    setDeleteMode(null)
+
+                    onGoToMyReviews()
+                })
+                .catch(error => setMessage(error.message))
+        } catch (error) {
+            setMessage(error.message)
+        }
+    }
 
     return <div className="p-5">
         <LogoName imageClassName='w-25' textClassName='text-xs'></LogoName>
@@ -45,11 +79,25 @@ export function MyReview() {
 
                     <BookBody>{review.body}</BookBody>
 
+                    <p>{message}</p>
+
                     <NavegationBar></NavegationBar>
 
-                    <CircularBotton className='absolute top-7 right-7'>🗑️</CircularBotton>
-
+                    <CircularBotton className='absolute top-7 right-7 text-sm' onClick={handleRemoveReviewClick}>🗑️</CircularBotton>
                 </div>
+
+                {deleteMode && <div className='flex justify-center items-center'>
+                    <div className='bg-white rounded-md absolute top-50 p-2'>
+                        <p className='text-cyan-950 text-center'>Do you want to delete this review?</p>
+
+                        <div className='flex justify-center'>
+                            <Button className='bg-orange-300' onClick={handleNoRemoveReviewClick} >No</Button>
+
+                            <Button onClick={handleYesRemoveReviewClick}>Yes</Button>
+                        </div>
+                    </div>
+
+                </div>}
             </div>
         })() : null}
 

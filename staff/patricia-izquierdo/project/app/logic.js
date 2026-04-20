@@ -142,8 +142,8 @@ class Logic {
     getReview(reviewId) {
         if (data.getToken() === null) throw new Error('user not logged in')
 
-        if (typeof reviewId !== 'string') throw new ValidationError(`invalid reviewId type`)
-        if (!ID_REGEX.test(reviewId)) throw new ValidationError(`invalid reviewId format`)
+        if (typeof reviewId !== 'string') throw new Error(`invalid reviewId type`)
+        if (!ID_REGEX.test(reviewId)) throw new Error(`invalid reviewId format`)
 
         return fetch(`${import.meta.env.VITE_API_URL}/reviews/${reviewId}`, {
             headers: {
@@ -160,7 +160,7 @@ class Logic {
                         .then(review => review)
 
                 return res.json()
-                    .catch(error => { throw new SystemError('json error') })
+                    .catch(error => { throw new Error('json error') })
                     .then(body => {
                         const { error, message } = body
                         throw new Error(message)
@@ -168,6 +168,33 @@ class Logic {
             })
     }
 
+    removeReview(reviewId) {
+        if (data.getToken() === null) throw new Error('user not logged in')
+
+        if (typeof reviewId !== 'string') throw new Error(`invalid reviewId type`)
+        if (!ID_REGEX.test(reviewId)) throw new Error(`invalid reviewId format`)
+
+        return fetch(`${import.meta.env.VITE_API_URL}/reviews/${reviewId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${data.getToken()}`
+            }
+        })
+            .catch(error => { throw new Error('connection error') })
+            .then(res => {
+                const { status } = res
+
+                if (status === 204)
+                    return
+
+                return res.json()
+                    .catch(error => { throw new Error('json error') })
+                    .then(body => {
+                        const { error, message } = body
+                        throw new Error(message)
+                    })
+            })
+    }
 
 }
 export const logic = new Logic()

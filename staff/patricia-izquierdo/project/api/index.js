@@ -97,6 +97,22 @@ database.connect(process.env.DB_URL)
             }
         })
 
+        api.delete('/reviews/:reviewId', (req, res) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const { reviewId } = req.params
+
+                logic.removeReview(userId, reviewId)
+                    .then(() => res.status(204).send())
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
         api.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
     })
     .catch(error => console.error(error))

@@ -47,7 +47,7 @@ class Data {
 
     findUserById(userId) {
         return UserModel.findById(userId)
-            .catch(error => { throw new SystemError(error.message) })
+            .catch(error => { throw new Error(error.message) })
             .then(userModel => {
                 if (!userModel) return null
 
@@ -97,6 +97,12 @@ class Data {
 
                 return new ReviewData(id, userId.toString(), title, image, stars, subject, body)
             })
+    }
+
+    deleteReview(reviewId) {
+        return ReviewModel.deleteOne({ _id: reviewId })
+            .catch(error => { throw new Error(error.message) })
+            .then(result => { })
     }
 }
 

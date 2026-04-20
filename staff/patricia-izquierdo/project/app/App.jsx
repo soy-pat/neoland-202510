@@ -38,7 +38,7 @@ export function App() {
 
             <Route path="/addReview" element={<AddReview onGoToMyReviews={handleGoToMyReviews} />} />
 
-            <Route path="/reviews/:reviewId" element={<MyReview />} />
+            <Route path="/reviews/:reviewId" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
 
         </Routes>
     </div>
