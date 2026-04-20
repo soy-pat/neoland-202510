@@ -3,6 +3,7 @@ import { Register } from "./views/Register"
 import { Login } from "./views/Login"
 import { MyReviews } from "./views/MyReviews"
 import { AddReview } from "./views/AddReview"
+import { SearchABook } from "./views/SearchABook"
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router'
 import { MyReview } from "./views/MyReview"
@@ -40,6 +41,8 @@ export function App() {
 
             <Route path="/reviews/:reviewId" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
 
+            <Route path="/searchABook" element={<SearchABook />} />
+
         </Routes>
-    </div>
+    </div >
 }

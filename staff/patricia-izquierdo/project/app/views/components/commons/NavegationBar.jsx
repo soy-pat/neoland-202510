@@ -11,7 +11,7 @@ export function NavegationBar({ className }) {
 
     const handleGoToMyReviews = () => NavigateTo('/myReviews')
 
-    const handleGoToSearchBook = () => NavigateTo('/')
+    const handleGoToSearchBook = () => NavigateTo('/searchABook')
 
     const handleGoToMyProfile = () => NavigateTo('/')
 
