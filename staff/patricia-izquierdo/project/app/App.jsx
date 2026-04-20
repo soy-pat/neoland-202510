@@ -24,6 +24,8 @@ export function App() {
 
     const handleGoToAddReview = () => clearFeedbackAndNavigate('/addReview')
 
+    const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}`)
+
     return <div className="min-h-screen bg-cyan-950">
         <Routes>
             <Route path="/" element={<Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />} />
@@ -32,11 +34,11 @@ export function App() {
 
             <Route path="/login" element={<Login onGoToMyReviews={handleGoToMyReviews} />} />
 
-            <Route path="/myReviews" element={<MyReviews onGoToAddReview={handleGoToAddReview} />} />
+            <Route path="/myReviews" element={<MyReviews onGoToAddReview={handleGoToAddReview} onGoToMyReview={handleGoToMyReview} />} />
 
             <Route path="/addReview" element={<AddReview onGoToMyReviews={handleGoToMyReviews} />} />
 
-            <Route path="/myReview" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
+            <Route path="/reviews/:reviewId" element={<MyReview />} />
 
         </Routes>
     </div>

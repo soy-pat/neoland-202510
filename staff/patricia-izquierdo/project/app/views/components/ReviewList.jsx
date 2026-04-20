@@ -4,7 +4,7 @@ import { logic } from '../../logic.js'
 
 import { ReviewItem } from './ReviewItem'
 
-export function ReviewList() {
+export function ReviewList({ onGoToMyReview }) {
 
     const [message, setMessage] = useState('')
 
@@ -25,7 +25,7 @@ export function ReviewList() {
 
     return <div>
         <ul className="flex flex-row flex-wrap gap-2 mt-2 justify-center">
-            {reviews.map(review => <ReviewItem key={review.id} review={review} />)}
+            {reviews.map(review => <ReviewItem key={review.id} review={review} onGoToMyReview={onGoToMyReview} />)}
         </ul>
     </div>
 

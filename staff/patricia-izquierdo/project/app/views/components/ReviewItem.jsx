@@ -1,5 +1,8 @@
-export function ReviewItem({ review }) {
-    return <li>
+export function ReviewItem({ review, onGoToMyReview }) {
+
+    const handleGoToMyReview = reviewId => onGoToMyReview(reviewId)
+
+    return <li onClick={() => handleGoToMyReview(review.id)}>
         <div className="flex flex-col gap-2 m-2 justify-center items-center">
             <img src={review.image} className="w-14 h-24 object-cover" />
 

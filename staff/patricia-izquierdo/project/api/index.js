@@ -76,7 +76,22 @@ database.connect(process.env.DB_URL)
 
                 const reviews = logic.getReviews(userId)
                     .then(reviews => res.json(reviews))
-                // .catch(error => next(error))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.get('/reviews/:reviewId', (req, res) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const { reviewId } = req.params
+
+                logic.getReview(userId, reviewId)
+                    .then(review => res.json(review))
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
