@@ -87,6 +87,16 @@ class Data {
             }))
     }
 
+    findReviewsByTitle(titleQuery) {
+        return ReviewModel.find({ title: { $regex: titleQuery, $options: 'i' } })
+            .catch(error => { throw new Error(error.message) })
+            .then(reviewModels => reviewModels.map(reviewModel => {
+                const { id, userId, title, image, stars, subject, body } = reviewModel
+
+                return new ReviewData(id, userId.toString(), title, image, stars, subject, body)
+            }))
+    }
+
     findReviewById(reviewId) {
         return ReviewModel.findById(reviewId)
             .catch(error => { throw new Error(error.message) })

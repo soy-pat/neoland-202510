@@ -1,5 +1,5 @@
-export function Form({ children, onSubmit }) {
-    return <form className="flex flex-col" onSubmit={onSubmit}>
+export function Form({ children, onSubmit, className }) {
+    return <form className={`flex flex-col ${className}`} onSubmit={onSubmit} >
         {children}
-    </form>
+    </form >
 }

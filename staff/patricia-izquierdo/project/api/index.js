@@ -37,6 +37,29 @@ database.connect(process.env.DB_URL)
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
         })
+
+        api.get('/users/:userId', (req, res) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                jwt.verify(token, process.env.JWT_SECRET)
+
+                const { userId } = req.params
+
+                logic.getUser(userId)
+                    .then(user => res.json(user))
+                    .catch(error => res.status(400).json({
+                        error: error.constructor.name,
+                        message: error.message
+                    }))
+            } catch (error) {
+                res.status(400).json({
+                    error: error.constructor.name,
+                    message: error.message
+                })
+            }
+        })
+
         api.post('/users/auth', (req, res) => {
             try {
                 const { username, password } = req.body
@@ -75,6 +98,21 @@ database.connect(process.env.DB_URL)
                 const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
 
                 const reviews = logic.getReviews(userId)
+                    .then(reviews => res.json(reviews))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.get('/reviews/search', (req, res) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                const { title } = req.query
+
+                logic.searchReviewsByTitle(userId, title)
                     .then(reviews => res.json(reviews))
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })

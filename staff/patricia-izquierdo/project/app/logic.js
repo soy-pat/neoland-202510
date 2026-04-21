@@ -196,5 +196,59 @@ class Logic {
             })
     }
 
+    getFoundReviews(titleSearched) {
+        if (typeof titleSearched !== 'string') throw new Error('invalid titleSearched type')
+        if (titleSearched.length < 1) throw new Error('invalid titleSearched length')
+
+        return fetch(`${import.meta.env.VITE_API_URL}/reviews/search?title=${encodeURIComponent(titleSearched)}`, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.token}`
+            }
+        })
+            .catch(error => { throw new Error('connection error') })
+            .then(res => {
+                const { status } = res
+
+                if (status === 200)
+                    return res.json()
+                        .catch(error => { throw new Error('json error') })
+                        .then(reviews => reviews)
+
+                return res.json()
+                    .catch(error => { throw new Error('json error') })
+                    .then(body => {
+                        const { error, message } = body
+                        throw new Error(message)
+                    })
+            })
+    }
+
+    getUser(userId) {
+        if (typeof userId !== 'string') throw new Error('invalid userId type')
+        if (userId.length < 1) throw new Error('invalid userId length')
+
+        return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${data.getToken()}`
+            }
+        })
+            .catch(error => { throw new Error('connection error') })
+            .then(res => {
+                const { status } = res
+
+                if (status === 200)
+                    return res.json()
+                        .catch(error => { throw new Error('json error') })
+                        .then(user => user)
+
+                return res.json()
+                    .catch(error => { throw new Error('json error') })
+                    .then(body => {
+                        const { error, message } = body
+                        throw new Error(message)
+                    })
+            })
+    }
+
 }
 export const logic = new Logic()

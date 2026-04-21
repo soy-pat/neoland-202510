@@ -66,6 +66,19 @@ class Logic {
             })
     }
 
+    getUser(userId) {
+        if (typeof userId !== 'string') throw new Error(`invalid userId type`)
+        if (!ID_REGEX.test(userId)) throw new Error(`invalid userId format`)
+
+        return data.findUserById(userId)
+            .then(userData => {
+                if (!userData) throw new Error('user not found')
+
+                const { id, name, email, username, password } = userData
+
+                return new UserData(id, name, email, username, password)
+            })
+    }
     addReview(userId, title, image, stars, subject, body) {
         if (typeof userId !== 'string') throw new Error(`invalid userId type`)
         if (!ID_REGEX.test(userId)) throw new Error(`invalid userId format`)
@@ -103,6 +116,25 @@ class Logic {
                 if (!userData) throw new Error('user not found')
 
                 return data.findReviewsByUserId(userId)
+            })
+            .then(reviewDatas => reviewDatas.map(reviewModel => {
+                const { id, userId, title, image, stars, subject, body } = reviewModel
+
+                return new ReviewData(id, userId, title, image, stars, subject, body)
+            }))
+    }
+
+    searchReviewsByTitle(userId, titleQuery) {
+        if (typeof userId !== 'string') throw new Error(`invalid userId type`)
+        if (!ID_REGEX.test(userId)) throw new Error(`invalid userId format`)
+
+        if (!titleQuery) throw new Error('title query parameter is required')
+
+        return data.findUserById(userId)
+            .then(userData => {
+                if (!userData) throw new Error('user not found')
+
+                return data.findReviewsByTitle(titleQuery)
             })
             .then(reviewDatas => reviewDatas.map(reviewModel => {
                 const { id, userId, title, image, stars, subject, body } = reviewModel
