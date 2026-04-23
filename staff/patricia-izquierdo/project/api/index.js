@@ -60,6 +60,29 @@ database.connect(process.env.DB_URL)
             }
         })
 
+        api.get('/users/:userId/reviews', (req, res) => {
+            try {
+                const { userId } = req.params
+
+                const reviews = logic.getUserReviews(userId)
+                    .then(reviews => res.json(reviews))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.get('/searchABook/:reviewId', (req, res) => {
+            try {
+                const { reviewId } = req.params
+
+                logic.getUserReview(reviewId)
+                    .then(review => res.json(review))
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
         api.post('/users/auth', (req, res) => {
             try {
                 const { username, password } = req.body

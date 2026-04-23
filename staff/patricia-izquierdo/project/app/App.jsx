@@ -4,6 +4,8 @@ import { Login } from "./views/Login"
 import { MyReviews } from "./views/MyReviews"
 import { AddReview } from "./views/AddReview"
 import { SearchABook } from "./views/SearchABook"
+import { UserReview } from "./views/UserReview"
+import { UserReviews } from "./views/UserReviews"
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router'
 import { MyReview } from "./views/MyReview"
@@ -27,6 +29,10 @@ export function App() {
 
     const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}`)
 
+    const handleGoToUserReview = reviewId => clearFeedbackAndNavigate(`/searchABook/${reviewId}`)
+
+    const handleGoToUserReviews = userId => clearFeedbackAndNavigate(`/users/${userId}/reviews`)
+
     return <div className="min-h-screen bg-cyan-950">
         <Routes>
             <Route path="/" element={<Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />} />
@@ -41,7 +47,11 @@ export function App() {
 
             <Route path="/reviews/:reviewId" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
 
-            <Route path="/searchABook" element={<SearchABook />} />
+            <Route path="/searchABook" element={<SearchABook onGoToUserReview={handleGoToUserReview} />} />
+
+            <Route path="/searchABook/:reviewId" element={<UserReview onGoToUserReviews={handleGoToUserReviews} />} />
+
+            <Route path="/users/:userId/reviews" element={<UserReviews />} />
 
         </Routes>
     </div >

@@ -6,10 +6,8 @@ import { ReviewItem } from './ReviewItem'
 
 export function ReviewList({ onGoToMyReview }) {
 
-    const [message, setMessage] = useState('')
-
     const [reviews, setReviews] = useState([])
-    const [reviewId, setReviewId] = useState(null)
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
         try {

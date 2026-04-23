@@ -124,6 +124,23 @@ class Logic {
             }))
     }
 
+    getUserReviews(userId) {
+        if (typeof userId !== 'string') throw new Error(`invalid userId type`)
+        if (!ID_REGEX.test(userId)) throw new Error(`invalid userId format`)
+
+        return data.findUserById(userId)
+            .then(userData => {
+                if (!userData) throw new Error('user not found')
+
+                return data.findReviewsByUserId(userId)
+            })
+            .then(reviewDatas => reviewDatas.map(reviewModel => {
+                const { id, userId, title, image, stars, subject, body } = reviewModel
+
+                return new ReviewData(id, userId, title, image, stars, subject, body)
+            }))
+    }
+
     searchReviewsByTitle(userId, titleQuery) {
         if (typeof userId !== 'string') throw new Error(`invalid userId type`)
         if (!ID_REGEX.test(userId)) throw new Error(`invalid userId format`)
@@ -164,6 +181,20 @@ class Logic {
                 const { id, userId: reviewUserId, title, image, stars, subject, body } = reviewData
 
                 return new ReviewData(id, reviewUserId, title, image, stars, subject, body)
+            })
+    }
+
+    getUserReview(reviewId) {
+        if (typeof reviewId !== 'string') throw new Error(`invalid reviewId type`)
+        if (!ID_REGEX.test(reviewId)) throw new Error(`invalid reviewId format`)
+
+        return data.findReviewById(reviewId)
+            .then(reviewData => {
+                if (!reviewData) throw new Error('review not found')
+
+                const { id, userId, title, image, stars, subject, body } = reviewData
+
+                return new ReviewData(id, userId, title, image, stars, subject, body)
             })
     }
 

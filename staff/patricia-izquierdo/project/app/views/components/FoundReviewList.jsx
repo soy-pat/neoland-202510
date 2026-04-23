@@ -4,7 +4,7 @@ import { logic } from '../../logic.js'
 
 import { FoundReviewItem } from './FoundReviewItem'
 
-export function FoundReviewList({ titleSearched }) {
+export function FoundReviewList({ titleSearched, onGoToUserReview }) {
 
     const [reviews, setReviews] = useState([])
     const [error, setError] = useState(null)
@@ -26,7 +26,7 @@ export function FoundReviewList({ titleSearched }) {
 
     return <div>
         <ul className='flex flex-row flex-wrap gap-2 mt-2 justify-center'>
-            {reviews.map(review => <FoundReviewItem key={review.id} review={review} />)}
+            {reviews.map(review => <FoundReviewItem key={review.id} review={review} onGoToUserReview={onGoToUserReview} />)}
         </ul>
     </div>
 }

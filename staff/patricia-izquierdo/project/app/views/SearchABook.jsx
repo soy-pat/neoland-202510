@@ -7,7 +7,7 @@ import { SearchBar } from './components/commons/SearchBar'
 import { Form } from './components/commons/Form'
 import { FoundReviewList } from './components/FoundReviewList'
 
-export function SearchABook() {
+export function SearchABook({ onGoToUserReview }) {
     const [titleSearch, setTitleSearch] = useState('')
 
     const handleSearchSubmit = event => {
@@ -19,6 +19,8 @@ export function SearchABook() {
 
         setTitleSearch(title)
     }
+
+    const handleGoToUserReview = reviewId => onGoToUserReview(reviewId)
 
     return <div className="p-5">
         <LogoName imageClassName='w-25' textClassName='text-xs'></LogoName>
@@ -33,6 +35,6 @@ export function SearchABook() {
 
         <NavegationBar></NavegationBar>
 
-        {titleSearch && <FoundReviewList titleSearched={titleSearch} />}
+        {titleSearch && <FoundReviewList titleSearched={titleSearch} onGoToUserReview={handleGoToUserReview} />}
     </div>
 }
