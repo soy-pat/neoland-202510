@@ -38,6 +38,35 @@ database.connect(process.env.DB_URL)
             }
         })
 
+        api.get('/users/me', (req, res, next) => {
+            try {
+                const token = req.headers.authorization.slice(7)
+
+                const { sub: userId } = jwt.verify(token, process.env.JWT_SECRET)
+
+                logic.getUser(userId)
+                    .then(user => res.json(user))
+                    .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
+        api.post('/users/auth', (req, res) => {
+            try {
+                const { username, password } = req.body
+
+                logic.authenticateUser(username, password)
+                    .then(userId => {
+                        const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' })
+
+                        res.json(token)
+                    })
+            } catch (error) {
+                res.status(400).json({ error: error.constructor.name, message: error.message })
+            }
+        })
+
         api.get('/users/:userId', (req, res) => {
             try {
                 const token = req.headers.authorization.slice(7)
@@ -78,21 +107,6 @@ database.connect(process.env.DB_URL)
                 logic.getUserReview(reviewId)
                     .then(review => res.json(review))
                     .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
-            } catch (error) {
-                res.status(400).json({ error: error.constructor.name, message: error.message })
-            }
-        })
-
-        api.post('/users/auth', (req, res) => {
-            try {
-                const { username, password } = req.body
-
-                logic.authenticateUser(username, password)
-                    .then(userId => {
-                        const token = jwt.sign({ sub: userId }, process.env.JWT_SECRET, { expiresIn: '1h' })
-
-                        res.json(token)
-                    })
             } catch (error) {
                 res.status(400).json({ error: error.constructor.name, message: error.message })
             }
