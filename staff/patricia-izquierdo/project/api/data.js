@@ -114,6 +114,18 @@ class Data {
             .catch(error => { throw new Error(error.message) })
             .then(result => { })
     }
+
+    deleteAllUsers() {
+        return UserModel.deleteMany()
+            .catch(error => { throw new Error(error.message) })
+            .then(result => { })
+    }
+
+    deleteAllReviews() {
+        return ReviewModel.deleteMany()
+            .catch(error => { throw new Error(error.message) })
+            .then(result => { })
+    }
 }
 
 export const data = new Data()
