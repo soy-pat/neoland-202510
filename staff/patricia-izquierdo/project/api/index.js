@@ -3,14 +3,13 @@ import cors from 'cors'
 import morganBody from 'morgan-body'
 import jwt from 'jsonwebtoken'
 
-import { logic } from './logic.js'
+import { logic } from './logic/index.js'
 
-import { database } from './models.js'
-
-database.connect(process.env.DB_URL)
+import { connect } from './mongoose/index.js'
+connect(process.env.DB_URL)
     .then(() => {
 
-        const { JsonWebTOkenError } = jwt
+        const { JsonWebTokenError } = jwt
 
         const api = express()
 
@@ -24,6 +23,7 @@ database.connect(process.env.DB_URL)
             logAllReqHeader: true,
             logAllResHeader: true
         })
+
         api.get('/', (req, res) => res.json({ message: 'hello! :)' }))
 
         api.post('/users', (req, res) => {
