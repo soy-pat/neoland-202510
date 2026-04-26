@@ -1,5 +1,5 @@
-import { UserModel } from '../mongoose/schemas/userSchema'
-import { UserData } from './models'
+import { UserModel } from '../mongoose/index.js'
+import { UserData } from './models/index.js'
 
 export function findUserByEmail(email) {
     return UserModel.findOne({ email })

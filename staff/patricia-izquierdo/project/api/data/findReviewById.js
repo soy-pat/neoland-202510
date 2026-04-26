@@ -1,5 +1,5 @@
-import { ReviewModel } from '../mongoose/schemas/reviewSchema'
-import { ReviewData } from './ReviewData'
+import { ReviewModel } from '../mongoose/index.js'
+import { ReviewData } from './models/index.js'
 
 export function findReviewById(reviewId) {
     return ReviewModel.findById(reviewId)

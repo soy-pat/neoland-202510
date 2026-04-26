@@ -1,2 +1,2 @@
-import { userSchema } from './userSchema.js'
-import { reviewSchema } from './reviewSchema.js'
+export { userSchema } from './userSchema.js'
+export { reviewSchema } from './reviewSchema.js'

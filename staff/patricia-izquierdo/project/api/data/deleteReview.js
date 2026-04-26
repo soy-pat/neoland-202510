@@ -1,4 +1,4 @@
-import { ReviewModel } from '../mongoose/schemas/reviewSchema'
+import { ReviewModel } from '../mongoose/index.js'
 
 export function deleteReview(reviewId) {
     return ReviewModel.deleteOne({ _id: reviewId })

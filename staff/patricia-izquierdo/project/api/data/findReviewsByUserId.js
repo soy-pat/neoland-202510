@@ -1,8 +1,8 @@
-import { ReviewModel } from '../mongoose/schemas/reviewSchema'
-import { ReviewData } from './models'
+import { ReviewModel } from '../mongoose/index.js'
+import { ReviewData } from './models/index.js'
 
 export function findReviewsByUserId(userId) {
-    return ReviewModel.find({ userId: new ObjectId(userId) })
+    return ReviewModel.find({ userId })
         .catch(error => { throw new Error(error.message) })
         .then(reviewModels => reviewModels.map(reviewModel => {
             const { id, userId, title, image, stars, subject, body } = reviewModel

@@ -1,4 +1,4 @@
-import { UserModel } from '../mongoose/schemas/userSchema'
+import { UserModel } from '../mongoose/index.js'
 
 export function insertUser(userData) {
     const userModel = new UserModel(userData)

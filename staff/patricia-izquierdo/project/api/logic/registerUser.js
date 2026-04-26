@@ -1,5 +1,7 @@
 import { data, UserData } from '../data/index.js'
 
+import bcrypt from 'bcryptjs'
+
 import { EMAIL_REGEX } from 'com'
 
 export function registerUser(name, email, username, password, passwordRepeat) {

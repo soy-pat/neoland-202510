@@ -1,5 +1,7 @@
 import { data } from '../data/index.js'
 
+import bcrypt from 'bcryptjs'
+
 export function authenticateUser(username, password) {
     if (typeof username !== 'string') throw new Error('invalid username type')
     if (username.length < 1) throw new Error('invalid username length')

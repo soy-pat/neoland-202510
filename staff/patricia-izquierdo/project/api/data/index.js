@@ -1,5 +1,4 @@
-export * from './UserData.js'
-export * from './ReviewData.js'
+export * from './models/index.js'
 
 import { insertUser } from './insertUser.js'
 import { findUserByEmail } from './findUserByEmail.js'
