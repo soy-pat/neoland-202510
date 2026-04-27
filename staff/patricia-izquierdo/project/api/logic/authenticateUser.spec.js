@@ -48,7 +48,7 @@ describe('authenticateUser', () => {
 
     afterEach(() => Promise.all([
         data.deleteAllUsers(),
-        data.deleteAllPets()
+        data.deleteAllReviews()
     ]))
 
     after(() => disconnect())
