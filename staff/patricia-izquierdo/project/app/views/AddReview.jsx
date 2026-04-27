@@ -7,7 +7,7 @@ import { Field } from "./components/commons/Field"
 import { Button } from "./components/commons/Button"
 import { FieldBody } from "./components/commons/FieldBody"
 
-import { logic } from '../logic.js'
+import { logic } from '../logic/index.js'
 
 export function AddReview({ onGoToMyReviews }) {
 

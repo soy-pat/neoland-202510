@@ -6,7 +6,7 @@ import { Field } from './components/commons/Field'
 import { Title } from './components/commons/Title'
 import { Button } from './components/commons/Button'
 
-import { logic } from '../logic'
+import { logic } from '../logic/index.js'
 
 export function Register({ onGoToLogin }) {
 

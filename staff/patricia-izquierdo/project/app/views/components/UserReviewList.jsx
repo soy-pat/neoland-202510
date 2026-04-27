@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { logic } from '../../logic.js'
+import { logic } from '../../logic/index.js'
 
 import { useParams } from 'react-router'
 

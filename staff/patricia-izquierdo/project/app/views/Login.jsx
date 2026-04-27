@@ -6,7 +6,7 @@ import { Title } from './components/commons/Title'
 import { Button } from './components/commons/Button'
 import { Field } from './components/commons/Field'
 
-import { logic } from '../logic.js'
+import { logic } from '../logic/index.js'
 
 export function Login({ onGoToMyReviews }) {
 

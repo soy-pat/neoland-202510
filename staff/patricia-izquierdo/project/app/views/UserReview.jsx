@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useParams } from 'react-router'
 
-import { logic } from '../logic'
+import { logic } from '../logic/index.js'
 
 import { BookSubject } from './components/commons/BookSubject'
 import { BookTitle } from './components/commons/BookTitle'
