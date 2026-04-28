@@ -8,7 +8,7 @@ export function getUserReview(reviewId) {
     if (typeof reviewId !== 'string') throw new Error(`invalid reviewId type`)
     if (!ID_REGEX.test(reviewId)) throw new Error(`invalid reviewId format`)
 
-    return fetch(`${import.meta.env.VITE_API_URL}/searchABook/${reviewId}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/reviews/searchABook/${reviewId}`, {
         method: 'GET'
     })
         .catch(error => { throw new Error('connection error') })

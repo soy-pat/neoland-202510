@@ -30,7 +30,7 @@ export function App() {
 
     const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}`)
 
-    const handleGoToUserReview = reviewId => clearFeedbackAndNavigate(`/searchABook/${reviewId}`)
+    const handleGoToUserReview = reviewId => clearFeedbackAndNavigate(`/reviews/searchABook/${reviewId}`)
 
     const handleGoToUserReviews = userId => clearFeedbackAndNavigate(`/users/${userId}/reviews`)
 
@@ -48,9 +48,9 @@ export function App() {
 
             <Route path="/reviews/:reviewId" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
 
-            <Route path="/searchABook" element={<SearchABook onGoToUserReview={handleGoToUserReview} />} />
+            <Route path="/reviews/searchABook" element={<SearchABook onGoToUserReview={handleGoToUserReview} />} />
 
-            <Route path="/searchABook/:reviewId" element={<UserReview onGoToUserReviews={handleGoToUserReviews} />} />
+            <Route path="reviews/searchABook/:reviewId" element={<UserReview onGoToUserReviews={handleGoToUserReviews} />} />
 
             <Route path="/users/:userId/reviews" element={<UserReviews />} />
 
