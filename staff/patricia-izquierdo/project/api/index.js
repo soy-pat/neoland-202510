@@ -4,6 +4,8 @@ import morganBody from 'morgan-body'
 
 import { userRouter, reviewRouter } from './routers/index.js'
 
+import { errorHandler } from './middlewares/index.js'
+
 import { connect } from './mongoose/index.js'
 
 connect(process.env.DB_URL)
@@ -27,6 +29,8 @@ connect(process.env.DB_URL)
 
         api.use('/users', userRouter)
         api.use('/reviews', reviewRouter)
+
+        api.use(errorHandler)
 
         api.listen(process.env.PORT, () => console.log(`API listening on port ${process.env.PORT}`))
     })

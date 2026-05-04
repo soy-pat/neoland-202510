@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 import { logic } from "../../logic/index.js"
 
-export const authenticateUserHandler = (req, res) => {
+export const authenticateUserHandler = (req, res, next) => {
     try {
         const { username, password } = req.body
 
@@ -12,7 +12,8 @@ export const authenticateUserHandler = (req, res) => {
 
                 res.json(token)
             })
+            .catch(error => next(error))
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 }

@@ -1,13 +1,13 @@
 import { logic } from "../../logic/index.js"
 
-export const getMeHandler = (req, res) => {
+export const getMeHandler = (req, res, next) => {
     try {
         const { userId } = req
 
         logic.getUser(userId)
             .then(user => res.json(user))
-            .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+            .catch(error => next(error))
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 }

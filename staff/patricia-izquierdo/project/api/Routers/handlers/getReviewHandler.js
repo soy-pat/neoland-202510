@@ -1,14 +1,14 @@
 import { logic } from "../../logic/index.js"
 
-export const getReviewHandler = (req, res) => {
+export const getReviewHandler = (req, res, next) => {
     try {
 
         const { userId, params: { reviewId } } = req
 
         logic.getReview(userId, reviewId)
             .then(review => res.json(review))
-            .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+            .catch(error => next(error))
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 }

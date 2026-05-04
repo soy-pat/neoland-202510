@@ -1,6 +1,6 @@
 import { logic } from "../../logic/index.js"
 
-export const searchReviewsByTitleHandler = (req, res) => {
+export const searchReviewsByTitleHandler = (req, res, next) => {
     try {
         const { userId } = req
 
@@ -8,8 +8,8 @@ export const searchReviewsByTitleHandler = (req, res) => {
 
         logic.searchReviewsByTitle(userId, title)
             .then(reviews => res.json(reviews))
-            .catch(error => res.status(400).json({ error: error.constructor.name, message: error.message }))
+            .catch(error => next(error))
     } catch (error) {
-        res.status(400).json({ error: error.constructor.name, message: error.message })
+        next(error)
     }
 }

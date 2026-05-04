@@ -1,9 +1,10 @@
 import { UserModel } from '../mongoose/index.js'
 import { UserData } from './models/index.js'
+import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 
 export function findUserById(userId) {
     return UserModel.findById(userId)
-        .catch(error => { throw new Error(error.message) })
+        .catch(error => { throw new SystemError(error.message) })
         .then(userModel => {
             if (!userModel) return null
 
