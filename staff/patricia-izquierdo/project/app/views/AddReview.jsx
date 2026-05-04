@@ -6,6 +6,7 @@ import { Form } from "./components/commons/Form"
 import { Field } from "./components/commons/Field"
 import { Button } from "./components/commons/Button"
 import { FieldBody } from "./components/commons/FieldBody"
+import { ErrorMessage } from './components/commons/ErrorMessage.jsx'
 
 import { logic } from '../logic/index.js'
 
@@ -50,12 +51,12 @@ export function AddReview({ onGoToMyReviews }) {
 
             <Field alias='subject' type='text'>Subject</Field>
 
-            <FieldBody alias='body'>Body</FieldBody>l
+            <FieldBody alias='body'>Body</FieldBody>
 
             <Button className='self-center' type='submit'>Submit</Button>
         </Form>
 
-        <p>{message}</p>
+        <ErrorMessage>{message}</ErrorMessage>
     </div>
 
 }

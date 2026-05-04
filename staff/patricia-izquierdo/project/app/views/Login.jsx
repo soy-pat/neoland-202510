@@ -5,6 +5,7 @@ import { LogoName } from './components/commons/LogoName'
 import { Title } from './components/commons/Title'
 import { Button } from './components/commons/Button'
 import { Field } from './components/commons/Field'
+import { ErrorMessage } from './components/commons/ErrorMessage.jsx'
 
 import { logic } from '../logic/index.js'
 
@@ -45,7 +46,7 @@ export function Login({ onGoToMyReviews }) {
             <Button className='self-center' type='submit'>Submit</Button>
         </Form>
 
-        <p>{message}</p>
+        <ErrorMessage>{message}</ErrorMessage>
     </div>
 
 }

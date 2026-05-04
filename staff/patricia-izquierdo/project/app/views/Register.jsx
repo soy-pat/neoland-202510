@@ -5,6 +5,7 @@ import { Form } from './components/commons/Form'
 import { Field } from './components/commons/Field'
 import { Title } from './components/commons/Title'
 import { Button } from './components/commons/Button'
+import { ErrorMessage } from './components/commons/ErrorMessage'
 
 import { logic } from '../logic/index.js'
 
@@ -55,7 +56,7 @@ export function Register({ onGoToLogin }) {
             <Button className='self-center' type='submit'>Submit</Button>
         </Form>
 
-        <p>{message}</p>
+        <ErrorMessage>{message}</ErrorMessage>
     </div>
 
 }
