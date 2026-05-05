@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { logic } from "../../logic/index.js"
+import { logic } from '../../logic/index.js'
 
 export const authenticateUserHandler = (req, res, next) => {
     try {

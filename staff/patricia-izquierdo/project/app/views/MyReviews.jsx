@@ -1,8 +1,8 @@
-import { LogoName } from "./components/commons/LogoName"
-import { CircularBotton } from "./components/commons/CircularButton"
-import { NavegationBar } from "./components/commons/NavegationBar"
-import { ReviewList } from "./components/ReviewList"
-import { MyReview } from "./MyReview"
+import { LogoName } from './components/commons/LogoName'
+import { CircularBotton } from './components/commons/CircularButton'
+import { NavegationBar } from './components/commons/NavegationBar'
+import { ReviewList } from './components/ReviewList'
+import { MyReview } from './MyReview'
 
 export function MyReviews({ onGoToAddReview, onGoToMyReview }) {
     const handleAddReviewClick = event => {

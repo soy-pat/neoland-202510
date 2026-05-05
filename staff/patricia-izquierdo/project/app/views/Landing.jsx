@@ -1,5 +1,5 @@
-import { LogoName } from "./components/commons/LogoName"
-import { Anchor } from "./components/commons/Anchor"
+import { LogoName } from './components/commons/LogoName'
+import { Anchor } from './components/commons/Anchor'
 
 export function Landing({ onGoToLogin, onGoToRegister }) {
 
