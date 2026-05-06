@@ -12,6 +12,7 @@ import { getUserReview } from './getUserReview.js'
 import { getUserReviews } from './getUserReviews.js'
 import { searchReviewsByTitle } from './searchReviewsByTitle.js'
 import { removeReview } from './removeReview.js'
+import { modifyReview } from './modifyReview.js'
 
 export const logic = {
     registerUser,
@@ -23,5 +24,6 @@ export const logic = {
     getUserReview,
     getUserReviews,
     searchReviewsByTitle,
-    removeReview
+    removeReview,
+    modifyReview
 }

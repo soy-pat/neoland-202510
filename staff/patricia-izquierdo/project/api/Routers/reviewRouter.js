@@ -8,7 +8,8 @@ import {
     getReviewHandler,
     getReviewsHandler,
     removeReviewHandler,
-    searchReviewsByTitleHandler
+    searchReviewsByTitleHandler,
+    modifyReviewHandler
 
 } from './handlers/index.js'
 
@@ -20,3 +21,4 @@ reviewRouter.get('/search', authMiddleware, searchReviewsByTitleHandler)
 reviewRouter.get('/searchABook/:reviewId', getUserReviewHandler)
 reviewRouter.get('/:reviewId', authMiddleware, getReviewHandler)
 reviewRouter.delete('/:reviewId', authMiddleware, removeReviewHandler)
+reviewRouter.put('/:reviewId', authMiddleware, modifyReviewHandler)

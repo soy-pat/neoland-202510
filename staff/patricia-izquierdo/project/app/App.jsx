@@ -10,6 +10,7 @@ import { UserReview } from './views/UserReview'
 import { UserReviews } from './views/UserReviews'
 import { MyReview } from './views/MyReview'
 import { Profile } from './views/Profile'
+import { ModifyMyReview } from './views/ModifyMyReview'
 import { ErrorMessage } from './views/components/commons/ErrorMessage'
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router'
@@ -41,7 +42,9 @@ export function App() {
 
     const handleGoToAddReview = () => clearFeedbackAndNavigate('/addReview')
 
-    const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}`)
+    const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}/detail`)
+
+    const handleGoToModifyMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}/edit`)
 
     const handleGoToUserReview = reviewId => clearFeedbackAndNavigate(`/reviews/searchABook/${reviewId}`)
 
@@ -65,7 +68,9 @@ export function App() {
 
             <Route path="/addReview" element={<AddReview onGoToMyReviews={handleGoToMyReviews} />} />
 
-            <Route path="/reviews/:reviewId" element={<MyReview onGoToMyReviews={handleGoToMyReviews} />} />
+            <Route path="/reviews/:reviewId/detail" element={<MyReview onGoToMyReviews={handleGoToMyReviews} onGoToModifyMyReview={handleGoToModifyMyReview} />} />
+
+            <Route path="/reviews/:reviewId/edit" element={<ModifyMyReview onGoBack={handleGoToMyReview} />} />
 
             <Route path="/reviews/searchABook" element={<SearchABook onGoToUserReview={handleGoToUserReview} />} />
 

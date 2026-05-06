@@ -12,6 +12,7 @@ import { findReviewsByUserId } from './findReviewsByUserId.js'
 import { findReviewsByTitle } from './findReviewsByTitle.js'
 import { deleteReview } from './deleteReview.js'
 import { deleteAllReviews } from './deleteAllReviews.js'
+import { updateReview } from './updateReview.js'
 
 export const data = {
     insertUser,
@@ -24,5 +25,6 @@ export const data = {
     findReviewsByUserId,
     findReviewsByTitle,
     deleteReview,
-    deleteAllReviews
+    deleteAllReviews,
+    updateReview
 }

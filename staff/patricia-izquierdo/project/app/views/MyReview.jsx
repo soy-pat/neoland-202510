@@ -12,7 +12,7 @@ import { BookBody } from './components/commons/BookBody'
 import { CircularBotton } from './components/commons/CircularButton'
 import { Button } from './components/commons/Button'
 
-export function MyReview({ onGoToMyReviews }) {
+export function MyReview({ onGoToMyReviews, onGoToModifyMyReview }) {
 
     const [review, setReview] = useState(null)
     const [deleteMode, setDeleteMode] = useState(null)
@@ -29,7 +29,7 @@ export function MyReview({ onGoToMyReviews }) {
         } catch (error) {
             console.log(error)
         }
-    })
+    }, [])
 
     const handleRemoveReviewClick = event => {
         event.preventDefault()
@@ -42,6 +42,12 @@ export function MyReview({ onGoToMyReviews }) {
 
         setDeleteMode(null)
 
+    }
+
+    const handleModifyReviewClick = event => {
+        event.preventDefault()
+
+        onGoToModifyMyReview()
     }
 
     const handleYesRemoveReviewClick = event => {
@@ -84,6 +90,8 @@ export function MyReview({ onGoToMyReviews }) {
                     <NavegationBar></NavegationBar>
 
                     <CircularBotton className='absolute top-7 right-7 text-sm' onClick={handleRemoveReviewClick}>🗑️</CircularBotton>
+
+                    <CircularBotton className='absolute top-7 left-7 text-sm' onClick={() => onGoToModifyMyReview(reviewId)}>✏️</CircularBotton>
                 </div>
 
                 {deleteMode && <div className='flex justify-center items-center'>
