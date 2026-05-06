@@ -13,6 +13,6 @@ export function getUser(userId) {
 
             const { id, name, email, username, password } = userData
 
-            return new UserData(id, name, email, username, password)
+            return new UserData(id, name, email, username)
         })
 }
