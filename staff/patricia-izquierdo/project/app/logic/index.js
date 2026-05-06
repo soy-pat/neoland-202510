@@ -10,6 +10,7 @@ import { authenticateUser } from './authenticateUser'
 import { logoutUser } from './logoutUser'
 import { registerUser } from './registerUser'
 import { removeReview } from './removeReview'
+import { isUserLoggedIn } from './isUserLoggedIn'
 
 export const logic = {
     addReview,
@@ -23,5 +24,6 @@ export const logic = {
     logoutUser,
     registerUser,
     getLoggedInUser,
-    removeReview
+    removeReview,
+    isUserLoggedIn
 }

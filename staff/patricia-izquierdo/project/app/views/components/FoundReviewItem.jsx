@@ -19,7 +19,7 @@ export function FoundReviewItem({ review, onGoToUserReview }) {
         } catch (error) {
             setError(error.message)
         }
-    })
+    }, [])
 
     const handleGoToUserReview = reviewId => onGoToUserReview(reviewId)
 
