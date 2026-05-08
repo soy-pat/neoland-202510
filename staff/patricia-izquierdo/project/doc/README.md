@@ -23,6 +23,19 @@ App for book readers tu upload their books reviews and see another reviews from 
 
 # Technical description
 
+## Blocks
+
+- App (React)
+- API (Expess)
+- DB (Mongo)
+
+## Packages
+
+- api (handlers, logic, data)
+- app (components, logic, data)
+- com (errors, regex)
+- doc (readme, images)
+
 ## Data Model
 UserData
 - id (unique, string)
@@ -40,4 +53,12 @@ ReviewData
 - subject (required, string)
 - body (required, string)
 
-TODO
+## Techs
+
+- HTML / JavaScript / CSS / Tailwind / React / React Router
+- Node / Express / Mongo / Mongoose / BCrypt / JWT / curl / Mocha / Chai / Morgan
+- Git / Markdown / VSCode / Sublime Merge
+
+## Tracking
+
+[PR](https://github.com/b00tc4mp/neoland-202510/pull/29)
