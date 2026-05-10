@@ -1,9 +1,8 @@
 import { data } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 
 export function getUser(userId) {
-    if (typeof userId !== 'string') throw new ValidationError('invalid userId type')
-    if (userId.length < 1) throw new ValidationError('invalid userId length')
+    validate.name(userId, 'userId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         headers: {

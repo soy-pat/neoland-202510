@@ -1,9 +1,8 @@
 import { data } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 
 export function getFoundReviews(titleSearched) {
-    if (typeof titleSearched !== 'string') throw new ValidationError('invalid titleSearched type')
-    if (titleSearched.length < 1) throw new ValidationError('invalid titleSearched length')
+    validate.name(titleSearched, 'titleSearched')
 
     return fetch(`${import.meta.env.VITE_API_URL}/reviews/search?title=${encodeURIComponent(titleSearched)}`, {
         headers: {

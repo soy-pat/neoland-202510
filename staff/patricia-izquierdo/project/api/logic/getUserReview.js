@@ -1,11 +1,8 @@
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 import { data, ReviewData } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
-
-import { ID_REGEX } from 'com'
 
 export function getUserReview(reviewId) {
-    if (typeof reviewId !== 'string') throw new ValidationError(`invalid reviewId type`)
-    if (!ID_REGEX.test(reviewId)) throw new ValidationError(`invalid reviewId format`)
+    validate.id(reviewId, 'reviewId')
 
     return data.findReviewById(reviewId)
         .then(reviewData => {

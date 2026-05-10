@@ -1,12 +1,9 @@
 import { data } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 
 export function authenticateUser(username, password) {
-    if (typeof username !== 'string') throw new ValidationError('invalid username type')
-    if (username.length < 3) throw new ValidationError('invalid username length')
-
-    if (typeof password !== 'string') throw new ValidationError('invalid password type')
-    if (password.length < 8) throw new ValidationError('invalid password length')
+    validate.name(username, 'username', 3)
+    validate.password(password)
 
     return fetch(`${import.meta.env.VITE_API_URL}/users/auth`, {
         method: 'POST',

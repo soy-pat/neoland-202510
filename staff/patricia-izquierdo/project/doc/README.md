@@ -10,6 +10,7 @@ App for book readers tu upload their books reviews and see another reviews from 
 - register
 - login
 - add review
+- edit review
 - search books
 - see reviews from another users after search a book
 - see user reviews
@@ -33,7 +34,7 @@ App for book readers tu upload their books reviews and see another reviews from 
 
 - api (handlers, logic, data)
 - app (components, logic, data)
-- com (errors, regex)
+- com (errors, regex, validate)
 - doc (readme, images)
 
 ## Data Model

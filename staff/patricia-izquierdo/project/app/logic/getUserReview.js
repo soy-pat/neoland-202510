@@ -1,13 +1,10 @@
 import { data } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
-
-import { ID_REGEX } from 'com'
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 
 export function getUserReview(reviewId) {
     if (data.getToken() === null) throw new AuthError('user not logged in')
 
-    if (typeof reviewId !== 'string') throw new ValidationError(`invalid reviewId type`)
-    if (!ID_REGEX.test(reviewId)) throw new ValidationError(`invalid reviewId format`)
+    validate.id(reviewId, 'reviewId')
 
     return fetch(`${import.meta.env.VITE_API_URL}/reviews/searchABook/${reviewId}`, {
         method: 'GET'

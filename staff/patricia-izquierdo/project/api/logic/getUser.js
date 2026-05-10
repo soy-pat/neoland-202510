@@ -1,11 +1,8 @@
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 import { data, UserData } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
-
-import { ID_REGEX } from 'com'
 
 export function getUser(userId) {
-    if (typeof userId !== 'string') throw new ValidationError(`invalid userId type`)
-    if (!ID_REGEX.test(userId)) throw new ValidationError(`invalid userId format`)
+    validate.id(userId, 'userId')
 
     return data.findUserById(userId)
         .then(userData => {

@@ -1,14 +1,11 @@
 import { data } from '../data/index.js'
-import { ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
+import { validate, ValidationError, ExistenceError, DuplicityError, CredentialError, OwnershipError, AuthError, SystemError } from '../../com/index.js'
 
 import bcrypt from 'bcryptjs'
 
 export function authenticateUser(username, password) {
-    if (typeof username !== 'string') throw new ValidationError('invalid username type')
-    if (username.length < 1) throw new ValidationError('invalid username length')
-
-    if (typeof password !== 'string') throw new ValidationError('invalid password type')
-    if (password.length < 8) throw new ValidationError('invalid password length')
+    validate.name(username, 'username', 1)
+    validate.password(password)
 
     return data.findUserByUsername(username)
         .then(userData => {
