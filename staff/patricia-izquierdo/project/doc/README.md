@@ -11,11 +11,11 @@ App for book readers tu upload their books reviews and see another reviews from 
 - login
 - add review
 - edit review
-- search books
-- see reviews from another users after search a book
-- see user reviews
-- update profile (password, username, email, image)
 - delete review
+- search reviews by title of a book from another users
+- see user reviews
+- see user review detail
+- update profile (password, username, email, image)
 - logout
 
 ## UI/UX design

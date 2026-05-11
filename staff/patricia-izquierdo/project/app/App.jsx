@@ -38,15 +38,15 @@ export function App() {
 
     const handleGoToRegister = () => clearFeedbackAndNavigate('/register')
 
-    const handleGoToMyReviews = () => clearFeedbackAndNavigate('/myReviews')
+    const handleGoToMyReviews = () => clearFeedbackAndNavigate('/reviews/mine')
 
     const handleGoToAddReview = () => clearFeedbackAndNavigate('/addReview')
 
-    const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}/detail`)
+    const handleGoToMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/mine/${reviewId}/detail`)
 
-    const handleGoToModifyMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}/edit`)
+    const handleGoToModifyMyReview = reviewId => clearFeedbackAndNavigate(`/reviews/mine/${reviewId}/edit`)
 
-    const handleGoToUserReview = reviewId => clearFeedbackAndNavigate(`/reviews/searchABook/${reviewId}`)
+    const handleGoToUserReview = reviewId => clearFeedbackAndNavigate(`/reviews/${reviewId}`)
 
     const handleGoToUserReviews = userId => clearFeedbackAndNavigate(`/users/${userId}/reviews`)
 
@@ -59,7 +59,7 @@ export function App() {
 
             <Route path="/login" element={<Login onGoToMyReviews={handleGoToMyReviews} onGoToRegister={handleGoToRegister} />} />
 
-            <Route path="/myReviews" element={!loggedIn ?
+            <Route path="/reviews/mine" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
                 />
                 :
@@ -73,28 +73,28 @@ export function App() {
                 <AddReview onGoToMyReviews={handleGoToMyReviews} />
             } />
 
-            <Route path="/reviews/:reviewId/detail" element={!loggedIn ?
+            <Route path="/reviews/mine/:reviewId/detail" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
                 />
                 :
                 <MyReview onGoToMyReviews={handleGoToMyReviews} onGoToModifyMyReview={handleGoToModifyMyReview} />
             } />
 
-            <Route path="/reviews/:reviewId/edit" element={!loggedIn ?
+            <Route path="/reviews/mine/:reviewId/edit" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
                 />
                 :
                 <ModifyMyReview onGoBack={handleGoToMyReview} />
             } />
 
-            <Route path="/reviews/searchABook" element={!loggedIn ?
+            <Route path="/reviews/search" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
                 />
                 :
                 <SearchABook onGoToUserReview={handleGoToUserReview} />
             } />
 
-            <Route path="reviews/searchABook/:reviewId" element={!loggedIn ?
+            <Route path="/reviews/:reviewId" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
                 />
                 :
@@ -105,7 +105,7 @@ export function App() {
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
                 />
                 :
-                <UserReviews />
+                <UserReviews onGoToUserReview={handleGoToUserReview} />
             } />
 
             <Route path="/users/me" element={!loggedIn ?

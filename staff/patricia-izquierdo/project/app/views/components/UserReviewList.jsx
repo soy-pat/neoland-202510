@@ -8,7 +8,7 @@ import { UserReviewItem } from './UserReviewItem'
 
 import { Title } from './commons/Title'
 
-export function UserReviewList() {
+export function UserReviewList({ onGoToUserReview }) {
 
     const [reviews, setReviews] = useState([])
     const [user, setUser] = useState('')
@@ -37,7 +37,7 @@ export function UserReviewList() {
         <Title>{user.username}</Title>
         <div>
             <ul className="flex flex-row flex-wrap gap-2 mt-2 justify-center">
-                {reviews.map(review => <UserReviewItem key={review.id} review={review} />)}
+                {reviews.map(review => <UserReviewItem key={review.id} review={review} onGoToUserReview={onGoToUserReview} />)}
             </ul>
         </div>
     </div>
