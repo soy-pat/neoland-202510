@@ -55,9 +55,9 @@ export function App() {
         <Routes>
             <Route path="/" element={<Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />} />
 
-            <Route path="/register" element={<Register onGoToLogin={handleGoToLogin} />} />
+            <Route path="/register" element={<Register onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister} />} />
 
-            <Route path="/login" element={<Login onGoToMyReviews={handleGoToMyReviews} />} />
+            <Route path="/login" element={<Login onGoToMyReviews={handleGoToMyReviews} onGoToRegister={handleGoToRegister} />} />
 
             <Route path="/myReviews" element={!loggedIn ?
                 <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
@@ -66,19 +66,54 @@ export function App() {
                 <MyReviews onGoToAddReview={handleGoToAddReview} onGoToMyReview={handleGoToMyReview} />
             } />
 
-            <Route path="/addReview" element={<AddReview onGoToMyReviews={handleGoToMyReviews} />} />
+            <Route path="/addReview" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <AddReview onGoToMyReviews={handleGoToMyReviews} />
+            } />
 
-            <Route path="/reviews/:reviewId/detail" element={<MyReview onGoToMyReviews={handleGoToMyReviews} onGoToModifyMyReview={handleGoToModifyMyReview} />} />
+            <Route path="/reviews/:reviewId/detail" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <MyReview onGoToMyReviews={handleGoToMyReviews} onGoToModifyMyReview={handleGoToModifyMyReview} />
+            } />
 
-            <Route path="/reviews/:reviewId/edit" element={<ModifyMyReview onGoBack={handleGoToMyReview} />} />
+            <Route path="/reviews/:reviewId/edit" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <ModifyMyReview onGoBack={handleGoToMyReview} />
+            } />
 
-            <Route path="/reviews/searchABook" element={<SearchABook onGoToUserReview={handleGoToUserReview} />} />
+            <Route path="/reviews/searchABook" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <SearchABook onGoToUserReview={handleGoToUserReview} />
+            } />
 
-            <Route path="reviews/searchABook/:reviewId" element={<UserReview onGoToUserReviews={handleGoToUserReviews} />} />
+            <Route path="reviews/searchABook/:reviewId" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <UserReview onGoToUserReviews={handleGoToUserReviews} />
+            } />
 
-            <Route path="/users/:userId/reviews" element={<UserReviews />} />
+            <Route path="/users/:userId/reviews" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <UserReviews />
+            } />
 
-            <Route path="/users/me" element={<Profile onUserLoggedOut={handleGoToLogin} />} />
+            <Route path="/users/me" element={!loggedIn ?
+                <Landing onGoToLogin={handleGoToLogin} onGoToRegister={handleGoToRegister}
+                />
+                :
+                <Profile onUserLoggedOut={handleGoToLogin} />
+            } />
 
         </Routes>
     </div >

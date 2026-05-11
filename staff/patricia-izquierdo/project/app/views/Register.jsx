@@ -6,10 +6,16 @@ import { Field } from './components/commons/Field'
 import { Title } from './components/commons/Title'
 import { Button } from './components/commons/Button'
 import { ErrorMessage } from './components/commons/ErrorMessage'
+import { Anchor } from './components/commons/Anchor'
 
 import { logic } from '../logic/index.js'
 
 export function Register({ onGoToLogin }) {
+    const handleLoginClick = event => {
+        event.preventDefault()
+
+        onGoToLogin()
+    }
 
     const [message, setMessage] = useState('')
 
@@ -55,6 +61,8 @@ export function Register({ onGoToLogin }) {
 
             <Button className='self-center' type='submit'>Submit</Button>
         </Form>
+
+        <Anchor onClick={handleLoginClick} className='text-xl flex justify-center'>Login</Anchor>
 
         <ErrorMessage>{message}</ErrorMessage>
     </div>

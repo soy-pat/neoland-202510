@@ -6,10 +6,17 @@ import { Title } from './components/commons/Title'
 import { Button } from './components/commons/Button'
 import { Field } from './components/commons/Field'
 import { ErrorMessage } from './components/commons/ErrorMessage.jsx'
+import { Anchor } from './components/commons/Anchor'
 
 import { logic } from '../logic/index.js'
 
-export function Login({ onGoToMyReviews }) {
+export function Login({ onGoToMyReviews, onGoToRegister }) {
+
+    const handleRegisterClick = event => {
+        event.preventDefault()
+
+        onGoToRegister()
+    }
 
     const [message, setMessage] = useState('')
 
@@ -45,6 +52,8 @@ export function Login({ onGoToMyReviews }) {
 
             <Button className='self-center' type='submit'>Submit</Button>
         </Form>
+
+        <Anchor onClick={handleRegisterClick} className='text-xl flex justify-center'>Register</Anchor>
 
         <ErrorMessage>{message}</ErrorMessage>
     </div>

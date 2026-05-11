@@ -1,5 +1,4 @@
-export * from './models/User.js'
-export * from './models/Review.js'
+export * from './models/index.js'
 
 import { registerUser } from './registerUser.js'
 import { authenticateUser } from './authenticateUser.js'
